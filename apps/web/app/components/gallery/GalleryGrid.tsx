@@ -1,5 +1,5 @@
 import { IconChevronLeft, IconChevronRight, IconX } from "@tabler/icons-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { css } from "styled-system/css";
 import type { GalleryImage } from "~/lib/gallery";
 
@@ -126,6 +126,28 @@ function GalleryItem({
 	label: string;
 }) {
 	const [loaded, setLoaded] = useState(false);
+	const imgRef = useRef<HTMLImageElement>(null);
+
+	// 描画後に読み込み状態を確認して表示する。
+	// SSR で出力済みの img は、React が onLoad を取り付ける前に読み込み完了することがあり
+	// （特にスマホのキャッシュ済み画像）、宣言的な onLoad だと取りこぼす。useEffect で
+	// complete を再確認し、未完了なら load/error を購読することで確実に表示する。
+	useEffect(() => {
+		const img = imgRef.current;
+		if (!img) return;
+		if (img.complete) {
+			setLoaded(true);
+			return;
+		}
+		const reveal = () => setLoaded(true);
+		img.addEventListener("load", reveal);
+		img.addEventListener("error", reveal); // 失敗時も枠は表示する
+		return () => {
+			img.removeEventListener("load", reveal);
+			img.removeEventListener("error", reveal);
+		};
+	}, []);
+
 	return (
 		<button
 			type="button"
@@ -135,17 +157,13 @@ function GalleryItem({
 			aria-label={label}
 		>
 			<img
-				ref={node => {
-					// キャッシュ済みで onLoad が発火しない場合に備えてマウント時に確認
-					if (node?.complete) setLoaded(true);
-				}}
+				ref={imgRef}
 				src={image.src}
 				alt=""
 				width={image.width}
 				height={image.height}
 				loading="lazy"
 				decoding="async"
-				onLoad={() => setLoaded(true)}
 				className={imgClass}
 			/>
 		</button>
