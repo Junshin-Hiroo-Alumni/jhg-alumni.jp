@@ -1,5 +1,5 @@
 import { IconChevronLeft, IconChevronRight, IconX } from "@tabler/icons-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { css } from "styled-system/css";
 import type { GalleryImage } from "~/lib/gallery";
 
@@ -21,17 +21,16 @@ const itemClass = css({
 	overflow: "hidden",
 	boxShadow: "0 4px 16px rgba(31, 71, 51, 0.1)",
 	cursor: "zoom-in",
-	// 読み込み完了時にふわっとフェードイン。
-	// 縦移動(translateY)は使わない: 列ごとに読み込み完了のタイミングがずれると
-	// 列トップの画像だけ一時的に下がって見えるため、不透明度のみで演出する。
-	opacity: 0,
-	transition: "opacity 0.7s ease",
-	"&[data-loaded='true']": {
-		opacity: 1,
-	},
-	// 動きを減らす設定のユーザーには短いフェードに
+	// ふわっとフェードイン。素の状態は表示(opacity 1)のままで、その上にアニメを重ねるだけなので
+	// JSの読み込み判定に依存せず、タイルが透明のまま残ることが起きない。
+	// 縦移動は使わない: 列ごとに表示タイミングがずれると列トップだけ下がって見えるため。
+	animationName: "galleryItemIn",
+	animationDuration: "0.7s",
+	animationTimingFunction: "ease",
+	animationFillMode: "both",
+	// 動きを減らす設定のユーザーにはアニメなし（即時表示）
 	_motionReduce: {
-		transition: "opacity 0.2s ease",
+		animationName: "none",
 	},
 });
 
@@ -114,61 +113,6 @@ const counterClass = css({
 	fontSize: "sm",
 });
 
-// 1枚のサムネイル。画像の読み込み完了を検知してふわっと表示する。
-function GalleryItem({
-	image,
-	onOpen,
-	label,
-}: {
-	image: GalleryImage;
-	onOpen: () => void;
-	label: string;
-}) {
-	const [loaded, setLoaded] = useState(false);
-	const imgRef = useRef<HTMLImageElement>(null);
-
-	// 描画後に読み込み状態を確認して表示する。
-	// SSR で出力済みの img は、React が onLoad を取り付ける前に読み込み完了することがあり
-	// （特にスマホのキャッシュ済み画像）、宣言的な onLoad だと取りこぼす。useEffect で
-	// complete を再確認し、未完了なら load/error を購読することで確実に表示する。
-	useEffect(() => {
-		const img = imgRef.current;
-		if (!img) return;
-		if (img.complete) {
-			setLoaded(true);
-			return;
-		}
-		const reveal = () => setLoaded(true);
-		img.addEventListener("load", reveal);
-		img.addEventListener("error", reveal); // 失敗時も枠は表示する
-		return () => {
-			img.removeEventListener("load", reveal);
-			img.removeEventListener("error", reveal);
-		};
-	}, []);
-
-	return (
-		<button
-			type="button"
-			className={itemClass}
-			data-loaded={loaded}
-			onClick={onOpen}
-			aria-label={label}
-		>
-			<img
-				ref={imgRef}
-				src={image.src}
-				alt=""
-				width={image.width}
-				height={image.height}
-				loading="lazy"
-				decoding="async"
-				className={imgClass}
-			/>
-		</button>
-	);
-}
-
 // Fisher-Yates シャッフル（元配列は変更しない）
 function shuffle<T>(input: T[]): T[] {
 	const result = [...input];
@@ -228,12 +172,23 @@ export default function GalleryGrid({ images }: { images: GalleryImage[] }) {
 		<>
 			<div className={masonryClass}>
 				{ordered.map((image, i) => (
-					<GalleryItem
+					<button
 						key={image.src}
-						image={image}
-						onOpen={() => setIndex(i)}
-						label={`写真を拡大表示（${i + 1} / ${total}）`}
-					/>
+						type="button"
+						className={itemClass}
+						onClick={() => setIndex(i)}
+						aria-label={`写真を拡大表示（${i + 1} / ${total}）`}
+					>
+						<img
+							src={image.src}
+							alt=""
+							width={image.width}
+							height={image.height}
+							loading="lazy"
+							decoding="async"
+							className={imgClass}
+						/>
+					</button>
 				))}
 			</div>
 

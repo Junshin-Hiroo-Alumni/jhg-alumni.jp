@@ -42,6 +42,11 @@ export default defineConfig({
 			"0%": { opacity: "0", transform: "scale(0.92) translateY(10px)" },
 			"100%": { opacity: "1", transform: "scale(1) translateY(0)" },
 		},
+		// ギャラリー一覧: サムネイルがふわっとフェードイン（最終状態は必ず表示）
+		"@keyframes galleryItemIn": {
+			"0%": { opacity: "0" },
+			"100%": { opacity: "1" },
+		},
 	},
 
 	theme: {
@@ -73,6 +78,10 @@ export default defineConfig({
 				lightboxIn: {
 					"0%": { opacity: "0", transform: "scale(0.92) translateY(10px)" },
 					"100%": { opacity: "1", transform: "scale(1) translateY(0)" },
+				},
+				galleryItemIn: {
+					"0%": { opacity: "0" },
+					"100%": { opacity: "1" },
 				},
 			},
 			tokens: {
