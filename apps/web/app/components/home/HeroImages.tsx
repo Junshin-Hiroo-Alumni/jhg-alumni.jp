@@ -23,7 +23,7 @@ export default function HeroImages() {
 		<div
 			className={css({
 				width: "100%",
-				height: "100vh",
+				height: "100dvh",
 				position: "relative",
 				overflow: "hidden",
 				backgroundColor: "gray.900",
@@ -53,13 +53,13 @@ export default function HeroImages() {
 			<div
 				className={css({
 					position: "absolute",
-					bottom: "12vh",
-					left: "12vw",
+					bottom: { base: "8vh", md: "12vh" },
+					left: { base: "6vw", md: "12vw" },
 					zIndex: 10,
 					display: "flex",
 					flexDirection: "row-reverse",
 					alignItems: "flex-start",
-					gap: "1.2rem",
+					gap: { base: "0.6rem", md: "1.2rem" },
 				})}
 			>
 				{HERO_LINES.map((line, index) => (
@@ -68,7 +68,7 @@ export default function HeroImages() {
 						className={css({
 							bg: "white",
 							px: "2",
-							py: "4",
+							py: { base: "3", md: "4" },
 							animationName: "growDown",
 							animationDuration: "1.1s",
 							animationTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
@@ -83,8 +83,8 @@ export default function HeroImages() {
 								textOrientation: "upright",
 								color: "black",
 								fontWeight: "bold",
-								fontSize: { base: "2xl", md: "3xl" },
-								letterSpacing: "0.2em",
+								fontSize: { base: "xl", md: "3xl" },
+								letterSpacing: { base: "0.12em", md: "0.2em" },
 							})}
 						>
 							{line}
