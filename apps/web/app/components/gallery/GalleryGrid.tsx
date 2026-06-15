@@ -168,7 +168,15 @@ export default function GalleryGrid({ images }: { images: GalleryImage[] }) {
 						onClick={() => setIndex(i)}
 						aria-label={`写真を拡大表示（${i + 1} / ${total}）`}
 					>
-						<img src={image.src} alt="" loading="lazy" decoding="async" className={imgClass} />
+						<img
+							src={image.src}
+							alt=""
+							width={image.width}
+							height={image.height}
+							loading="lazy"
+							decoding="async"
+							className={imgClass}
+						/>
 					</button>
 				))}
 			</div>

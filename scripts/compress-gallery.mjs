@@ -20,6 +20,7 @@ import sharp from "sharp";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const GALLERY_DIR = path.resolve(__dirname, "../apps/web/app/content/gallery");
 const MANIFEST_PATH = path.join(GALLERY_DIR, ".compress-manifest.json");
+const DIMENSIONS_PATH = path.resolve(GALLERY_DIR, "..", "gallery-dimensions.json");
 
 const MAX_WIDTH = 1920; // Web 表示用の最大横幅
 const WEBP_QUALITY = 80; // 0-100。80 前後が画質/容量のバランス良好
@@ -48,6 +49,18 @@ async function loadManifest() {
 	} catch {
 		return {};
 	}
+}
+
+// 各画像の寸法を書き出す（img の width/height に使い、読み込み時のガタつきを防ぐ）
+async function writeDimensions(names) {
+	const dimensions = {};
+	for (const name of [...names].sort((a, b) => a.localeCompare(b))) {
+		const meta = await sharp(path.join(GALLERY_DIR, name)).metadata();
+		if (meta.width && meta.height) {
+			dimensions[name] = { width: meta.width, height: meta.height };
+		}
+	}
+	await writeFile(DIMENSIONS_PATH, `${JSON.stringify(dimensions, null, 2)}\n`);
 }
 
 async function main() {
@@ -135,6 +148,8 @@ async function main() {
 	}
 
 	await writeFile(MANIFEST_PATH, `${JSON.stringify(manifest, null, 2)}\n`);
+	await writeDimensions(Object.keys(manifest));
+
 	console.info(
 		`\n完了: 圧縮 ${compressedCount} 件 / リネーム ${plan.length - compressedCount} 件 / スキップ ${settled.length} 件`,
 	);
