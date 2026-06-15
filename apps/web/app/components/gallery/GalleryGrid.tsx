@@ -21,18 +21,17 @@ const itemClass = css({
 	overflow: "hidden",
 	boxShadow: "0 4px 16px rgba(31, 71, 51, 0.1)",
 	cursor: "zoom-in",
-	// 読み込み完了時に下からふわっと浮かび上がる（アスペクト比は確保済みなのでレイアウトは動かない）
+	// 読み込み完了時にふわっとフェードイン。
+	// 縦移動(translateY)は使わない: 列ごとに読み込み完了のタイミングがずれると
+	// 列トップの画像だけ一時的に下がって見えるため、不透明度のみで演出する。
 	opacity: 0,
-	transform: "translateY(14px)",
-	transition: "opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)",
+	transition: "opacity 0.7s ease",
 	"&[data-loaded='true']": {
 		opacity: 1,
-		transform: "translateY(0)",
 	},
-	// 動きを減らす設定のユーザーには即時表示（フェードのみ・移動なし）
+	// 動きを減らす設定のユーザーには短いフェードに
 	_motionReduce: {
-		transform: "none",
-		transition: "opacity 0.3s ease",
+		transition: "opacity 0.2s ease",
 	},
 });
 
