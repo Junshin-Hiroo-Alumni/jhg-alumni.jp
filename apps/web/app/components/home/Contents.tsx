@@ -17,14 +17,14 @@ const contents: ContentItem[] = [
 		title: "役員会",
 		// TODO: 説明文を差し替え
 		description: "役員会の活動や報告をご覧いただけます。",
-		to: "/report/board-meeting",
+		to: "/board-meeting",
 		image: "/site/home/meeting.svg",
 	},
 	{
 		id: "rules",
 		title: "会則",
 		description: "同窓会の会則について掲載しています。",
-		to: "/about/rules",
+		to: "/code",
 		image: "/site/home/book.svg",
 	},
 	{
