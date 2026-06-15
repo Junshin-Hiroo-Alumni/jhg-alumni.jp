@@ -21,6 +21,19 @@ const itemClass = css({
 	overflow: "hidden",
 	boxShadow: "0 4px 16px rgba(31, 71, 51, 0.1)",
 	cursor: "zoom-in",
+	// 読み込み完了時に下からふわっと浮かび上がる（アスペクト比は確保済みなのでレイアウトは動かない）
+	opacity: 0,
+	transform: "translateY(14px)",
+	transition: "opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)",
+	"&[data-loaded='true']": {
+		opacity: 1,
+		transform: "translateY(0)",
+	},
+	// 動きを減らす設定のユーザーには即時表示（フェードのみ・移動なし）
+	_motionReduce: {
+		transform: "none",
+		transition: "opacity 0.3s ease",
+	},
 });
 
 const imgClass = css({
@@ -102,6 +115,43 @@ const counterClass = css({
 	fontSize: "sm",
 });
 
+// 1枚のサムネイル。画像の読み込み完了を検知してふわっと表示する。
+function GalleryItem({
+	image,
+	onOpen,
+	label,
+}: {
+	image: GalleryImage;
+	onOpen: () => void;
+	label: string;
+}) {
+	const [loaded, setLoaded] = useState(false);
+	return (
+		<button
+			type="button"
+			className={itemClass}
+			data-loaded={loaded}
+			onClick={onOpen}
+			aria-label={label}
+		>
+			<img
+				ref={node => {
+					// キャッシュ済みで onLoad が発火しない場合に備えてマウント時に確認
+					if (node?.complete) setLoaded(true);
+				}}
+				src={image.src}
+				alt=""
+				width={image.width}
+				height={image.height}
+				loading="lazy"
+				decoding="async"
+				onLoad={() => setLoaded(true)}
+				className={imgClass}
+			/>
+		</button>
+	);
+}
+
 // Fisher-Yates シャッフル（元配列は変更しない）
 function shuffle<T>(input: T[]): T[] {
 	const result = [...input];
@@ -161,23 +211,12 @@ export default function GalleryGrid({ images }: { images: GalleryImage[] }) {
 		<>
 			<div className={masonryClass}>
 				{ordered.map((image, i) => (
-					<button
+					<GalleryItem
 						key={image.src}
-						type="button"
-						className={itemClass}
-						onClick={() => setIndex(i)}
-						aria-label={`写真を拡大表示（${i + 1} / ${total}）`}
-					>
-						<img
-							src={image.src}
-							alt=""
-							width={image.width}
-							height={image.height}
-							loading="lazy"
-							decoding="async"
-							className={imgClass}
-						/>
-					</button>
+						image={image}
+						onOpen={() => setIndex(i)}
+						label={`写真を拡大表示（${i + 1} / ${total}）`}
+					/>
 				))}
 			</div>
 
