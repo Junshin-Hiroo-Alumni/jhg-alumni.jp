@@ -21,6 +21,17 @@ const itemClass = css({
 	overflow: "hidden",
 	boxShadow: "0 4px 16px rgba(31, 71, 51, 0.1)",
 	cursor: "zoom-in",
+	// ふわっとフェードイン。素の状態は表示(opacity 1)のままで、その上にアニメを重ねるだけなので
+	// JSの読み込み判定に依存せず、タイルが透明のまま残ることが起きない。
+	// 縦移動は使わない: 列ごとに表示タイミングがずれると列トップだけ下がって見えるため。
+	animationName: "galleryItemIn",
+	animationDuration: "0.7s",
+	animationTimingFunction: "ease",
+	animationFillMode: "both",
+	// 動きを減らす設定のユーザーにはアニメなし（即時表示）
+	_motionReduce: {
+		animationName: "none",
+	},
 });
 
 const imgClass = css({
@@ -168,7 +179,15 @@ export default function GalleryGrid({ images }: { images: GalleryImage[] }) {
 						onClick={() => setIndex(i)}
 						aria-label={`写真を拡大表示（${i + 1} / ${total}）`}
 					>
-						<img src={image.src} alt="" loading="lazy" decoding="async" className={imgClass} />
+						<img
+							src={image.src}
+							alt=""
+							width={image.width}
+							height={image.height}
+							loading="lazy"
+							decoding="async"
+							className={imgClass}
+						/>
 					</button>
 				))}
 			</div>

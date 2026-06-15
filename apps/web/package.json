@@ -10,7 +10,7 @@
     "deploy": "bun run build && wrangler deploy",
     "cf-typegen": "wrangler types",
     "check-types": "bun run typecheck",
-    "typecheck": "wrangler types && react-router typegen && tsc",
+    "typecheck": "CI=1 wrangler types && react-router typegen && tsc",
     "prepare": "panda codegen"
   },
   "dependencies": {
