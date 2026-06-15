@@ -1,0 +1,21 @@
+{
+  "name": "@repo/api",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "dev": "cd ../../ && bun run --hot apps/api/src/index.ts",
+    "clean": "bunx rimraf .turbo",
+    "check-types": "bunx tsc -p tsconfig.json --noEmit --pretty false"
+  },
+  "dependencies": {
+    "hono": "^4.12.8"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}

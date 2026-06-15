@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "web",
+  "compatibility_date": "2026-06-15",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "./workers/app.ts",
+  // 静的アセット（public/ + クライアントビルド）は @cloudflare/vite-plugin が
+  // 自動でアセットバインディングに割り当てる。画像などはここで配信され、
+  // Worker スクリプト本体（1MB/10MB制限の対象）には一切含まれない。
+  "observability": {
+    "enabled": true
+  }
+}

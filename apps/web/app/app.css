@@ -1,0 +1,11 @@
+@layer reset, base, tokens, recipes, utilities;
+
+@layer base {
+	body {
+		margin: 0;
+		background-image:
+			radial-gradient(circle at 15% 15%, rgba(205, 235, 214, 0.8), transparent 40%),
+			radial-gradient(circle at 85% 20%, rgba(226, 244, 231, 0.9), transparent 35%);
+		background-attachment: fixed;
+	}
+}

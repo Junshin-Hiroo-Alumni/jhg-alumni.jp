@@ -1,0 +1,3 @@
+# Cloudflare / Wrangler 生成物（`wrangler types` で再生成されるためコミットしない）
+worker-configuration.d.ts
+.dev.vars
