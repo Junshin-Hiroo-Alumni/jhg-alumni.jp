@@ -23,7 +23,7 @@ export default function HeroImages() {
 		<div
 			className={css({
 				width: "100%",
-				height: "100vh",
+				height: "100dvh",
 				position: "relative",
 				overflow: "hidden",
 				backgroundColor: "gray.900",
@@ -53,44 +53,61 @@ export default function HeroImages() {
 			<div
 				className={css({
 					position: "absolute",
-					bottom: "12vh",
-					left: "12vw",
+					bottom: { base: "8vh", md: "12vh" },
+					left: { base: "6vw", md: "12vw" },
 					zIndex: 10,
 					display: "flex",
 					flexDirection: "row-reverse",
 					alignItems: "flex-start",
-					gap: "1.2rem",
+					gap: { base: "0.6rem", md: "1.2rem" },
 				})}
 			>
-				{HERO_LINES.map((line, index) => (
-					<div
-						key={line}
-						className={css({
-							bg: "white",
-							px: "2",
-							py: "4",
-							animationName: "growDown",
-							animationDuration: "1.1s",
-							animationTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
-							animationFillMode: "both",
-						})}
-						style={{ animationDelay: `${HERO_START_DELAY + index * 0.7}s` }}
-					>
-						<span
+				{HERO_LINES.map((line, index) => {
+					const delay = `${HERO_START_DELAY + index * 0.7}s`;
+					return (
+						<div
+							key={line}
 							className={css({
-								display: "block",
+								overflow: "hidden",
 								writingMode: "vertical-rl",
-								textOrientation: "upright",
-								color: "black",
-								fontWeight: "bold",
-								fontSize: { base: "2xl", md: "3xl" },
-								letterSpacing: "0.2em",
+								animationName: "heroWipeWindow",
+								animationDuration: "1.1s",
+								animationTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
+								animationFillMode: "both",
 							})}
+							style={{ animationDelay: delay }}
 						>
-							{line}
-						</span>
-					</div>
-				))}
+							<div
+								className={css({
+									bg: "white",
+									paddingLeft: "2",
+									paddingRight: "2",
+									paddingTop: { base: "3", md: "4" },
+									paddingBottom: { base: "3", md: "4" },
+									writingMode: "vertical-rl",
+									animationName: "heroWipeContent",
+									animationDuration: "1.1s",
+									animationTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
+									animationFillMode: "both",
+								})}
+								style={{ animationDelay: delay }}
+							>
+								<span
+									className={css({
+										display: "block",
+										writingMode: "vertical-rl",
+										color: "black",
+										fontWeight: "bold",
+										fontSize: { base: "xl", md: "3xl" },
+										letterSpacing: { base: "0.12em", md: "0.2em" },
+									})}
+								>
+									{line}
+								</span>
+							</div>
+						</div>
+					);
+				})}
 			</div>
 		</div>
 	);
