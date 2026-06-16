@@ -72,6 +72,9 @@ export default function HeroImages() {
 							key={line}
 							className={css({
 								overflow: "hidden",
+								// iOS WebKit は「中身に縮む箱」を縦書きテキストのサイズに正しく計算できず
+								// 文字が箱からはみ出す。箱自身を縦書きにすると正しくサイズされる（窓・中身とも）。
+								writingMode: "vertical-rl",
 								animationName: "heroWipeWindow",
 								animationDuration: "1.1s",
 								animationTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
@@ -84,6 +87,7 @@ export default function HeroImages() {
 									bg: "white",
 									px: "2",
 									py: { base: "3", md: "4" },
+									writingMode: "vertical-rl",
 									animationName: "heroWipeContent",
 									animationDuration: "1.1s",
 									animationTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
