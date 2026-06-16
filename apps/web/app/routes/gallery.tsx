@@ -1,9 +1,15 @@
 import { css } from "styled-system/css";
 import GalleryGrid from "~/components/gallery/GalleryGrid";
 import { getGalleryImages } from "~/lib/gallery";
+import { buildMeta } from "~/lib/seo";
 
 export function meta() {
-	return [{ title: "フォトギャラリー | 順心広尾学園同窓会" }];
+	return buildMeta({
+		title: "フォトギャラリー",
+		path: "/gallery",
+		description:
+			"順心広尾学園同窓会のフォトギャラリー。総会や行事など、同窓会活動の写真を掲載しています。",
+	});
 }
 
 export default function Gallery() {
