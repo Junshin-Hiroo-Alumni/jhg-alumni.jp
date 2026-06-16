@@ -63,17 +63,12 @@ export default function HeroImages() {
 				})}
 			>
 				{HERO_LINES.map((line, index) => {
-					// 窓(外側)と中身(内側)を逆方向に動かして相殺 → 中身は静止したまま上→下にワイプ。
-					// clip-path を使わず transform だけなので iOS WebKit でも確実に動く。両者は同じ
-					// duration / easing / delay で完全同期させる（main の緩急をそのまま再現）。
 					const delay = `${HERO_START_DELAY + index * 0.7}s`;
 					return (
 						<div
 							key={line}
 							className={css({
 								overflow: "hidden",
-								// iOS WebKit は「中身に縮む箱」を縦書きテキストのサイズに正しく計算できず
-								// 文字が箱からはみ出す。箱自身を縦書きにすると正しくサイズされる（窓・中身とも）。
 								writingMode: "vertical-rl",
 								animationName: "heroWipeWindow",
 								animationDuration: "1.1s",
@@ -85,8 +80,6 @@ export default function HeroImages() {
 							<div
 								className={css({
 									bg: "white",
-									// 箱が vertical-rl だと論理 px/py(inline/block)は軸が入れ替わり太く見える。
-									// 物理プロパティで指定し、元の見た目（左右=細い / 上下=広い）を維持する。
 									paddingLeft: "2",
 									paddingRight: "2",
 									paddingTop: { base: "3", md: "4" },
@@ -102,8 +95,6 @@ export default function HeroImages() {
 								<span
 									className={css({
 										display: "block",
-										// text-orientation: upright は iOS Safari でグリフが描画されず文字が消える
-										// 不具合がある。日本語のみなので既定の mixed でも同じ「縦書き・正立」になる。
 										writingMode: "vertical-rl",
 										color: "black",
 										fontWeight: "bold",
