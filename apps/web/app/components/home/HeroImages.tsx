@@ -79,8 +79,9 @@ export default function HeroImages() {
 						<span
 							className={css({
 								display: "block",
+								// text-orientation: upright は iOS Safari でグリフが描画されず文字が消える不具合がある。
+								// 文字列はすべて日本語(漢字+ひらがな)なので、既定の mixed でも同じ「縦書き・正立」になる。
 								writingMode: "vertical-rl",
-								textOrientation: "upright",
 								color: "black",
 								fontWeight: "bold",
 								fontSize: { base: "xl", md: "3xl" },
