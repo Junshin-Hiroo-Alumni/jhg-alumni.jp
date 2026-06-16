@@ -85,8 +85,12 @@ export default function HeroImages() {
 							<div
 								className={css({
 									bg: "white",
-									px: "2",
-									py: { base: "3", md: "4" },
+									// 箱が vertical-rl だと論理 px/py(inline/block)は軸が入れ替わり太く見える。
+									// 物理プロパティで指定し、元の見た目（左右=細い / 上下=広い）を維持する。
+									paddingLeft: "2",
+									paddingRight: "2",
+									paddingTop: { base: "3", md: "4" },
+									paddingBottom: { base: "3", md: "4" },
 									writingMode: "vertical-rl",
 									animationName: "heroWipeContent",
 									animationDuration: "1.1s",
