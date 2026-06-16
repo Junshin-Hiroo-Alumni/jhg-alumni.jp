@@ -62,39 +62,53 @@ export default function HeroImages() {
 					gap: { base: "0.6rem", md: "1.2rem" },
 				})}
 			>
-				{HERO_LINES.map((line, index) => (
-					<div
-						key={line}
-						className={css({
-							bg: "white",
-							px: "2",
-							py: { base: "3", md: "4" },
-							// 上→下へワイプして現れる（main 由来の緩急をそのまま維持）。
-							// iOS で枠が潰れ・文字が消えていた主因は text-orientation: upright（下記 span 参照）で、
-							// それを除去したため clip-path のこのアニメ自体は問題なく動くと判断。
-							animationName: "growDown",
-							animationDuration: "1.1s",
-							animationTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
-							animationFillMode: "both",
-						})}
-						style={{ animationDelay: `${HERO_START_DELAY + index * 0.7}s` }}
-					>
-						<span
+				{HERO_LINES.map((line, index) => {
+					// 窓(外側)と中身(内側)を逆方向に動かして相殺 → 中身は静止したまま上→下にワイプ。
+					// clip-path を使わず transform だけなので iOS WebKit でも確実に動く。両者は同じ
+					// duration / easing / delay で完全同期させる（main の緩急をそのまま再現）。
+					const delay = `${HERO_START_DELAY + index * 0.7}s`;
+					return (
+						<div
+							key={line}
 							className={css({
-								display: "block",
-								// text-orientation: upright は iOS Safari でグリフが描画されず文字が消える不具合がある。
-								// 文字列はすべて日本語(漢字+ひらがな)なので、既定の mixed でも同じ「縦書き・正立」になる。
-								writingMode: "vertical-rl",
-								color: "black",
-								fontWeight: "bold",
-								fontSize: { base: "xl", md: "3xl" },
-								letterSpacing: { base: "0.12em", md: "0.2em" },
+								overflow: "hidden",
+								animationName: "heroWipeWindow",
+								animationDuration: "1.1s",
+								animationTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
+								animationFillMode: "both",
 							})}
+							style={{ animationDelay: delay }}
 						>
-							{line}
-						</span>
-					</div>
-				))}
+							<div
+								className={css({
+									bg: "white",
+									px: "2",
+									py: { base: "3", md: "4" },
+									animationName: "heroWipeContent",
+									animationDuration: "1.1s",
+									animationTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
+									animationFillMode: "both",
+								})}
+								style={{ animationDelay: delay }}
+							>
+								<span
+									className={css({
+										display: "block",
+										// text-orientation: upright は iOS Safari でグリフが描画されず文字が消える
+										// 不具合がある。日本語のみなので既定の mixed でも同じ「縦書き・正立」になる。
+										writingMode: "vertical-rl",
+										color: "black",
+										fontWeight: "bold",
+										fontSize: { base: "xl", md: "3xl" },
+										letterSpacing: { base: "0.12em", md: "0.2em" },
+									})}
+								>
+									{line}
+								</span>
+							</div>
+						</div>
+					);
+				})}
 			</div>
 		</div>
 	);
