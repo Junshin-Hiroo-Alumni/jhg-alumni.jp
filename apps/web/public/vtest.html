@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>縦書きレンダリング切り分けテスト</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" />
+<style>
+  :root { --maru: "Zen Maru Gothic", sans-serif; --sys: "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #34506a; color: #fff; font-family: var(--sys); padding: 16px 12px 64px; }
+  h1 { font-size: 16px; line-height: 1.5; }
+  p.note { font-size: 13px; color: #d6e2ee; line-height: 1.6; }
+  .grid { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start; }
+  .case { width: calc(50% - 7px); }
+  .label { font-size: 12px; line-height: 1.4; margin: 0 0 6px; color: #cfe0f0; min-height: 3.6em; }
+  .label b { color: #fff; }
+  /* 白枠＋縦書き。サイト本番と同じ見た目 */
+  .box { display: inline-block; background: #fff; color: #000; padding: 12px 8px; border-radius: 4px; }
+  .v   { display: block; writing-mode: vertical-rl; font-size: 20px; letter-spacing: 0.12em; }
+
+  .f-maru { font-family: var(--maru); }
+  .f-sys  { font-family: var(--sys); }
+  .f-sans { font-family: sans-serif; }
+  .w-bold { font-weight: 700; }
+  .w-norm { font-weight: 400; }
+  .o-upright { text-orientation: upright; }
+</style>
+</head>
+<body>
+  <h1>縦書きレンダリング切り分けテスト</h1>
+  <p class="note">
+    各ボックスは <b>1要素だけ</b>を変えた縦書き「母校でつながり」です。<br />
+    iPhone で開き、<b>潰れる/文字が見えないのはどの番号か</b>、<b>正常に出るのはどれか</b>を教えてください。
+  </p>
+
+  <div class="grid">
+    <div class="case">
+      <p class="label"><b>1</b> 横書き / 丸ゴシック / 太字<br>(フォント読込の確認用・基準)</p>
+      <span class="box"><span class="v f-maru w-bold" style="writing-mode: horizontal-tb;">母校でつながり</span></span>
+    </div>
+
+    <div class="case">
+      <p class="label"><b>2</b> 縦書き / 丸ゴシック / 太字<br>(＝本番と同じ設定)</p>
+      <span class="box"><span class="v f-maru w-bold">母校でつながり</span></span>
+    </div>
+
+    <div class="case">
+      <p class="label"><b>3</b> 縦書き / 丸ゴシック / <b>標準太さ</b><br>(太字の影響を見る)</p>
+      <span class="box"><span class="v f-maru w-norm">母校でつながり</span></span>
+    </div>
+
+    <div class="case">
+      <p class="label"><b>4</b> 縦書き / <b>システムフォント</b> / 太字<br>(Webフォントを外した場合)</p>
+      <span class="box"><span class="v f-sys w-bold">母校でつながり</span></span>
+    </div>
+
+    <div class="case">
+      <p class="label"><b>5</b> 縦書き / <b>総称 sans-serif</b> / 太字<br>(フォント指定なしの素の縦書き)</p>
+      <span class="box"><span class="v f-sans w-bold">母校でつながり</span></span>
+    </div>
+
+    <div class="case">
+      <p class="label"><b>6</b> 縦書き / 丸ゴシック / 太字 / <b>upright付き</b><br>(text-orientation の影響)</p>
+      <span class="box"><span class="v f-maru w-bold o-upright">母校でつながり</span></span>
+    </div>
+  </div>
+</body>
+</html>
