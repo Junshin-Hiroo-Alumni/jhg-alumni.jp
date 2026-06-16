@@ -42,6 +42,11 @@ export default defineConfig({
 			"0%": { opacity: "0", transform: "scale(0.92) translateY(10px)" },
 			"100%": { opacity: "1", transform: "scale(1) translateY(0)" },
 		},
+		// ギャラリー一覧: サムネイルがふわっとフェードイン（最終状態は必ず表示）
+		"@keyframes galleryItemIn": {
+			"0%": { opacity: "0" },
+			"100%": { opacity: "1" },
+		},
 		// ヒーロー縦書き帯の「上→下ワイプ」を transform だけで再現（clip-path は iOS WebKit で不具合）。
 		// 窓(外側)と中身(内側)を逆方向に動かして相殺し、中身は静止したまま見える範囲だけ広がる。
 		"@keyframes heroWipeWindow": {
@@ -83,6 +88,10 @@ export default defineConfig({
 				lightboxIn: {
 					"0%": { opacity: "0", transform: "scale(0.92) translateY(10px)" },
 					"100%": { opacity: "1", transform: "scale(1) translateY(0)" },
+				},
+				galleryItemIn: {
+					"0%": { opacity: "0" },
+					"100%": { opacity: "1" },
 				},
 				heroWipeWindow: {
 					"0%": { transform: "translateY(-100%)" },
