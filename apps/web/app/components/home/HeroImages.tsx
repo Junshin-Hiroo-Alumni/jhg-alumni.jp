@@ -69,7 +69,9 @@ export default function HeroImages() {
 							bg: "white",
 							px: "2",
 							py: { base: "3", md: "4" },
-							animationName: "growDown",
+							// clip-path のアニメーション(growDown)は iOS Safari で不安定で、枠が途中までしか
+							// 解除されず潰れて見えることがある。iOS でも安定する opacity/transform のフェードに変更。
+							animationName: "fadeInText",
 							animationDuration: "1.1s",
 							animationTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
 							animationFillMode: "both",
