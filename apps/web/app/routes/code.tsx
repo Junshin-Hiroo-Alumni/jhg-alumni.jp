@@ -1,7 +1,7 @@
 import ReactMarkdown from "react-markdown";
 import { css } from "styled-system/css";
+import { buildMeta } from "~/lib/seo";
 
-// 会則の Markdown（app/content/code.md）を取り込む。.md を編集すると反映されます。
 const files = import.meta.glob("../content/code.md", {
 	query: "?raw",
 	import: "default",
@@ -60,7 +60,11 @@ const proseClass = css({
 });
 
 export function meta() {
-	return [{ title: "会則 | 順心広尾学園同窓会" }];
+	return buildMeta({
+		title: "会則",
+		path: "/code",
+		description: "順心広尾学園同窓会の会則（規約）を掲載しています。",
+	});
 }
 
 export default function Code() {

@@ -2,6 +2,7 @@ import ReactMarkdown from "react-markdown";
 import { Link, useParams } from "react-router";
 import { css } from "styled-system/css";
 import { getNoticeBySlug } from "~/lib/notice";
+import { buildMeta } from "~/lib/seo";
 
 const proseClass = css({
 	color: "#444444",
@@ -31,7 +32,26 @@ const proseClass = css({
 
 export function meta({ params }: { params: { noticeTitle?: string } }) {
 	const news = params.noticeTitle ? getNoticeBySlug(params.noticeTitle) : undefined;
-	return [{ title: `${news ? news.title : "お知らせ"} | 順心広尾学園同窓会` }];
+	if (!news) {
+		// 存在しないお知らせはインデックスさせない
+		return buildMeta({ title: "お知らせ", path: "/notice", noindex: true });
+	}
+	// Markdown 本文から検索用の説明文（抜粋）を作る
+	const description =
+		news.body
+			.replace(/```[\s\S]*?```/g, "")
+			.replace(/!\[[^\]]*\]\([^)]*\)/g, "")
+			.replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+			.replace(/[#>*_`~]/g, "")
+			.replace(/\s+/g, " ")
+			.trim()
+			.slice(0, 110) || undefined;
+	return buildMeta({
+		title: news.title,
+		path: `/notice/${news.slug}`,
+		description,
+		type: "article",
+	});
 }
 
 export default function NoticeDetail() {

@@ -1,5 +1,6 @@
 import { css, cx } from "styled-system/css";
 import { officers } from "~/content/officers";
+import { buildMeta } from "~/lib/seo";
 
 const photoBaseClass = css({
 	width: "100%",
@@ -28,7 +29,11 @@ const photoImageClass = css({
 });
 
 export function meta() {
-	return [{ title: "役員会 | 順心広尾学園同窓会" }];
+	return buildMeta({
+		title: "役員会",
+		path: "/board-meeting",
+		description: "順心広尾学園同窓会の役員会メンバーをご紹介します。",
+	});
 }
 
 export default function BoardMeeting() {

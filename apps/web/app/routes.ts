@@ -1,6 +1,8 @@
 import { index, layout, type RouteConfig, route } from "@react-router/dev/routes";
 
 export default [
+	//サイトマップ
+	route("sitemap.xml", "routes/sitemap.tsx"),
 	layout("layouts/site-layout.tsx", [
 		index("routes/home.tsx"),
 		route("about", "routes/about.tsx"),

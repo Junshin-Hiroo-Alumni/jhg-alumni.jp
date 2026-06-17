@@ -1,9 +1,15 @@
 import { css } from "styled-system/css";
 import NoticeList from "~/components/notice/NoticeList";
 import { getAllNotices } from "~/lib/notice";
+import { buildMeta } from "~/lib/seo";
 
 export function meta() {
-	return [{ title: "お知らせ | 順心広尾学園同窓会" }];
+	return buildMeta({
+		title: "お知らせ",
+		path: "/notice",
+		description:
+			"順心広尾学園同窓会からのお知らせ一覧。総会のご案内、会報誌、各種お知らせを掲載しています。",
+	});
 }
 
 export default function Notice() {
