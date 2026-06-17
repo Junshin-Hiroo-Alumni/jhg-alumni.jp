@@ -3,7 +3,7 @@ import type { MetaDescriptor } from "react-router";
 export const SITE_URL = "https://jhg-alumni.jp";
 export const SITE_NAME = "順心広尾学園同窓会";
 export const DEFAULT_DESCRIPTION =
-	"順心広尾学園同窓会の公式サイト。同窓会の活動報告やお知らせ、会報誌・総会記録、フォトギャラリーを掲載しています。";
+	"順心広尾学園同窓会（広尾学園・順心女子学園の卒業生による同窓会）の公式サイト。同窓会の活動報告やお知らせ、会報誌・総会記録、フォトギャラリーを掲載しています。";
 
 // 1200x630のOGP
 export const DEFAULT_OG_IMAGE = "/common/ogp-wide.jpg";
@@ -76,7 +76,8 @@ export const organizationJsonLd = {
 	"@context": "https://schema.org",
 	"@type": "Organization",
 	name: SITE_NAME,
-	alternateName: "順心広尾学園同窓会 公式サイト",
+	alternateName: ["広尾学園同窓会", "順心女子学園同窓会", "順心広尾学園同窓会 公式サイト"],
 	url: SITE_URL,
 	logo: `${SITE_URL}/common/base-logo.svg`,
+	description: DEFAULT_DESCRIPTION,
 };
