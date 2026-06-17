@@ -7,8 +7,6 @@ export const DEFAULT_DESCRIPTION =
 
 // 1200x630のOGP
 export const DEFAULT_OG_IMAGE = "/common/ogp-wide.jpg";
-// 正方形のOGP
-export const DEFAULT_OG_IMAGE_SQUARE = "/common/ogp-square.jpg";
 
 type BuildMetaInput = {
 	/** ページ固有タイトル。未指定だとサイト名のみになる。 */
@@ -18,8 +16,6 @@ type BuildMetaInput = {
 	path?: string;
 	/** OGP 画像パス（横長）。未指定でデフォルト画像。 */
 	image?: string;
-	/** 正方形 OGP 画像パス。未指定でデフォルトの正方形画像。 */
-	squareImage?: string;
 	type?: "website" | "article";
 	/** 検索結果に出したくないページは true。 */
 	noindex?: boolean;
@@ -40,7 +36,6 @@ export function buildMeta({
 	description,
 	path = "/",
 	image,
-	squareImage,
 	type = "website",
 	noindex = false,
 }: BuildMetaInput): MetaDescriptor[] {
@@ -48,7 +43,6 @@ export function buildMeta({
 	const desc = description ?? DEFAULT_DESCRIPTION;
 	const url = absolute(path);
 	const img = absolute(image ?? DEFAULT_OG_IMAGE);
-	const squareImg = absolute(squareImage ?? DEFAULT_OG_IMAGE_SQUARE);
 
 	const tags: MetaDescriptor[] = [
 		{ title: fullTitle },
@@ -58,14 +52,9 @@ export function buildMeta({
 		{ property: "og:description", content: desc },
 		{ property: "og:type", content: type },
 		{ property: "og:url", content: url },
-		// 横長 OGP（主画像）
 		{ property: "og:image", content: img },
 		{ property: "og:image:width", content: "1200" },
 		{ property: "og:image:height", content: "630" },
-		// 正方形 OGP（LINE 等の正方形表示向け）
-		{ property: "og:image", content: squareImg },
-		{ property: "og:image:width", content: "1200" },
-		{ property: "og:image:height", content: "1200" },
 		{ property: "og:site_name", content: SITE_NAME },
 		{ property: "og:locale", content: "ja_JP" },
 		// Twitter Card
