@@ -76,11 +76,7 @@ export const organizationJsonLd = {
 	"@context": "https://schema.org",
 	"@type": "Organization",
 	name: SITE_NAME,
-	alternateName: [
-		"広尾学園同窓会",
-		"順心女子学園同窓会",
-		"順心広尾学園同窓会 公式サイト",
-	],
+	alternateName: ["広尾学園同窓会", "順心女子学園同窓会", "順心広尾学園同窓会 公式サイト"],
 	url: SITE_URL,
 	logo: `${SITE_URL}/common/base-logo.svg`,
 	description: DEFAULT_DESCRIPTION,
