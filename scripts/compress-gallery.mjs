@@ -54,6 +54,31 @@ async function loadManifest() {
 	}
 }
 
+// 重複時に残す優先度: 連番済み（既存）を優先 → 連番なら若い番号 → それ以外は追加が古い順。
+function dedupPriority(a, b) {
+	const aSeq = isSequentialName(a.name);
+	const bSeq = isSequentialName(b.name);
+	if (aSeq !== bSeq) return aSeq ? -1 : 1;
+	if (aSeq && bSeq) return sequenceNumber(a.name) - sequenceNumber(b.name);
+	return a.mtimeMs - b.mtimeMs || a.name.localeCompare(b.name);
+}
+
+// 内容ハッシュが同一の画像は重複。1枚だけ残し、残りはファイルごと削除する。
+// 残した画像の配列を返す。
+async function removeDuplicates(items) {
+	const keptByHash = new Map();
+	for (const it of items) {
+		const current = keptByHash.get(it.hash);
+		if (!current || dedupPriority(it, current) < 0) keptByHash.set(it.hash, it);
+	}
+	const duplicates = items.filter(it => keptByHash.get(it.hash) !== it);
+	for (const dup of duplicates) {
+		await unlink(path.join(GALLERY_DIR, dup.name));
+		console.info(`dup    ${dup.name}  (= ${keptByHash.get(dup.hash).name}) を重複として削除`);
+	}
+	return { kept: [...keptByHash.values()], duplicateCount: duplicates.length };
+}
+
 // 各画像の寸法を書き出す（img の width/height に使い、読み込み時のガタつきを防ぐ）
 async function writeDimensions(names) {
 	const dimensions = {};
@@ -100,26 +125,8 @@ async function main() {
 		}),
 	);
 
-	// 内容ハッシュが同一の画像は重複。1枚だけ残し、残りはファイルごと削除する。
-	// 残す優先度: 連番済み（既存）を優先 → 連番なら若い番号 → それ以外は追加が古い順。
-	const dedupPriority = (a, b) => {
-		const aSeq = isSequentialName(a.name);
-		const bSeq = isSequentialName(b.name);
-		if (aSeq !== bSeq) return aSeq ? -1 : 1;
-		if (aSeq && bSeq) return sequenceNumber(a.name) - sequenceNumber(b.name);
-		return a.mtimeMs - b.mtimeMs || a.name.localeCompare(b.name);
-	};
-	const keptByHash = new Map();
-	for (const it of items) {
-		const current = keptByHash.get(it.hash);
-		if (!current || dedupPriority(it, current) < 0) keptByHash.set(it.hash, it);
-	}
-	const kept = [...keptByHash.values()];
-	const duplicates = items.filter(it => keptByHash.get(it.hash) !== it);
-	for (const dup of duplicates) {
-		await unlink(path.join(GALLERY_DIR, dup.name));
-		console.info(`dup    ${dup.name}  (= ${keptByHash.get(dup.hash).name}) を重複として削除`);
-	}
+	// 内容が同一の重複画像を 1 枚に統合する
+	const { kept, duplicateCount } = await removeDuplicates(items);
 
 	// 既に「連番済み＆圧縮済み」のものは番号を維持してスキップ、それ以外は採番対象
 	const settled = kept.filter(it => isSequentialName(it.name) && knownHashes.has(it.hash));
@@ -175,7 +182,7 @@ async function main() {
 	await writeDimensions(Object.keys(manifest));
 
 	console.info(
-		`\n完了: 圧縮 ${compressedCount} 件 / リネーム ${plan.length - compressedCount} 件 / スキップ ${settled.length} 件 / 重複削除 ${duplicates.length} 件`,
+		`\n完了: 圧縮 ${compressedCount} 件 / リネーム ${plan.length - compressedCount} 件 / スキップ ${settled.length} 件 / 重複削除 ${duplicateCount} 件`,
 	);
 }
 
