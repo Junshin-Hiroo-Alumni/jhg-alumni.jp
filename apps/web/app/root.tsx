@@ -45,10 +45,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<Meta />
 				<Links />
-				{/* 組織情報の構造化データ（検索のリッチリザルト向け） */}
 				<script
 					type="application/ld+json"
-					// biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD の標準的な埋め込み方法
+					// biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD の標準的な埋め込み方法なのでOK
 					dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
 				/>
 			</head>

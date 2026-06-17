@@ -1,5 +1,3 @@
-// /sitemap.xml を動的生成するリソースルート（HTMLではなくXMLを返す）。
-// 固定ページ＋お知らせ詳細ページ（外部リンクのものは除外）を列挙する。
 import { getAllNotices } from "~/lib/notice";
 import { SITE_URL } from "~/lib/seo";
 

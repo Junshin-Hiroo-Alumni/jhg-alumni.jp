@@ -2,7 +2,6 @@ import ReactMarkdown from "react-markdown";
 import { css } from "styled-system/css";
 import { buildMeta } from "~/lib/seo";
 
-// 会則の Markdown（app/content/code.md）を取り込む。.md を編集すると反映されます。
 const files = import.meta.glob("../content/code.md", {
 	query: "?raw",
 	import: "default",
