@@ -14,7 +14,7 @@ import type { Route } from "./+types/root";
 import stylesheet from "./app.css?url";
 
 export const links: Route.LinksFunction = () => [
-	{ rel: "icon", href: "/common/base-logo.ico", type: "image/x-icon" },
+	{ rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
 	{ rel: "preconnect", href: "https://fonts.googleapis.com" },
 	{
 		rel: "preconnect",
