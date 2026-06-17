@@ -7,6 +7,9 @@
 // - ファイル名は「追加した順（更新日時）」に 001.webp, 002.webp ... と連番化します。
 //   既に連番済み＆圧縮済みの画像は番号を維持し、新しく追加した画像が続きの番号になります。
 // - JPEG/PNG など webp 以外は webp へ変換し、元ファイルを削除します。
+// - 内容が完全に同一の重複画像は 1 枚だけ残し、残りのファイルを削除します。
+//   マニフェストと寸法 JSON は実在するファイルから毎回作り直すため、
+//   削除済み・存在しない画像のエントリは自動的に取り除かれます。
 //
 // 実行には Node.js が必要です（`bun run compress:gallery` は内部で node を呼びます）。
 
@@ -97,9 +100,30 @@ async function main() {
 		}),
 	);
 
+	// 内容ハッシュが同一の画像は重複。1枚だけ残し、残りはファイルごと削除する。
+	// 残す優先度: 連番済み（既存）を優先 → 連番なら若い番号 → それ以外は追加が古い順。
+	const dedupPriority = (a, b) => {
+		const aSeq = isSequentialName(a.name);
+		const bSeq = isSequentialName(b.name);
+		if (aSeq !== bSeq) return aSeq ? -1 : 1;
+		if (aSeq && bSeq) return sequenceNumber(a.name) - sequenceNumber(b.name);
+		return a.mtimeMs - b.mtimeMs || a.name.localeCompare(b.name);
+	};
+	const keptByHash = new Map();
+	for (const it of items) {
+		const current = keptByHash.get(it.hash);
+		if (!current || dedupPriority(it, current) < 0) keptByHash.set(it.hash, it);
+	}
+	const kept = [...keptByHash.values()];
+	const duplicates = items.filter(it => keptByHash.get(it.hash) !== it);
+	for (const dup of duplicates) {
+		await unlink(path.join(GALLERY_DIR, dup.name));
+		console.info(`dup    ${dup.name}  (= ${keptByHash.get(dup.hash).name}) を重複として削除`);
+	}
+
 	// 既に「連番済み＆圧縮済み」のものは番号を維持してスキップ、それ以外は採番対象
-	const settled = items.filter(it => isSequentialName(it.name) && knownHashes.has(it.hash));
-	const pending = items
+	const settled = kept.filter(it => isSequentialName(it.name) && knownHashes.has(it.hash));
+	const pending = kept
 		.filter(it => !(isSequentialName(it.name) && knownHashes.has(it.hash)))
 		.sort((a, b) => a.mtimeMs - b.mtimeMs || a.name.localeCompare(b.name));
 
@@ -151,7 +175,7 @@ async function main() {
 	await writeDimensions(Object.keys(manifest));
 
 	console.info(
-		`\n完了: 圧縮 ${compressedCount} 件 / リネーム ${plan.length - compressedCount} 件 / スキップ ${settled.length} 件`,
+		`\n完了: 圧縮 ${compressedCount} 件 / リネーム ${plan.length - compressedCount} 件 / スキップ ${settled.length} 件 / 重複削除 ${duplicates.length} 件`,
 	);
 }
 
