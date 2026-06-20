@@ -90,7 +90,6 @@ export default function Greeting() {
 						<div
 							className={css({
 								mb: { base: "2rem", md: "2.25rem" },
-								// スマホ: 中央ぞろえ（カード・見出しと統一） / PC: 左ボーダーの引用句
 								textAlign: { base: "center", md: "left" },
 								pl: { base: 0, md: "1.75rem" },
 								borderLeft: { base: "none", md: "3px solid token(colors.green.400)" },
@@ -108,13 +107,11 @@ export default function Greeting() {
 									textWrap: "balance",
 								})}
 							>
-								{/* 句（clause）単位で inline-block にし、折り返しは句の境界でのみ起こす */}
 								<span className={css({ display: "inline-block" })}>
 									Hiroo expects that every graduate
 								</span>{" "}
 								<span className={css({ display: "inline-block" })}>will do their part.</span>
 							</h3>
-							{/* スマホのみ: 中央のアクセント線（SectionHeading と同じ作法。PC は左ボーダーが担う） */}
 							<div
 								className={css({
 									display: { base: "block", md: "none" },
