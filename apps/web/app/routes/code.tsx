@@ -1,6 +1,9 @@
+import { IconBrandGithub } from "@tabler/icons-react";
 import ReactMarkdown from "react-markdown";
 import { css } from "styled-system/css";
 import { buildMeta } from "~/lib/seo";
+
+const CODE_REPO_URL = "https://github.com/Junshin-Hiroo-Alumni/Code";
 
 const files = import.meta.glob("../content/code.md", {
 	query: "?raw",
@@ -79,6 +82,52 @@ export default function Code() {
 				pb: { base: "4rem", md: "6rem" },
 			})}
 		>
+			<div
+				className={css({
+					display: "flex",
+					flexWrap: "wrap",
+					alignItems: "center",
+					justifyContent: "space-between",
+					gap: "1rem",
+					mb: "1.5rem",
+				})}
+			>
+				<h1
+					className={css({
+						fontSize: { base: "1.6rem", md: "2rem" },
+						fontWeight: "bold",
+						color: "#222222",
+						lineHeight: "1.4",
+					})}
+				>
+					順心広尾学園同窓会規約（案）
+				</h1>
+				<a
+					href={CODE_REPO_URL}
+					target="_blank"
+					rel="noreferrer"
+					className={css({
+						display: "inline-flex",
+						alignItems: "center",
+						gap: "0.5rem",
+						px: "1rem",
+						py: "0.6rem",
+						borderRadius: "0.5rem",
+						border: "1px solid token(colors.gray.300)",
+						color: "#444444",
+						fontSize: "sm",
+						fontWeight: "bold",
+						textDecoration: "none",
+						whiteSpace: "nowrap",
+						transition: "background-color 0.15s ease, border-color 0.15s ease",
+						_hover: { bg: "green.100", borderColor: "green.400" },
+					})}
+				>
+					<IconBrandGithub size={20} stroke={1.75} />
+					GitHubで会則を見る
+				</a>
+			</div>
+
 			<div className={proseClass}>
 				<ReactMarkdown>{codeMarkdown}</ReactMarkdown>
 			</div>
