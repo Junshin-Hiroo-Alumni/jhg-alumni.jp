@@ -30,6 +30,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "lefthook": "^2.1.4"
+    "lefthook": "^2.1.4",
+    "official-site": "."
   }
 }
