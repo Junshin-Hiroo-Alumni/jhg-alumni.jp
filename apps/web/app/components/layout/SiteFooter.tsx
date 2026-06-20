@@ -1,3 +1,4 @@
+import { IconBrandFacebook, IconBrandGithub, IconBrandInstagram } from "@tabler/icons-react";
 import { Link } from "react-router";
 import { css } from "styled-system/css";
 
@@ -7,6 +8,27 @@ const footerLinks = [
 	{ id: "f-board", title: "役員会", url: "/board-meeting" },
 	{ id: "f-rules", title: "会則", url: "/code" },
 	{ id: "f-gallery", title: "フォトギャラリー", url: "/gallery" },
+];
+
+const socialLinks = [
+	{
+		id: "s-instagram",
+		label: "Instagram",
+		url: "https://www.instagram.com/junshin_hiroo_alumni/",
+		icon: IconBrandInstagram,
+	},
+	{
+		id: "s-facebook",
+		label: "Facebook",
+		url: "https://www.facebook.com/junshin.hiroo/?locale=ja_JP",
+		icon: IconBrandFacebook,
+	},
+	{
+		id: "s-github",
+		label: "GitHub（ソースコード）",
+		url: "https://github.com/Junshin-Hiroo-Alumni/jhg-alumni.jp",
+		icon: IconBrandGithub,
+	},
 ];
 
 export default function SiteFooter() {
@@ -61,6 +83,33 @@ export default function SiteFooter() {
 						<br />
 						<a href="https://forms.gle/D9a2wzMiyJY3F3fNA">お問い合わせ</a>
 					</p>
+
+					{/* SNS / ソースコード */}
+					<div className={css({ display: "flex", gap: "0.75rem", mt: "1.25rem" })}>
+						{socialLinks.map(({ id, label, url, icon: Icon }) => (
+							<a
+								key={id}
+								href={url}
+								target="_blank"
+								rel="noreferrer"
+								aria-label={label}
+								className={css({
+									display: "inline-flex",
+									alignItems: "center",
+									justifyContent: "center",
+									width: "2.25rem",
+									height: "2.25rem",
+									borderRadius: "9999px",
+									color: "#ffffff",
+									bg: "rgba(255, 255, 255, 0.1)",
+									transition: "background-color 0.15s ease",
+									_hover: { bg: "rgba(255, 255, 255, 0.22)" },
+								})}
+							>
+								<Icon size={20} stroke={1.75} />
+							</a>
+						))}
+					</div>
 				</div>
 
 				{/* ナビゲーション */}
