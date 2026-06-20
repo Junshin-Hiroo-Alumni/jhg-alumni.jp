@@ -94,7 +94,9 @@ export default function Code() {
 			>
 				<h1
 					className={css({
-						fontSize: { base: "1.6rem", md: "2rem" },
+						// 常に1行表示。狭い画面では画面幅に合わせて縮小し、はみ出さない。
+						whiteSpace: "nowrap",
+						fontSize: "clamp(1.1rem, 6vw, 2rem)",
 						fontWeight: "bold",
 						color: "#222222",
 						lineHeight: "1.4",
