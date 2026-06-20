@@ -87,19 +87,57 @@ export default function Greeting() {
 
 					{/* 本文 */}
 					<div>
-						<h3
+						<div
 							className={css({
-								fontFamily: '"Cormorant Garamond", serif',
-								fontSize: { base: "1.55rem", md: "2rem" },
-								fontWeight: "600",
-								fontStyle: "italic",
-								color: "#1f4733",
-								lineHeight: "1.35",
-								mb: { base: "1.75rem", md: "2.25rem" },
+								mb: { base: "2rem", md: "2.25rem" },
+								// スマホ: 中央ぞろえ（カード・見出しと統一） / PC: 左ボーダーの引用句
+								textAlign: { base: "center", md: "left" },
+								pl: { base: 0, md: "1.75rem" },
+								borderLeft: { base: "none", md: "3px solid token(colors.green.400)" },
 							})}
 						>
-							Hiroo expects that every graduate will do their part.
-						</h3>
+							<h3
+								className={css({
+									fontFamily: '"Cormorant Garamond", serif',
+									fontSize: { base: "1.3rem", md: "2rem" },
+									fontWeight: "600",
+									fontStyle: "italic",
+									color: "#1f4733",
+									lineHeight: "1.35",
+									letterSpacing: "0.01em",
+									textWrap: "balance",
+								})}
+							>
+								{/* 句（clause）単位で inline-block にし、折り返しは句の境界でのみ起こす */}
+								<span className={css({ display: "inline-block" })}>
+									Hiroo expects that every graduate
+								</span>{" "}
+								<span className={css({ display: "inline-block" })}>will do their part.</span>
+							</h3>
+							{/* スマホのみ: 中央のアクセント線（SectionHeading と同じ作法。PC は左ボーダーが担う） */}
+							<div
+								className={css({
+									display: { base: "block", md: "none" },
+									width: "44px",
+									height: "3px",
+									mt: "1rem",
+									mx: "auto",
+									bg: "green.400",
+									borderRadius: "9999px",
+								})}
+							/>
+							<p
+								className={css({
+									mt: "1rem",
+									fontSize: { base: "0.7rem", md: "0.75rem" },
+									fontWeight: "bold",
+									letterSpacing: "0.16em",
+									color: "green.500",
+								})}
+							>
+								MESSAGE FROM THE CHAIR
+							</p>
+						</div>
 
 						<div
 							className={css({
