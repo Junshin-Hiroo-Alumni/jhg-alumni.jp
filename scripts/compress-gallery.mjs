@@ -1,15 +1,21 @@
-// content/gallery 内の画像を Web 用に圧縮し、追加順の連番（001.webp ...）にリネームする。
+// content/gallery 内の画像を Web 用に最適化し、レスポンシブ表示用の派生画像を生成する。
 //
 //   bun run compress:gallery
 //
-// - sharp で webp に変換し、横幅を最大 1920px に調整します（拡大はしません）。
-// - 既に圧縮済みの画像（内容ハッシュがマニフェストと一致）は再圧縮しません。
-// - ファイル名は「追加した順（更新日時）」に 001.webp, 002.webp ... と連番化します。
-//   既に連番済み＆圧縮済みの画像は番号を維持し、新しく追加した画像が続きの番号になります。
-// - JPEG/PNG など webp 以外は webp へ変換し、元ファイルを削除します。
-// - 内容が完全に同一の重複画像は 1 枚だけ残し、残りのファイルを削除します。
-//   マニフェストと寸法 JSON は実在するファイルから毎回作り直すため、
-//   削除済み・存在しない画像のエントリは自動的に取り除かれます。
+// 各画像について、複数の横幅 × 2フォーマット（AVIF / WebP）の派生画像と、
+// 読み込み中に表示する極小のぼかしプレースホルダ（LQIP）を生成します。
+//
+//   001-480.webp  001-480.avif   ← グリッドのサムネ用（軽い）
+//   001-1024.webp 001-1024.avif  ← タブレット / Retina 用
+//   001-1920.webp 001-1920.avif  ← ライトボックス（拡大）用
+//
+// - 出力ファイル名は「追加した順（更新日時）」に 001, 002 ... と連番化します。
+// - 既に派生画像が存在する番号はそのまま維持し、新しく追加した元画像が続きの番号になります。
+// - 元画像（jpg/png/webp など）は派生画像を書き出したあとに削除します。
+//   そのため再実行しても処理対象が無く、何度実行しても安全（冪等）です。
+// - 内容が完全に同一の重複画像は 1 枚だけ残します。
+// - 各画像の寸法・LQIP・生成済みの横幅は content/gallery-manifest.json に書き出し、
+//   アプリ（lib/gallery.ts）がそれを読んで srcset / ぼかしプレースホルダを構築します。
 //
 // 実行には Node.js が必要です（`bun run compress:gallery` は内部で node を呼びます）。
 
@@ -22,12 +28,23 @@ import sharp from "sharp";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const GALLERY_DIR = path.resolve(__dirname, "../apps/web/app/content/gallery");
-const MANIFEST_PATH = path.join(GALLERY_DIR, ".compress-manifest.json");
-const DIMENSIONS_PATH = path.resolve(GALLERY_DIR, "..", "gallery-dimensions.json");
+const MANIFEST_PATH = path.resolve(GALLERY_DIR, "..", "gallery-manifest.json");
+// 旧バージョンが残した不要ファイル（あれば掃除する）
+const LEGACY_FILES = [
+	path.join(GALLERY_DIR, ".compress-manifest.json"),
+	path.resolve(GALLERY_DIR, "..", "gallery-dimensions.json"),
+];
 
-const MAX_WIDTH = 1920; // Web 表示用の最大横幅
-const WEBP_QUALITY = 80; // 0-100。80 前後が画質/容量のバランス良好
+// 生成する横幅。元画像幅より大きいものは生成しない（拡大はしない）。
+// 480: グリッドのサムネ / 1024: タブレット・Retina / 1920: ライトボックス用の最大。
+const TARGET_WIDTHS = [480, 1024, 1920];
+const MAX_WIDTH = 1920; // これ以上には拡大しない上限
+const WEBP_QUALITY = 80; // 0-100
+const AVIF_QUALITY = 50; // AVIF は同画質でも数値を低めに取れる
+const LQIP_WIDTH = 24; // ぼかしプレースホルダの横幅（極小）
+const LQIP_QUALITY = 40;
 const NUMBER_PADDING = 3; // 連番の桁数（001 ...）
+
 const SOURCE_EXTENSIONS = new Set([
 	".jpg",
 	".jpeg",
@@ -39,11 +56,12 @@ const SOURCE_EXTENSIONS = new Set([
 	".tif",
 ]);
 
+// 既に生成済みの派生画像（001-480.webp など）の判定
+const VARIANT_RE = /^(\d{1,})-(\d{1,})\.(webp|avif)$/;
+
 const sha256 = buffer => createHash("sha256").update(buffer).digest("hex");
 const toKilobytes = bytes => `${(bytes / 1024).toFixed(0)}KB`;
-const isSequentialName = name => /^\d+\.webp$/.test(name);
-const sequenceNumber = name => Number.parseInt(name, 10);
-const sequentialName = n => `${String(n).padStart(NUMBER_PADDING, "0")}.webp`;
+const paddedId = n => String(n).padStart(NUMBER_PADDING, "0");
 
 async function loadManifest() {
 	if (!existsSync(MANIFEST_PATH)) return {};
@@ -54,41 +72,73 @@ async function loadManifest() {
 	}
 }
 
-// 重複時に残す優先度: 連番済み（既存）を優先 → 連番なら若い番号 → それ以外は追加が古い順。
-function dedupPriority(a, b) {
-	const aSeq = isSequentialName(a.name);
-	const bSeq = isSequentialName(b.name);
-	if (aSeq !== bSeq) return aSeq ? -1 : 1;
-	if (aSeq && bSeq) return sequenceNumber(a.name) - sequenceNumber(b.name);
+// 重複時に残す優先度: 追加が古い順 → 名前順。
+function sourcePriority(a, b) {
 	return a.mtimeMs - b.mtimeMs || a.name.localeCompare(b.name);
 }
 
-// 内容ハッシュが同一の画像は重複。1枚だけ残し、残りはファイルごと削除する。
-// 残した画像の配列を返す。
-async function removeDuplicates(items) {
+// 内容ハッシュが同一の元画像は重複。1枚だけ残し、残りはファイルごと削除する。
+async function dedupeSources(sources) {
 	const keptByHash = new Map();
-	for (const it of items) {
+	for (const it of sources) {
 		const current = keptByHash.get(it.hash);
-		if (!current || dedupPriority(it, current) < 0) keptByHash.set(it.hash, it);
+		if (!current || sourcePriority(it, current) < 0) keptByHash.set(it.hash, it);
 	}
-	const duplicates = items.filter(it => keptByHash.get(it.hash) !== it);
-	for (const dup of duplicates) {
-		await unlink(path.join(GALLERY_DIR, dup.name));
-		console.info(`dup    ${dup.name}  (= ${keptByHash.get(dup.hash).name}) を重複として削除`);
+	const kept = new Set(keptByHash.values());
+	let removed = 0;
+	for (const it of sources) {
+		if (kept.has(it)) continue;
+		await unlink(path.join(GALLERY_DIR, it.name));
+		console.info(`dup    ${it.name}  (= ${keptByHash.get(it.hash).name}) を重複として削除`);
+		removed++;
 	}
-	return { kept: [...keptByHash.values()], duplicateCount: duplicates.length };
+	return { kept: [...kept].sort(sourcePriority), duplicateCount: removed };
 }
 
-// 各画像の寸法を書き出す（img の width/height に使い、読み込み時のガタつきを防ぐ）
-async function writeDimensions(names) {
-	const dimensions = {};
-	for (const name of [...names].sort((a, b) => a.localeCompare(b))) {
-		const meta = await sharp(path.join(GALLERY_DIR, name)).metadata();
-		if (meta.width && meta.height) {
-			dimensions[name] = { width: meta.width, height: meta.height };
-		}
+// 極小のぼかしプレースホルダ（data URI）を作る。読み込み中の白い隙間を防ぐ。
+async function makeLqip(buffer) {
+	const out = await sharp(buffer, { limitInputPixels: false })
+		.rotate()
+		.resize({ width: LQIP_WIDTH })
+		.webp({ quality: LQIP_QUALITY })
+		.toBuffer();
+	return `data:image/webp;base64,${out.toString("base64")}`;
+}
+
+// 1枚の元画像から、各横幅 × (webp/avif) の派生画像と LQIP を生成する。
+// 生成したファイルを書き出し、manifest エントリ（寸法・横幅・lqip）を返す。
+async function renderVariants(id, buffer) {
+	const base = sharp(buffer, { limitInputPixels: false }).rotate();
+	const meta = await base.metadata();
+	const originalWidth = meta.width ?? MAX_WIDTH;
+	const originalHeight = meta.height ?? MAX_WIDTH;
+
+	const cap = Math.min(originalWidth, MAX_WIDTH);
+	const widths = [...new Set([...TARGET_WIDTHS.filter(w => w < cap), cap])].sort((a, b) => a - b);
+
+	let writtenBytes = 0;
+	for (const w of widths) {
+		const resized = sharp(buffer, { limitInputPixels: false })
+			.rotate()
+			.resize({ width: w, withoutEnlargement: true });
+		const [webp, avif] = await Promise.all([
+			resized.clone().webp({ quality: WEBP_QUALITY }).toBuffer(),
+			resized.clone().avif({ quality: AVIF_QUALITY }).toBuffer(),
+		]);
+		await Promise.all([
+			writeFile(path.join(GALLERY_DIR, `${id}-${w}.webp`), webp),
+			writeFile(path.join(GALLERY_DIR, `${id}-${w}.avif`), avif),
+		]);
+		writtenBytes += webp.length + avif.length;
 	}
-	await writeFile(DIMENSIONS_PATH, `${JSON.stringify(dimensions, null, 2)}\n`);
+
+	const lqip = await makeLqip(buffer);
+	const finalWidth = cap;
+	const finalHeight = Math.round((originalHeight * cap) / originalWidth);
+	return {
+		entry: { width: finalWidth, height: finalHeight, widths, lqip },
+		writtenBytes,
+	};
 }
 
 async function main() {
@@ -99,90 +149,90 @@ async function main() {
 	}
 
 	const dirEntries = await readdir(GALLERY_DIR, { withFileTypes: true });
-	const names = dirEntries
-		.filter(
-			entry =>
-				entry.isFile() &&
-				!entry.name.startsWith(".") &&
-				SOURCE_EXTENSIONS.has(path.extname(entry.name).toLowerCase()),
-		)
-		.map(entry => entry.name);
 
-	if (names.length === 0) {
-		console.info(`対象画像がありません: ${GALLERY_DIR}`);
-		return;
+	// 既に生成済みの派生画像から、使用済みの番号を集める
+	const existingIds = new Set();
+	for (const entry of dirEntries) {
+		if (!entry.isFile()) continue;
+		const m = entry.name.match(VARIANT_RE);
+		if (m) existingIds.add(m[1]);
 	}
 
-	const previousManifest = await loadManifest();
-	const knownHashes = new Set(Object.values(previousManifest));
+	// 元画像（未処理）を集める。派生画像・隠しファイルは除く。
+	const sourceNames = dirEntries
+		.filter(entry => {
+			if (!entry.isFile() || entry.name.startsWith(".")) return false;
+			if (VARIANT_RE.test(entry.name)) return false;
+			return SOURCE_EXTENSIONS.has(path.extname(entry.name).toLowerCase());
+		})
+		.map(entry => entry.name);
 
-	// 全ファイルを読み込み、内容ハッシュと更新日時（=追加順の判定）を求める
-	const items = await Promise.all(
-		names.map(async name => {
+	const sources = await Promise.all(
+		sourceNames.map(async name => {
 			const filePath = path.join(GALLERY_DIR, name);
 			const [buffer, stats] = await Promise.all([readFile(filePath), stat(filePath)]);
 			return { name, buffer, hash: sha256(buffer), mtimeMs: stats.mtimeMs };
 		}),
 	);
 
-	// 内容が同一の重複画像を 1 枚に統合する
-	const { kept, duplicateCount } = await removeDuplicates(items);
+	const { kept: newSources, duplicateCount } = await dedupeSources(sources);
 
-	// 既に「連番済み＆圧縮済み」のものは番号を維持してスキップ、それ以外は採番対象
-	const settled = kept.filter(it => isSequentialName(it.name) && knownHashes.has(it.hash));
-	const pending = kept
-		.filter(it => !(isSequentialName(it.name) && knownHashes.has(it.hash)))
-		.sort((a, b) => a.mtimeMs - b.mtimeMs || a.name.localeCompare(b.name));
-
-	let nextNumber = settled.reduce((max, it) => Math.max(max, sequenceNumber(it.name)), 0) + 1;
-
-	// 出力計画を作成（圧縮はここで実行。既圧縮の内容はそのまま使う）
-	const plan = [];
-	let compressedCount = 0;
-	for (const it of pending) {
-		let outputBuffer;
-		let didCompress = false;
-		if (knownHashes.has(it.hash)) {
-			outputBuffer = it.buffer; // 既に圧縮済み（リネームのみ）
-		} else {
-			outputBuffer = await sharp(it.buffer, { limitInputPixels: false })
-				.rotate()
-				.resize({ width: MAX_WIDTH, withoutEnlargement: true })
-				.webp({ quality: WEBP_QUALITY })
-				.toBuffer();
-			didCompress = true;
-			compressedCount++;
-		}
-		plan.push({ from: it, outputName: sequentialName(nextNumber), outputBuffer, didCompress });
-		nextNumber++;
-	}
-
-	// マニフェスト（最終状態）を組み立てつつ書き出し
+	const previousManifest = await loadManifest();
 	const manifest = {};
-	for (const it of settled) manifest[it.name] = it.hash;
 
-	const targetNames = new Set(plan.map(p => p.outputName));
-	for (const { from, outputName, outputBuffer, didCompress } of plan) {
-		await writeFile(path.join(GALLERY_DIR, outputName), outputBuffer);
-		manifest[outputName] = sha256(outputBuffer);
-		// 元ファイルを削除（ただし他の出力先と同名なら消さない）
-		if (from.name !== outputName && !targetNames.has(from.name)) {
-			await unlink(path.join(GALLERY_DIR, from.name));
+	// 既存の番号は再生成せず、manifest 情報を引き継ぐ（無ければ最大幅の派生画像から復元）
+	for (const id of [...existingIds].sort()) {
+		if (previousManifest[id]) {
+			manifest[id] = previousManifest[id];
+			continue;
 		}
-		if (didCompress) {
-			console.info(
-				`done   ${from.name} -> ${outputName}  ${toKilobytes(from.buffer.length)} -> ${toKilobytes(outputBuffer.length)}`,
-			);
-		} else {
-			console.info(`rename ${from.name} -> ${outputName}`);
-		}
+		const widthFiles = dirEntries
+			.map(e => e.name.match(VARIANT_RE))
+			.filter(m => m && m[1] === id && m[3] === "webp")
+			.map(m => Number.parseInt(m[2], 10))
+			.sort((a, b) => a - b);
+		if (widthFiles.length === 0) continue;
+		const largest = `${id}-${widthFiles[widthFiles.length - 1]}.webp`;
+		const buffer = await readFile(path.join(GALLERY_DIR, largest));
+		const meta = await sharp(buffer).metadata();
+		manifest[id] = {
+			width: meta.width,
+			height: meta.height,
+			widths: widthFiles,
+			lqip: await makeLqip(buffer),
+		};
 	}
 
-	await writeFile(MANIFEST_PATH, `${JSON.stringify(manifest, null, 2)}\n`);
-	await writeDimensions(Object.keys(manifest));
+	// 新しい元画像に続き番号を割り当てて派生画像を生成する
+	let nextNumber =
+		[...existingIds].reduce((max, id) => Math.max(max, Number.parseInt(id, 10)), 0) + 1;
+
+	let renderedCount = 0;
+	for (const src of newSources) {
+		const id = paddedId(nextNumber);
+		const { entry, writtenBytes } = await renderVariants(id, src.buffer);
+		manifest[id] = entry;
+		await unlink(path.join(GALLERY_DIR, src.name)); // 元画像を削除
+		console.info(
+			`done   ${src.name} -> ${id}-*  [${entry.widths.join(", ")}] ${toKilobytes(src.buffer.length)} -> ${toKilobytes(writtenBytes)}`,
+		);
+		nextNumber++;
+		renderedCount++;
+	}
+
+	// 番号順に整列して manifest を書き出す
+	const sorted = Object.fromEntries(
+		Object.entries(manifest).sort(([a], [b]) => a.localeCompare(b)),
+	);
+	await writeFile(MANIFEST_PATH, `${JSON.stringify(sorted, null, 2)}\n`);
+
+	// 旧バージョンの不要ファイルを掃除する
+	for (const file of LEGACY_FILES) {
+		if (existsSync(file)) await unlink(file);
+	}
 
 	console.info(
-		`\n完了: 圧縮 ${compressedCount} 件 / リネーム ${plan.length - compressedCount} 件 / スキップ ${settled.length} 件 / 重複削除 ${duplicateCount} 件`,
+		`\n完了: 生成 ${renderedCount} 件 / 既存維持 ${existingIds.size} 件 / 重複削除 ${duplicateCount} 件 / 画像数 ${Object.keys(sorted).length}`,
 	);
 }
 

@@ -8,6 +8,12 @@ const masonryClass = css({
 	columnGap: { base: "0.75rem", md: "1rem" },
 });
 
+// グリッドのタイル幅: base=2列(50vw) / md=3列(33vw) / lg=4列(25vw)。
+// これでブラウザがスマホ用/PC用・低/高解像度の最適な1枚を srcset から選ぶ。
+const GRID_SIZES = "(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw";
+// ライトボックスの画像幅: maxW min(1100px, 92vw)。
+const LIGHTBOX_SIZES = "(min-width: 1196px) 1100px, 92vw";
+
 const itemClass = css({
 	display: "block",
 	width: "100%",
@@ -164,7 +170,7 @@ export default function GalleryGrid({ images }: { images: GalleryImage[] }) {
 		if (index === null || total < 2) return;
 		for (const n of [(index + 1) % total, (index + total - 1) % total]) {
 			const preload = new Image();
-			preload.src = ordered[n].src;
+			preload.src = ordered[n].fullWebpSrc;
 		}
 	}, [index, total, ordered]);
 
@@ -173,21 +179,31 @@ export default function GalleryGrid({ images }: { images: GalleryImage[] }) {
 			<div className={masonryClass}>
 				{ordered.map((image, i) => (
 					<button
-						key={image.src}
+						key={image.id}
 						type="button"
 						className={itemClass}
 						onClick={() => setIndex(i)}
 						aria-label={`写真を拡大表示（${i + 1} / ${total}）`}
 					>
-						<img
-							src={image.src}
-							alt=""
-							width={image.width}
-							height={image.height}
-							loading="lazy"
-							decoding="async"
-							className={imgClass}
-						/>
+						<picture>
+							<source type="image/avif" srcSet={image.avifSrcSet} sizes={GRID_SIZES} />
+							<source type="image/webp" srcSet={image.webpSrcSet} sizes={GRID_SIZES} />
+							<img
+								src={image.fallbackSrc}
+								alt=""
+								width={image.width}
+								height={image.height}
+								loading="lazy"
+								decoding="async"
+								className={imgClass}
+								// 読み込み中は LQIP（極小ぼかし）を背景に表示。画像が来たら上書きされる。
+								style={{
+									backgroundImage: `url(${image.lqip})`,
+									backgroundSize: "cover",
+									backgroundPosition: "center",
+								}}
+							/>
+						</picture>
 					</button>
 				))}
 			</div>
@@ -229,13 +245,26 @@ export default function GalleryGrid({ images }: { images: GalleryImage[] }) {
 						</>
 					)}
 
-					<img
-						key={ordered[index].src}
-						src={ordered[index].src}
-						alt=""
-						decoding="async"
-						className={lightboxImgClass}
-					/>
+					<picture key={ordered[index].id}>
+						<source
+							type="image/avif"
+							srcSet={ordered[index].fullAvifSrcSet}
+							sizes={LIGHTBOX_SIZES}
+						/>
+						<img
+							src={ordered[index].fullWebpSrc}
+							alt=""
+							width={ordered[index].width}
+							height={ordered[index].height}
+							decoding="async"
+							className={lightboxImgClass}
+							style={{
+								backgroundImage: `url(${ordered[index].lqip})`,
+								backgroundSize: "cover",
+								backgroundPosition: "center",
+							}}
+						/>
+					</picture>
 
 					<span className={counterClass}>
 						{index + 1} / {total}
