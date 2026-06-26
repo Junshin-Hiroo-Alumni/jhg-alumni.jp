@@ -157,8 +157,19 @@ async function dedupeGroupSources(albumDir, sources, groupId) {
 	return newSources;
 }
 
+function checkOptimizedFilesExist(distDir, localId, widths) {
+	for (const w of widths) {
+		const webpPath = path.join(distDir, `${localId}-${w}.webp`);
+		const avifPath = path.join(distDir, `${localId}-${w}.avif`);
+		if (!existsSync(webpPath) || !existsSync(avifPath)) {
+			return false;
+		}
+	}
+	return true;
+}
+
 // 5.3 キャッシュヒットエントリの検出
-function findCacheHits(newSources, groupPrevEntries, groupId, manifest) {
+function findCacheHits(newSources, groupPrevEntries, groupId, manifest, distDir) {
 	const cacheHitLocalIds = new Set();
 	const activeManifestKeys = new Set();
 
@@ -169,10 +180,13 @@ function findCacheHits(newSources, groupPrevEntries, groupId, manifest) {
 		);
 
 		if (matchingSource) {
-			manifest[key] = prevEntry;
-			cacheHitLocalIds.add(localId);
-			activeManifestKeys.add(key);
-			matchingSource.processed = true;
+			const widths = prevEntry.widths || [];
+			if (checkOptimizedFilesExist(distDir, localId, widths)) {
+				manifest[key] = prevEntry;
+				cacheHitLocalIds.add(localId);
+				activeManifestKeys.add(key);
+				matchingSource.processed = true;
+			}
 		}
 	}
 	return { cacheHitLocalIds, activeManifestKeys };
@@ -249,6 +263,7 @@ async function processAlbumImages({ groupId, albumDir, distDir, previousManifest
 		groupPrevEntries,
 		groupId,
 		manifest,
+		distDir,
 	);
 
 	// 3. クリーンアップ
