@@ -81,6 +81,8 @@ export default function SiteFooter() {
 					>
 						〒106-0047 東京都港区南麻布5-1-14
 						<br />
+						<a href="https://www.hiroogakuen.ed.jp/">広尾学園公式サイト</a>
+						<br />
 						<a href="https://forms.gle/D9a2wzMiyJY3F3fNA">お問い合わせ</a>
 					</p>
 
