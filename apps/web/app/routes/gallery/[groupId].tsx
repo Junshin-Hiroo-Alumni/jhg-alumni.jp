@@ -67,7 +67,6 @@ export default function GalleryGroupPage() {
 				pb: { base: "4rem", md: "6rem" },
 			})}
 		>
-			{/* ── 戻るリンク ───────────────────────────────────────── */}
 			<Link
 				to="/gallery"
 				className={css({
@@ -87,7 +86,6 @@ export default function GalleryGroupPage() {
 				ギャラリートップへ
 			</Link>
 
-			{/* ── ページヘッダー ───────────────────────────────────── */}
 			<h1
 				className={css({
 					fontSize: { base: "1.75rem", md: "2.25rem" },
@@ -109,7 +107,6 @@ export default function GalleryGroupPage() {
 				})}
 			/>
 
-			{/* ── 説明文 ───────────────────────────────────────────── */}
 			{group.description && (
 				<p
 					className={css({
@@ -124,7 +121,6 @@ export default function GalleryGroupPage() {
 				</p>
 			)}
 
-			{/* ── マソンリーグリッド（Pinterest 風）───────────────── */}
 			<GalleryGrid images={group.images} />
 		</div>
 	);

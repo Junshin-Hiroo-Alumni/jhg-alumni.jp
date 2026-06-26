@@ -15,7 +15,6 @@ export function meta() {
 
 export default function Gallery() {
 	const groups = getGalleryGroups();
-	// グループ未定義の場合は旧来の全件表示にフォールバック
 	const allImages = getGalleryImages();
 
 	return (
@@ -61,20 +60,14 @@ export default function Gallery() {
 				同窓会の活動をアルバムごとにまとめています。
 			</p>
 
-			{/* ── グループが定義されている場合: カードグリッド ─────── */}
 			{groups.length > 0 ? (
 				<div
 					className={css({
 						display: "grid",
-						// ── 写真サイズ調整 ──────────────────────────────────
-						// 列数を変えるとカードの横幅が変わる。
-						//   2列 → 大きめ  /  3列 → 標準  /  4列 → 小さめ
 						gridTemplateColumns: {
-							base: "1fr 1fr", // スマホ: 2列
-							md: "repeat(3, 1fr)", // タブレット以上: 3列
+							base: "1fr 1fr",
+							md: "repeat(3, 1fr)",
 						},
-						// ── 写真と写真の間隔 ─────────────────────────────────
-						// "行間 列間" の順（列間を広げると横の余白が増える）
 						gap: { base: "1.5rem 2.5rem", md: "2rem 4.5rem" },
 					})}
 				>
@@ -83,7 +76,6 @@ export default function Gallery() {
 					))}
 				</div>
 			) : allImages.length === 0 ? (
-				/* 画像もグループも無い場合 */
 				<p className={css({ color: "#666666", lineHeight: "2" })}>
 					まだ写真がありません。
 					<br />
@@ -99,7 +91,6 @@ export default function Gallery() {
 					にサブフォルダを作り、index.md と画像を追加してください。
 				</p>
 			) : (
-				/* グループ未定義・画像のみある場合（フォールバック） */
 				<GalleryGrid images={allImages} />
 			)}
 		</div>
