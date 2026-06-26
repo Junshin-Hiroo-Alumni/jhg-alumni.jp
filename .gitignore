@@ -24,8 +24,9 @@ coverage
 # Build Outputs
 .next/
 out/
-build
-dist
+/build
+/dist
+/apps/web/build
 
 
 # Debug
@@ -40,7 +41,7 @@ yarn-error.log*
 #web
 node_modules
 .DS_Store
-dist
+/apps/web/dist
 dist-ssr
 *.local
 .env
