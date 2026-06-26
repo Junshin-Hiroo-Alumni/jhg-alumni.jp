@@ -94,7 +94,6 @@ export default function Code() {
 			>
 				<h1
 					className={css({
-						// 常に1行表示。狭い画面では画面幅に合わせて縮小し、はみ出さない。
 						whiteSpace: "nowrap",
 						fontSize: "clamp(1.1rem, 6vw, 2rem)",
 						fontWeight: "bold",
@@ -102,7 +101,7 @@ export default function Code() {
 						lineHeight: "1.4",
 					})}
 				>
-					順心広尾学園同窓会規約（案）
+					順心広尾学園同窓会規約
 				</h1>
 				<a
 					href={CODE_REPO_URL}
