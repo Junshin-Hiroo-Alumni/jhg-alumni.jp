@@ -1,20 +1,3 @@
-// content/gallery 内の画像を Web 用に最適化し、レスポンシブ表示用の派生画像を生成する。
-//
-//   bun run compress:gallery
-//
-// 各画像について、複数の横幅 × 2フォーマット（AVIF / WebP）の派生画像と、
-// 読み込み中に表示する極小のぼかしプレースホルダ（LQIP）を生成します。
-//
-//   001-480.webp  001-480.avif   ← グリッドのサムネ用（軽い）
-//   001-1024.webp 001-1024.avif  ← タブレット / Retina 用
-//   001-1920.webp 001-1920.avif  ← ライトボックス（拡大）用
-//
-// - 出力ファイル名は「追加した順（更新日時）」に 001, 002 ... と連番化します。
-// - 既に派生画像が存在する番号はそのまま維持し、新しく追加した元画像が続きの番号になります。
-// - 元画像（jpg/png/webp など）は派生画像を書き出したあとに削除します。
-//   そのため再実行しても処理対象が無く、何度実行しても安全（冪等）です。
-// - 内容が完全に同一の重複画像は 1 枚だけ残します。
-// - 各画像の寸法・LQIP・生成済みの横幅は content/gallery-manifest.json に書き出し、
 //   アプリ（lib/gallery.ts）がそれを読んで srcset / ぼかしプレースホルダを構築します。
 //
 // 実行には Node.js が必要です（`bun run compress:gallery` は内部で node を呼びます）。
@@ -107,7 +90,7 @@ async function makeLqip(buffer) {
 
 // 1枚の元画像から、各横幅 × (webp/avif) の派生画像と LQIP を生成する。
 // 生成したファイルを書き出し、manifest エントリ（寸法・横幅・lqip）を返す。
-async function renderVariants(id, buffer) {
+async function renderVariants(id, buffer, outDir = GALLERY_DIR) {
 	const base = sharp(buffer, { limitInputPixels: false }).rotate();
 	const meta = await base.metadata();
 	const originalWidth = meta.width ?? MAX_WIDTH;
@@ -126,8 +109,8 @@ async function renderVariants(id, buffer) {
 			resized.clone().avif({ quality: AVIF_QUALITY }).toBuffer(),
 		]);
 		await Promise.all([
-			writeFile(path.join(GALLERY_DIR, `${id}-${w}.webp`), webp),
-			writeFile(path.join(GALLERY_DIR, `${id}-${w}.avif`), avif),
+			writeFile(path.join(outDir, `${id}-${w}.webp`), webp),
+			writeFile(path.join(outDir, `${id}-${w}.avif`), avif),
 		]);
 		writtenBytes += webp.length + avif.length;
 	}
@@ -141,24 +124,19 @@ async function renderVariants(id, buffer) {
 	};
 }
 
-async function main() {
-	if (!existsSync(GALLERY_DIR)) {
-		console.error(`ギャラリーフォルダが見つかりません: ${GALLERY_DIR}`);
-		process.exitCode = 1;
-		return;
-	}
-
-	const dirEntries = await readdir(GALLERY_DIR, { withFileTypes: true });
-
-	// 既に生成済みの派生画像から、使用済みの番号を集める
+// 1. ルートディレクトリ内の既存派生画像IDを収集
+function collectRootExistingIds(dirEntries) {
 	const existingIds = new Set();
 	for (const entry of dirEntries) {
 		if (!entry.isFile()) continue;
 		const m = entry.name.match(VARIANT_RE);
 		if (m) existingIds.add(m[1]);
 	}
+	return existingIds;
+}
 
-	// 元画像（未処理）を集める。派生画像・隠しファイルは除く。
+// 2. ルートディレクトリ内の未処理元画像を集める
+async function collectRootSources(dirEntries) {
 	const sourceNames = dirEntries
 		.filter(entry => {
 			if (!entry.isFile() || entry.name.startsWith(".")) return false;
@@ -167,20 +145,17 @@ async function main() {
 		})
 		.map(entry => entry.name);
 
-	const sources = await Promise.all(
+	return Promise.all(
 		sourceNames.map(async name => {
 			const filePath = path.join(GALLERY_DIR, name);
 			const [buffer, stats] = await Promise.all([readFile(filePath), stat(filePath)]);
 			return { name, buffer, hash: sha256(buffer), mtimeMs: stats.mtimeMs };
 		}),
 	);
+}
 
-	const { kept: newSources, duplicateCount } = await dedupeSources(sources);
-
-	const previousManifest = await loadManifest();
-	const manifest = {};
-
-	// 既存の番号は再生成せず、manifest 情報を引き継ぐ（無ければ最大幅の派生画像から復元）
+// 3. ルートディレクトリの既存マニフェスト復元
+async function restoreRootManifest(dirEntries, existingIds, previousManifest, manifest) {
 	for (const id of [...existingIds].sort()) {
 		if (previousManifest[id]) {
 			manifest[id] = previousManifest[id];
@@ -202,11 +177,12 @@ async function main() {
 			lqip: await makeLqip(buffer),
 		};
 	}
+}
 
-	// 新しい元画像に続き番号を割り当てて派生画像を生成する
+// 4. 新しいルート画像の処理
+async function processRootNewImages(newSources, existingIds, manifest) {
 	let nextNumber =
 		[...existingIds].reduce((max, id) => Math.max(max, Number.parseInt(id, 10)), 0) + 1;
-
 	let renderedCount = 0;
 	for (const src of newSources) {
 		const id = paddedId(nextNumber);
@@ -219,6 +195,125 @@ async function main() {
 		nextNumber++;
 		renderedCount++;
 	}
+	return renderedCount;
+}
+
+// 5.1 単一のグループの処理
+async function processSingleGroup(groupId, previousManifest, manifest) {
+	const groupDir = path.join(GALLERY_DIR, groupId);
+	const groupEntries = await readdir(groupDir, { withFileTypes: true });
+
+	// グループフォルダ内の既存派生画像から使用済みローカル番号を収集
+	const existingLocalIds = new Set();
+	for (const entry of groupEntries) {
+		if (!entry.isFile()) continue;
+		const m = entry.name.match(VARIANT_RE);
+		if (m) existingLocalIds.add(m[1]);
+	}
+
+	// 既存分は manifest に引き継ぎ
+	for (const localId of [...existingLocalIds].sort()) {
+		const manifestKey = `${groupId}/${localId}`;
+		if (previousManifest[manifestKey]) {
+			manifest[manifestKey] = previousManifest[manifestKey];
+			continue;
+		}
+		const widthFiles = groupEntries
+			.map(e => e.name.match(VARIANT_RE))
+			.filter(m => m && m[1] === localId && m[3] === "webp")
+			.map(m => Number.parseInt(m[2], 10))
+			.sort((a, b) => a - b);
+		if (widthFiles.length === 0) continue;
+		const largest = `${localId}-${widthFiles[widthFiles.length - 1]}.webp`;
+		const buffer = await readFile(path.join(groupDir, largest));
+		const meta = await sharp(buffer).metadata();
+		manifest[manifestKey] = {
+			width: meta.width,
+			height: meta.height,
+			widths: widthFiles,
+			lqip: await makeLqip(buffer),
+		};
+		console.info(`rebuild  ${manifestKey}`);
+	}
+
+	// 新しい元画像をグループ内連番で処理し保存
+	const groupSourceNames = groupEntries
+		.filter(e => {
+			if (!e.isFile() || e.name.startsWith(".") || e.name === "index.md") return false;
+			if (VARIANT_RE.test(e.name)) return false;
+			return SOURCE_EXTENSIONS.has(path.extname(e.name).toLowerCase());
+		})
+		.map(e => e.name);
+
+	if (groupSourceNames.length === 0) return 0;
+
+	const groupSources = await Promise.all(
+		groupSourceNames.map(async name => {
+			const filePath = path.join(groupDir, name);
+			const [buffer, stats] = await Promise.all([readFile(filePath), stat(filePath)]);
+			return { name, buffer, hash: sha256(buffer), mtimeMs: stats.mtimeMs };
+		}),
+	);
+
+	let groupNextNumber =
+		[...existingLocalIds].reduce((max, id) => Math.max(max, Number.parseInt(id, 10)), 0) + 1;
+
+	let renderedCount = 0;
+	for (const src of [...groupSources].sort(sourcePriority)) {
+		const localId = paddedId(groupNextNumber);
+		const manifestKey = `${groupId}/${localId}`;
+		const { entry, writtenBytes } = await renderVariants(localId, src.buffer, groupDir);
+		manifest[manifestKey] = entry;
+		await unlink(path.join(groupDir, src.name));
+		console.info(
+			`done   ${groupId}/${src.name} -> ${manifestKey}-*  [${entry.widths.join(", ")}] ${toKilobytes(src.buffer.length)} -> ${toKilobytes(writtenBytes)}`,
+		);
+		groupNextNumber++;
+		renderedCount++;
+	}
+	return renderedCount;
+}
+
+// 5. サブフォルダ（グループ）の処理
+async function processGroups(dirEntries, previousManifest, manifest) {
+	const subdirs = dirEntries
+		.filter(e => e.isDirectory() && !e.name.startsWith("."))
+		.map(e => e.name)
+		.sort();
+
+	let renderedCount = 0;
+	for (const groupId of subdirs) {
+		renderedCount += await processSingleGroup(groupId, previousManifest, manifest);
+	}
+	return renderedCount;
+}
+
+async function main() {
+	if (!existsSync(GALLERY_DIR)) {
+		console.error(`ギャラリーフォルダが見つかりません: ${GALLERY_DIR}`);
+		process.exitCode = 1;
+		return;
+	}
+
+	const dirEntries = await readdir(GALLERY_DIR, { withFileTypes: true });
+
+	// 既存IDと新規元画像の収集
+	const existingIds = collectRootExistingIds(dirEntries);
+	const sources = await collectRootSources(dirEntries);
+	const { kept: newSources, duplicateCount } = await dedupeSources(sources);
+
+	const previousManifest = await loadManifest();
+	const manifest = {};
+
+	// ルート既存分のマニフェスト復元・引き継ぎ
+	await restoreRootManifest(dirEntries, existingIds, previousManifest, manifest);
+
+	// 新しいルート画像の処理
+	let renderedCount = await processRootNewImages(newSources, existingIds, manifest);
+
+	// サブフォルダ（グループ）内の画像を処理する
+	const groupRenderedCount = await processGroups(dirEntries, previousManifest, manifest);
+	renderedCount += groupRenderedCount;
 
 	// 番号順に整列して manifest を書き出す
 	const sorted = Object.fromEntries(

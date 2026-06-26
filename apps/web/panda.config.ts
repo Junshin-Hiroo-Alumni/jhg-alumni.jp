@@ -47,6 +47,11 @@ export default defineConfig({
 			"0%": { opacity: "0" },
 			"100%": { opacity: "1" },
 		},
+		// ギャラリーグループカード: ふわっと上昇しながら現れる
+		"@keyframes stackCardIn": {
+			"0%": { opacity: "0", transform: "translateY(28px) scale(0.96)" },
+			"100%": { opacity: "1", transform: "translateY(0) scale(1)" },
+		},
 		// 窓(外側)と中身(内側)を逆方向に動かして相殺し、中身は静止したまま見える範囲だけ広がる。
 		"@keyframes heroWipeWindow": {
 			"0%": { transform: "translateY(-100%)" },
@@ -99,6 +104,10 @@ export default defineConfig({
 				heroWipeContent: {
 					"0%": { transform: "translateY(100%)" },
 					"100%": { transform: "translateY(0)" },
+				},
+				stackCardIn: {
+					"0%": { opacity: "0", transform: "translateY(28px) scale(0.96)" },
+					"100%": { opacity: "1", transform: "translateY(0) scale(1)" },
 				},
 			},
 			tokens: {
