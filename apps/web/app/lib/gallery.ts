@@ -28,6 +28,8 @@ type ImageMeta = {
 	height: number;
 	widths: number[]; // 生成済みの横幅（昇順）
 	lqip: string; // 読み込み中に表示する極小ぼかし画像（data URI）
+	srcName?: string; // 元のファイル名
+	srcHash?: string; // 元のファイルのSHA-256ハッシュ
 };
 
 // Vite にルートとサブフォルダ両方の派生画像を取り込ませる
@@ -37,13 +39,16 @@ const files = import.meta.glob("../content/gallery/**/*-*.{webp,avif}", {
 	import: "default",
 }) as Record<string, string>;
 
-// キーを "gallery ルートからの相対パス" にする
-//   "../content/gallery/001-480.webp"          → "001-480.webp"
-//   "../content/gallery/sokai-2024/001-480.webp" → "sokai-2024/001-480.webp"
+// キーを "gallery ルートからの相対パス" にする（dist/ フォルダ名は除去する）
+//   "../content/gallery/dist/001-480.webp"          → "001-480.webp"
+//   "../content/gallery/sokai-2024/dist/001-480.webp" → "sokai-2024/001-480.webp"
 const urlByKey: Record<string, string> = {};
 for (const [filePath, url] of Object.entries(files)) {
 	const m = filePath.match(/\/gallery\/(.+)$/);
-	if (m) urlByKey[m[1]] = url;
+	if (m) {
+		const cleanedKey = m[1].replace(/\/dist\//, "/").replace(/^dist\//, "");
+		urlByKey[cleanedKey] = url;
+	}
 }
 
 // id は "001" または "sokai-2024/001" 形式
