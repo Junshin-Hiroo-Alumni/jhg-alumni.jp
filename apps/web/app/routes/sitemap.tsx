@@ -1,3 +1,4 @@
+import { getGalleryGroups } from "~/lib/gallery";
 import { getAllNotices } from "~/lib/notice";
 import { SITE_URL } from "~/lib/seo";
 
@@ -5,12 +6,15 @@ const staticPaths = ["/", "/about", "/notice", "/gallery", "/board-meeting", "/c
 
 export function loader() {
 	const notices = getAllNotices();
+	const groups = getGalleryGroups();
 	const entries: { loc: string; lastmod?: string }[] = [
 		...staticPaths.map(path => ({ loc: path })),
 		// 詳細ページを持つお知らせのみ（href 付き＝外部PDF等は詳細ページが無いため除外）
 		...notices
 			.filter(notice => !notice.href)
 			.map(notice => ({ loc: `/notice/${notice.slug}`, lastmod: notice.date || undefined })),
+		// ギャラリーのグループ（アルバム）詳細ページ
+		...groups.map(group => ({ loc: `/gallery/${group.id}` })),
 	];
 
 	const urlXml = entries

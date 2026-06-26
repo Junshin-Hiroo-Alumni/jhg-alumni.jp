@@ -5,20 +5,19 @@ import type { GalleryGroup } from "~/lib/gallery";
 
 const GRID_SIZES = "(min-width: 768px) 33vw, 50vw";
 
-// カードごとに傾きをバラつかせるプリセット（明確に個性が異なる8パターンに整理）。
-// 隣り合うカードと被らない範囲で、それぞれのパターンの見え方に明確な違い（左開き、右開き、交差など）を持たせています。
+// カードごとに傾きをバラつかせるプリセット
 const TILT_PRESETS = [
-	{ l3Deg: -5, l3Tx: -2.5, l2Deg: -2.5, l2Tx: -1.5 }, // 1. 左開き（しっかり左へ広がる）
-	{ l3Deg: 5, l3Tx: 2.5, l2Deg: 2.5, l2Tx: 1.5 }, // 2. 右開き（しっかり右へ広がる）
-	{ l3Deg: -4, l3Tx: -2, l2Deg: 3, l2Tx: 1.5 }, // 3. 交差型A（最背面は左、中間は右）
-	{ l3Deg: 4, l3Tx: 2, l2Deg: -3, l2Tx: -1.5 }, // 4. 交差型B（最背面は右、中間は左）
-	{ l3Deg: -1.5, l3Tx: -1, l2Deg: -0.5, l2Tx: -0.5 }, // 5. ストレート型（ほとんど傾かない端正な重ね）
-	{ l3Deg: -2, l3Tx: -1, l2Deg: 4, l2Tx: 2 }, // 6. 中間スライド（中間写真が右へはみ出す）
-	{ l3Deg: 2, l3Tx: 1, l2Deg: -4, l2Tx: -2 }, // 7. 中間スライド（中間写真が左へはみ出す）
-	{ l3Deg: -4.5, l3Tx: -2, l2Deg: 0, l2Tx: 0 }, // 8. 背面開き（最背面は左、中間はまっすぐ）
+	{ l3Deg: -5, l3Tx: -2.5, l2Deg: -2.5, l2Tx: -1.5 },
+	{ l3Deg: 5, l3Tx: 2.5, l2Deg: 2.5, l2Tx: 1.5 },
+	{ l3Deg: -4, l3Tx: -2, l2Deg: 3, l2Tx: 1.5 },
+	{ l3Deg: 4, l3Tx: 2, l2Deg: -3, l2Tx: -1.5 },
+	{ l3Deg: -1.5, l3Tx: -1, l2Deg: -0.5, l2Tx: -0.5 },
+	{ l3Deg: -2, l3Tx: -1, l2Deg: 4, l2Tx: 2 },
+	{ l3Deg: 2, l3Tx: 1, l2Deg: -4, l2Tx: -2 },
+	{ l3Deg: -4.5, l3Tx: -2, l2Deg: 0, l2Tx: 0 },
 ] as const;
 
-// Fisher-Yates シャッフル（元配列は変更しない）
+// 画像のシャッフル関数
 function shuffle<T>(input: T[]): T[] {
 	const result = [...input];
 	for (let i = result.length - 1; i > 0; i--) {
@@ -42,13 +41,11 @@ export default function GalleryGroupCard({
 	index = 0,
 }: GalleryGroupCardProps) {
 	const [hovered, setHovered] = useState(false);
-	// SSR は元順でレンダリングし、マウント後にクライアントでシャッフル（訪問ごとにランダム）
 	const [layers, setLayers] = useState(() => group.images.slice(0, 3));
 	const [presetIndex, setPresetIndex] = useState(index);
 
 	useEffect(() => {
 		setLayers(shuffle(group.images).slice(0, 3));
-		// 傾きパターンも訪問ごとにランダムに決定
 		setPresetIndex(Math.floor(Math.random() * TILT_PRESETS.length));
 	}, [group.images]);
 
@@ -77,12 +74,11 @@ export default function GalleryGroupCard({
 		zIndex: 3,
 	};
 
-	// 写真プリント風の白ボーダー + ドロップシャドウ（全レイヤー共通の静的スタイル）
+	// 写真プリント風の白ボーダー
 	const photoLayerClass = css({
 		position: "absolute",
 		inset: "0",
 		overflow: "hidden",
-		// 角丸なし・白い太ボーダーでアルバムのプリント写真風に
 		border: { base: "4px solid white", md: "5px solid white" },
 		boxSizing: "border-box",
 		transformOrigin: "bottom center",
@@ -109,17 +105,11 @@ export default function GalleryGroupCard({
 			style={{ animationDelay: `${animationDelay}s` }}
 			aria-label={`${group.title}（${group.images.length}枚）を見る`}
 		>
-			{/* ── 写真スタック ──────────────────────────────────────── */}
 			<div
 				className={css({
 					position: "relative",
 					width: "100%",
-					// ── 写真の縦サイズ（アスペクト比）調整 ─────────────────
-					// paddingBottom が写真スタック全体の高さを決める。
-					//   小さく → 値を下げる（例: "65%"）
-					//   大きく → 値を上げる（例: "90%"）
 					paddingBottom: { base: "70%", md: "78%" },
-					// 背面レイヤーが回転ではみ出る分を確保（文字との重なり防止）
 					mb: { base: "2rem", md: "3.5rem" },
 				})}
 			>
@@ -155,7 +145,6 @@ export default function GalleryGroupCard({
 					</div>
 				)}
 
-				{/* レイヤー 2（中間）*/}
 				{layers.length >= 2 && (
 					<div
 						className={photoLayerClass}
@@ -219,7 +208,6 @@ export default function GalleryGroupCard({
 				)}
 			</div>
 
-			{/* ── テキスト情報 ──────────────────────────────────────── */}
 			<div>
 				<h2
 					className={css({

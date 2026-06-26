@@ -1,26 +1,3 @@
-// app/content/gallery/ に画像を置き `bun run compress:gallery` を実行すると、
-// 各画像の「複数解像度 × AVIF/WebP」派生画像と、ぼかしプレースホルダ（LQIP）が生成される。
-// このモジュールはそれらをまとめ、レスポンシブ表示用の srcset を組み立てて返す。
-//
-// ── ファイル構成 ──
-//   content/gallery/
-//     001-480.webp  ... （ルート直下 = グループ未分類）
-//     sokai-2024/
-//       index.md        ← title / description / order のみ（imageIds 不要）
-//       001-480.webp    ← compress:gallery で自動生成
-//       001-480.avif
-//       ...
-//
-// ── グループの作り方 ──
-//   1. content/gallery/{任意のフォルダ名}/ を作る
-//   2. index.md を置く（frontmatter に title / description / order）
-//   3. フォルダに元画像（jpg/png など）を入れる
-//   4. bun run compress:gallery を実行 → 派生画像が自動生成される
-//
-// ── manifest キーの形式 ──
-//   "001"             → ルート直下（グループ未分類）
-//   "sokai-2024/001"  → グループ sokai-2024 の 1 枚目
-
 import manifest from "../content/gallery-manifest.json";
 
 type ImageMeta = {
