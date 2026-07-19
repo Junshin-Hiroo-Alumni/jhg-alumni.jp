@@ -5,8 +5,8 @@
     "": {
       "name": "official-site",
       "dependencies": {
-        "official-site": ".",
         "lefthook": "^2.1.4",
+        "official-site": ".",
       },
       "devDependencies": {
         "@biomejs/biome": "^2.3.11",
