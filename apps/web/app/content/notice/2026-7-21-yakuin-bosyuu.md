@@ -19,7 +19,7 @@ category: 募集
 - 応募方法: [役員応募フォーム](https://docs.google.com/forms/u/2/d/e/1FAIpQLSfTvp8lk4f1GCSPyr1TQAlHf7TnKYg8RanB4f24Ts6g43BUQw/viewform?usp=preview)に、記載の項目を提出。
 - 応募締切: 2026年8月7日(金)中
 
-## ご依頼する予定の活動内
+## ご依頼する予定の活動内容
 - 同窓会総会の準備 / 進行補助
 - 同窓会本部と各期幹事委員との連携補助
 - その他、同窓会の定める事業に係る内容
@@ -42,6 +42,6 @@ category: 募集
 
 ---
 
-応募はの[フォーム](https://docs.google.com/forms/u/2/d/e/1FAIpQLSfTvp8lk4f1GCSPyr1TQAlHf7TnKYg8RanB4f24Ts6g43BUQw/viewform?usp=preview)からお願いいたします。
+応募は[フォーム](https://docs.google.com/forms/u/2/d/e/1FAIpQLSfTvp8lk4f1GCSPyr1TQAlHf7TnKYg8RanB4f24Ts6g43BUQw/viewform?usp=preview)からお願いいたします。
 
 詳細な募集要項は[こちら](https://drive.google.com/file/d/1yGySuc7XiDgTx3o6t8WP0PUGHx5BqCLm/view?usp=sharing)をご覧ください。
