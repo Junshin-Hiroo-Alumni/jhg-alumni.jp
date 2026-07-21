@@ -23,22 +23,6 @@
     "srcName": "00735.jpg",
     "srcHash": "d837af8dcd3f59b72dc18ed4fda99b85bbbae61c3a199f0c18898f30c238a8c0"
   },
-  "hiroogakuen/004": {
-    "width": 1920,
-    "height": 1280,
-    "widths": [480, 1024, 1920],
-    "lqip": "data:image/webp;base64,UklGRrQAAABXRUJQVlA4IKgAAADQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoAvQTPov3BKiaSnHSh7zEdQQAD984BFEjpjX92EVu7UMOUfhFOCc7LRn/xJyxq6fTyn3QhY7+MhsQICBipIZ/HDwb2VBcnerDF5yzJdDK0pyPtbWgp+sh7CnJJi5Ltk3Mri1UfeWiO08OoUhVs1075ohq9IiAXXh0H679sqAqQMet8bAuDadQHEAAA=",
-    "srcName": "2025_soukai-6.webp",
-    "srcHash": "369b0304d5022f331076d3c7b7e82f33961c8410d909631c1353380615e3864b"
-  },
-  "hiroogakuen/005": {
-    "width": 1724,
-    "height": 996,
-    "widths": [480, 1024, 1724],
-    "lqip": "data:image/webp;base64,UklGRpwAAABXRUJQVlA4IJAAAADwAwCdASoYAA4APu1iqU2ppaQiMAgBMB2JQBOgBECwSHJe34lqaJyYAP7sTPT1MJIs2YahZexhjc3Etdg15R7u1Ysf5iMVwXJ4fDzfdMdpVS23JJMjYTuwsGuC+f5nLl2W2z+69OTuF+vO5j90epSHF3/senLD6Vfn81qd3EitpXEQAfGOZ2Chd6BRYhwAAAA=",
-    "srcName": "img337.webp",
-    "srcHash": "1041e5f4a35dc8e8cedd70e6903338a25b0487e5885f12ad13decf49eceb5717"
-  },
   "hiroogakuen/006": {
     "width": 682,
     "height": 479,
@@ -198,6 +182,14 @@
     "lqip": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAAAQBQCdASoYABMAPu1sqlGppaOiqAqpMB2JQBbe9eAZyiA7UqNYkhMSMjFC0uU+EpUAANrAJaJVyqA02MhJcI/iL/Ahd6BgwxYdoxh3UsE3OwfsABrv5jEFA113346/FbLl3gff6NE0QZLhWpa5C/Uk9ppV3SnvO4Aq8C6RVt41pNuqpLfos+0+FWkbOet34ILwrFWa7ZngAAAA",
     "srcName": "img324.jpg",
     "srcHash": "7ee178e346a97a626acc74e5533931d795bd8faaf7c191ad288e5c61e814f550"
+  },
+  "junshingakuen/014": {
+    "width": 1724,
+    "height": 996,
+    "widths": [480, 1024, 1724],
+    "lqip": "data:image/webp;base64,UklGRpwAAABXRUJQVlA4IJAAAADwAwCdASoYAA4APu1iqU2ppaQiMAgBMB2JQBOgBECwSHJe34lqaJyYAP7sTPT1MJIs2YahZexhjc3Etdg15R7u1Ysf5iMVwXJ4fDzfdMdpVS23JJMjYTuwsGuC+f5nLl2W2z+69OTuF+vO5j90epSHF3/senLD6Vfn81qd3EitpXEQAfGOZ2Chd6BRYhwAAAA=",
+    "srcName": "img337.webp",
+    "srcHash": "1041e5f4a35dc8e8cedd70e6903338a25b0487e5885f12ad13decf49eceb5717"
   },
   "keyaki2025/001": {
     "width": 1920,
