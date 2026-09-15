@@ -1,3 +1,5 @@
+import { loadDefaultJapaneseParser } from "budoux";
+import { useEffect, useRef } from "react";
 import { Outlet } from "react-router";
 import { styled } from "styled-system/jsx";
 import SiteFooter from "~/components/layout/SiteFooter";
@@ -19,11 +21,18 @@ const MainContent = styled("main", {
 });
 
 export default function SiteLayout() {
+	const mainContent = useRef(null);
+	useEffect(() => {
+		if (document.documentElement.lang === "ja" && mainContent.current) {
+			const parser = loadDefaultJapaneseParser();
+			parser.applyToElement(mainContent.current);
+		}
+	}, []);
 	return (
 		<LayoutContainer>
 			<SiteLoader />
 			<SiteHeader />
-			<MainContent>
+			<MainContent ref={mainContent}>
 				<Outlet />
 			</MainContent>
 			<SiteFooter />
