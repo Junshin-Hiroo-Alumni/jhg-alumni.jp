@@ -1,4 +1,11 @@
 import { IconBrandGithub } from "@tabler/icons-react";
+import {
+	Children,
+	type ComponentPropsWithoutRef,
+	isValidElement,
+	type ReactElement,
+	type ReactNode,
+} from "react";
 import ReactMarkdown from "react-markdown";
 import { css } from "styled-system/css";
 import { buildMeta } from "~/lib/seo";
@@ -41,7 +48,7 @@ const proseClass = css({
 		mb: "0.75rem",
 	},
 	"& p": { my: "1rem" },
-	"& ul": { pl: "1.5rem", my: "1rem", listStyleType: "disc" },
+	"& ul": { pl: "calc(1.5rem + 4.5em)", my: "1rem", listStyleType: "disc" },
 	"& ol": { pl: "1.5rem", my: "1rem", listStyleType: "decimal" },
 	"& li": { my: "0.35rem" },
 	"& a": { color: "green.500", textDecoration: "underline" },
@@ -61,6 +68,36 @@ const proseClass = css({
 		my: "2rem",
 	},
 });
+
+const ARTICLE_NUMBER_PATTERN = /^第\d+条$/;
+
+const articleClass = css({
+	display: "flex",
+	gap: "1em",
+	// 条文番号の幅を揃え、続く箇条書き（& ul の pl）も本文の位置に合わせる。幅を変える場合は両方を更新する。
+	"& > strong": { flexShrink: 0, minWidth: "3.5em" },
+});
+
+/** 「**第8条**　本文」の段落は、折り返した行が条文番号の右（本文の先頭）に揃うようにする。 */
+function Paragraph({ children }: ComponentPropsWithoutRef<"p">) {
+	const [head, ...rest] = Children.toArray(children);
+	if (
+		isValidElement(head) &&
+		head.type === "strong" &&
+		typeof (head as ReactElement<{ children?: ReactNode }>).props.children === "string" &&
+		ARTICLE_NUMBER_PATTERN.test((head as ReactElement<{ children: string }>).props.children)
+	) {
+		const [first, ...others] = rest;
+		const body = typeof first === "string" ? [first.replace(/^[\s　]+/, ""), ...others] : rest;
+		return (
+			<p className={articleClass}>
+				{head}
+				<span>{body}</span>
+			</p>
+		);
+	}
+	return <p>{children}</p>;
+}
 
 export function meta() {
 	return buildMeta({
@@ -130,7 +167,7 @@ export default function Code() {
 			</div>
 
 			<div className={proseClass}>
-				<ReactMarkdown>{codeMarkdown}</ReactMarkdown>
+				<ReactMarkdown components={{ p: Paragraph }}>{codeMarkdown}</ReactMarkdown>
 			</div>
 		</div>
 	);
