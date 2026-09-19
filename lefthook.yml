@@ -1,5 +1,0 @@
-pre-push:
-  commands:
-    ci:
-      run: bun run ci
-      skip: false
