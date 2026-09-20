@@ -12,7 +12,8 @@ import typescript from "react-syntax-highlighter/dist/esm/languages/hljs/typescr
 import xml from "react-syntax-highlighter/dist/esm/languages/hljs/xml";
 import { githubGist } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { css } from "styled-system/css";
-import { getNoticeBySlug } from "~/lib/notice";
+import { getNoticeBySlug, type NoticeItem } from "~/lib/notice";
+import { ogImage } from "~/lib/og-image";
 import { buildMeta } from "~/lib/seo";
 
 SyntaxHighlighter.registerLanguage("javascript", javascript);
@@ -168,18 +169,8 @@ const markdownComponents = {
 	blockquote: Blockquote,
 };
 
-// ──────────────────────────────────────────────
-// Route exports
-// ──────────────────────────────────────────────
-
-export function meta({ params }: { params: { noticeTitle?: string } }) {
-	const news = params.noticeTitle ? getNoticeBySlug(params.noticeTitle) : undefined;
-	if (!news) {
-		// 存在しないお知らせはインデックスさせない
-		return buildMeta({ title: "お知らせ", path: "/notice", noindex: true });
-	}
-	// Markdown 本文から検索用の説明文（抜粋）を作る
-	const description =
+function getNoticeDescription(news: NoticeItem): string | undefined {
+	return (
 		news.body
 			.replace(/```[\s\S]*?```/g, "")
 			.replace(/!\[[^\]]*\]\([^)]*\)/g, "")
@@ -187,11 +178,41 @@ export function meta({ params }: { params: { noticeTitle?: string } }) {
 			.replace(/[#>*_`~]/g, "")
 			.replace(/\s+/g, " ")
 			.trim()
-			.slice(0, 110) || undefined;
+			.slice(0, 110) || undefined
+	);
+}
+
+// ──────────────────────────────────────────────
+// Route exports
+// ──────────────────────────────────────────────
+
+export const middleware = [
+	ogImage(({ params }) => {
+		const news = params.noticeTitle ? getNoticeBySlug(params.noticeTitle) : undefined;
+		if (!news) return null;
+
+		return {
+			type: "news",
+			body: {
+				title: news.title,
+				description: getNoticeDescription(news),
+				category: news.category,
+				publishedAt: new Date(`${news.date}T00:00:00+09:00`).toISOString(),
+			},
+		};
+	}),
+];
+export function meta({ params }: { params: { noticeTitle?: string } }) {
+	const news = params.noticeTitle ? getNoticeBySlug(params.noticeTitle) : undefined;
+	if (!news) {
+		// 存在しないお知らせはインデックスさせない
+		return buildMeta({ title: "お知らせ", path: "/notice", noindex: true });
+	}
 	return buildMeta({
 		title: news.title,
 		path: `/notice/${news.slug}`,
-		description,
+		description: getNoticeDescription(news),
+		dynamicOg: true,
 		type: "article",
 	});
 }
