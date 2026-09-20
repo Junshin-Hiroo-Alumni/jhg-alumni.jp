@@ -4,6 +4,9 @@
   "compatibility_date": "2026-06-15",
   "compatibility_flags": ["nodejs_compat"],
   "main": "./workers/app.ts",
+  "cache": {
+    "enabled": true
+  },
   "services": [
     {
       "binding": "OG_IMAGE",

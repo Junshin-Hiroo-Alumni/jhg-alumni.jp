@@ -89,10 +89,14 @@ export function ogImage<T extends Params = Params>(
 			});
 		}
 
+		const headers = new Headers(response.headers);
+		headers.set("Cache-Control", "no-store");
+		headers.set("Cloudflare-CDN-Cache-Control", "public, max-age=86400");
+
 		return new Response(request.method === "HEAD" ? null : response.body, {
 			status: response.status,
 			statusText: response.statusText,
-			headers: response.headers,
+			headers,
 		});
 	};
 }

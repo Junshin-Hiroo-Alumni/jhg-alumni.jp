@@ -6,12 +6,17 @@ import { galleryRoute, landingRoute, newsRoute } from "./routes/ogimage";
 
 const app = new OpenAPIHono();
 
+const cacheHeaders = {
+	"Cache-Control": "no-store",
+	"Cloudflare-CDN-Cache-Control": "public, max-age=86400",
+} as const;
+
 const ogImageApp = app
 	.openapi(landingRoute, async c => {
 		const ogimage = await (await getAsset("toppage.png")).arrayBuffer();
 		return c.body(ogimage, 200, {
 			"Content-Type": "image/png",
-			"Cache-Control": "public, max-age=3600, s-maxage=86400",
+			...cacheHeaders,
 		});
 	})
 	.openapi(newsRoute, async c => {
@@ -19,7 +24,7 @@ const ogImageApp = app
 		const ogimage = await getOgImage({ type: "news", data: body });
 		return c.body(ogimage, 200, {
 			"Content-Type": "image/png",
-			"Cache-Control": "public, max-age=3600, s-maxage=86400",
+			...cacheHeaders,
 		});
 	})
 	.openapi(galleryRoute, async c => {
@@ -27,7 +32,7 @@ const ogImageApp = app
 		const ogimage = await getOgImage({ type: "gallery", data: body });
 		return c.body(ogimage, 200, {
 			"Content-Type": "image/png",
-			"Cache-Control": "public, max-age=3600, s-maxage=86400",
+			...cacheHeaders,
 		});
 	});
 
