@@ -1,9 +1,10 @@
 import { render } from "takumi-js";
 import { googleFonts } from "takumi-js/helpers";
+import { Gallery, type GalleryProps } from "../components/gallery";
 import { News, type NewsProps } from "../components/news";
 import { getAsset } from "./get-asset";
 
-type GetOgImageArgs = { type: "news"; data: NewsProps } | { type: "gallery"; data: null };
+type GetOgImageArgs = { type: "news"; data: NewsProps } | { type: "gallery"; data: GalleryProps };
 export async function getOgImage({ type, data }: GetOgImageArgs) {
 	const content = () => {
 		switch (type) {
@@ -11,7 +12,7 @@ export async function getOgImage({ type, data }: GetOgImageArgs) {
 				return <News {...data} />;
 			}
 			case "gallery": {
-				return <div></div>;
+				return <Gallery {...data} />;
 			}
 			default: {
 				return <div></div>;

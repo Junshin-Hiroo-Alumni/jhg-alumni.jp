@@ -23,8 +23,8 @@ const ogImageApp = app
 		});
 	})
 	.openapi(galleryRoute, async c => {
-		c.req.valid("json");
-		const ogimage = await getOgImage({ type: "gallery", data: null });
+		const body = c.req.valid("json");
+		const ogimage = await getOgImage({ type: "gallery", data: body });
 		return c.body(ogimage, 200, {
 			"Content-Type": "image/png",
 			"Cache-Control": "public, max-age=3600, s-maxage=86400",

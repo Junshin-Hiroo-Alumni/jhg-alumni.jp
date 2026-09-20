@@ -33,7 +33,7 @@ export const newsRoute = createRoute({
 						title: z.string(),
 						description: z.string().optional(),
 						category: z.string().optional(),
-						publishedAt: z.iso.datetime(),
+						publishedAt: z.iso.datetime().optional(),
 					}),
 				},
 			},
@@ -62,6 +62,7 @@ export const galleryRoute = createRoute({
 					schema: z.object({
 						title: z.string(),
 						description: z.string().optional(),
+						images: z.array(z.url()).max(3),
 					}),
 				},
 			},

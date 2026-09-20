@@ -1,15 +1,13 @@
-import { tz } from "@date-fns/tz";
 import { loadDefaultJapaneseParser } from "budoux";
-import { format } from "date-fns";
-import { Badge } from "./common/badge";
+import { ImageFrame } from "./common/image-frame";
 
-export interface NewsProps {
-	publishedAt?: string;
+export interface GalleryProps {
 	title: string;
 	description?: string;
-	category?: string;
+	images: string[];
 }
-export function News({ publishedAt, title, description, category }: NewsProps) {
+
+export function Gallery({ title, description, images }: GalleryProps) {
 	const parser = loadDefaultJapaneseParser();
 	const parsed = {
 		title: parser.parse(title).join("\u200B"),
@@ -21,12 +19,15 @@ export function News({ publishedAt, title, description, category }: NewsProps) {
 				width: "100%",
 				height: "100%",
 				padding: "30px",
+				display: "grid",
+				gridTemplateColumns: "1fr 1fr",
 			}}
 		>
 			<div
 				style={{
 					paddingTop: "60px",
-					paddingInline: "30px",
+					paddingLeft: "30px",
+					paddingRight: "40px",
 				}}
 			>
 				<p
@@ -43,15 +44,13 @@ export function News({ publishedAt, title, description, category }: NewsProps) {
 							fontWeight: 500,
 						}}
 					>
-						{publishedAt &&
-							format(new Date(publishedAt), "yyyy.MM.dd (E)", { in: tz("Asia/Tokyo") })}
+						フォトギャラリー
 					</span>
-					{category && <Badge>{category}</Badge>}
 				</p>
 				<h1
 					style={{
 						fontSize: "var(--text-lg)",
-						maxHeight: "calc(var(--text-lg) * 3)",
+						maxHeight: "calc(var(--text-lg) * 2)",
 						fontWeight: 500,
 						margin: 0,
 						marginBottom: "2rem",
@@ -81,6 +80,39 @@ export function News({ publishedAt, title, description, category }: NewsProps) {
 				>
 					{parsed.description}
 				</p>
+			</div>
+			<div
+				style={{
+					alignSelf: "center",
+					position: "relative",
+				}}
+			>
+				{images.map((image, i) => (
+					<ImageFrame
+						className="image-frame"
+						src={image}
+						key={`${image}`}
+						style={{
+							position: "absolute",
+							top: 0,
+							left: 0,
+							transform: (() => {
+								const translateY = "translateY(-50%)";
+								switch (i) {
+									case 0: {
+										return `${translateY} translateX(-5px) rotate(5deg)`;
+									}
+									case 1: {
+										return `${translateY} rotate(-3deg)`;
+									}
+									case 2: {
+										return translateY;
+									}
+								}
+							})(),
+						}}
+					/>
+				))}
 			</div>
 		</div>
 	);
