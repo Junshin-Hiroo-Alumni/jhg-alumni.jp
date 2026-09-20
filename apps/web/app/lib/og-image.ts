@@ -57,9 +57,8 @@ export function ogImage<T extends Params = Params>(
 			});
 		}
 
-		const ogImageBinding = (env as Record<string, Fetcher>).OG_IMAGE;
 		const client = hc<AppType>("https://ogimage.internal", {
-			fetch: ogImageBinding.fetch.bind(ogImageBinding),
+			fetch: env.OG_IMAGE.fetch.bind(env.OG_IMAGE),
 		});
 		const response = await client.v1[":type"].$query({
 			param: { type: input.type },
