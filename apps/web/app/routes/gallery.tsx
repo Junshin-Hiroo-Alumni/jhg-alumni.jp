@@ -1,15 +1,34 @@
 import { css } from "styled-system/css";
 import GalleryGrid from "~/components/gallery/GalleryGrid";
 import GalleryGroupCard from "~/components/gallery/GalleryGroupCard";
-import { getGalleryGroups, getGalleryImages } from "~/lib/gallery";
+import { getGalleryGroups, getGalleryImages, shuffle } from "~/lib/gallery";
+import { ogImage } from "~/lib/og-image";
 import { buildMeta } from "~/lib/seo";
+
+const GALLERY_DESCRIPTION =
+	"順心広尾学園同窓会のフォトギャラリー。総会や行事など、同窓会活動の写真をアルバム形式で掲載しています。";
+
+export const middleware = [
+	ogImage(({ url }) => ({
+		type: "gallery",
+		body: {
+			title: "アルバム",
+			description: GALLERY_DESCRIPTION,
+			images: shuffle(getGalleryImages())
+				.map(image => image.fullWebpSrc)
+				.filter((image): image is string => Boolean(image))
+				.slice(0, 3)
+				.map(image => new URL(image, url).toString()),
+		},
+	})),
+];
 
 export function meta() {
 	return buildMeta({
 		title: "フォトギャラリー",
 		path: "/gallery",
-		description:
-			"順心広尾学園同窓会のフォトギャラリー。総会や行事など、同窓会活動の写真をアルバム形式で掲載しています。",
+		description: GALLERY_DESCRIPTION,
+		dynamicOg: true,
 	});
 }
 

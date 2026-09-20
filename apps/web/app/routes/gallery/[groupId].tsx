@@ -2,17 +2,40 @@ import { IconArrowLeft } from "@tabler/icons-react";
 import { Link, useParams } from "react-router";
 import { css } from "styled-system/css";
 import GalleryGrid from "~/components/gallery/GalleryGrid";
-import { getGalleryGroup } from "~/lib/gallery";
+import { getGalleryGroup, shuffle } from "~/lib/gallery";
+import { ogImage } from "~/lib/og-image";
 import { buildMeta } from "~/lib/seo";
+
+const GALLERY_DESCRIPTION =
+	"順心広尾学園同窓会のフォトギャラリー。総会や行事など、同窓会活動の写真を掲載しています。";
+
+export const middleware = [
+	ogImage(({ url, params }) => {
+		const group = getGalleryGroup(params.groupId ?? "");
+		if (!group) return null;
+
+		return {
+			type: "gallery",
+			body: {
+				title: group.title,
+				description: group.description || undefined,
+				images: shuffle(group.images)
+					.map(image => image.fullWebpSrc)
+					.filter((image): image is string => Boolean(image))
+					.slice(0, 3)
+					.map(image => new URL(image, url).toString()),
+			},
+		};
+	}),
+];
 
 export function meta({ params }: { params: Record<string, string | undefined> }) {
 	const group = getGalleryGroup(params.groupId ?? "");
 	return buildMeta({
 		title: group ? `${group.title} — フォトギャラリー` : "フォトギャラリー",
 		path: `/gallery/${params.groupId ?? ""}`,
-		description:
-			group?.description ||
-			"順心広尾学園同窓会のフォトギャラリー。総会や行事など、同窓会活動の写真を掲載しています。",
+		description: group?.description || GALLERY_DESCRIPTION,
+		dynamicOg: Boolean(group),
 	});
 }
 
