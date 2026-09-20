@@ -7,6 +7,6 @@
   "preview_urls": false,
   "assets": {
     "directory": "./src/assets",
-    "binding": "ASSETS",
-  },
+    "binding": "ASSETS"
+  }
 }
