@@ -13,7 +13,7 @@ export function meta() {
 export const middleware = [
 	ogImage(() => ({
 		type: "landing",
-		input: { title: SITE_NAME, description: DEFAULT_DESCRIPTION },
+		body: { title: SITE_NAME, description: DEFAULT_DESCRIPTION },
 	})),
 ];
 
