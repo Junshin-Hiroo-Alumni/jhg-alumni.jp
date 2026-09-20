@@ -69,7 +69,7 @@ export function Gallery({ title, description, images }: GalleryProps) {
 						fontSize: "var(--text-sm)",
 						fontWeight: 500,
 						margin: 0,
-						maxHeight: "calc(var(--text-sm) * 3)",
+						maxHeight: "calc(var(--text-sm) * 5)",
 						wordBreak: "keep-all",
 						color: "var(--color-muted)",
 						overflowWrap: "anywhere",
