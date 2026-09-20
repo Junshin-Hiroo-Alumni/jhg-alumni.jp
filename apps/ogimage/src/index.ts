@@ -8,6 +8,7 @@ const app = new OpenAPIHono();
 const ogImageApp = app.openapi(route, async c => {
 	// The body is validated by the OpenAPI route. Image generation is intentionally
 	// kept independent from it until the renderer supports dynamic content.
+	c.req.valid("param");
 	c.req.valid("json");
 	const ogimage = await getOgImage();
 	return c.body(ogimage, 200, {

@@ -1,21 +1,27 @@
-import { hc } from "hono/client";
-import type { InferRequestType } from "hono/client";
-import type { MiddlewareFunction, Params } from "react-router";
+import { env } from "cloudflare:workers";
 import type { AppType } from "@repo/ogimage";
-import { cloudflareContext } from "~/lib/cloudflare-context";
+import type { InferRequestType } from "hono/client";
+import { hc } from "hono/client";
+import type { MiddlewareFunction, Params } from "react-router";
 
-type OgImageEndpoint = ReturnType<typeof hc<AppType>>["v1"]["og"];
+type OgImageEndpoint = ReturnType<typeof hc<AppType>>["v1"][":type"];
 export type OgImageInput = InferRequestType<OgImageEndpoint["$query"]>["json"];
+export type OgImageType = InferRequestType<OgImageEndpoint["$query"]>["param"]["type"];
 
-export type OgImageResolverArgs<TParams extends Params = Params> = {
-	request: Request;
-	url: URL;
-	params: TParams;
+export type OgImageRequest = {
+	type: OgImageType;
+	input: OgImageInput;
 };
 
-export type OgImageResolver<TParams extends Params = Params> = (
-	args: OgImageResolverArgs<TParams>,
-) => OgImageInput | null | Promise<OgImageInput | null>;
+export type OgImageResolverArgs<T extends Params = Params> = {
+	request: Request;
+	url: URL;
+	params: T;
+};
+
+export type OgImageResolver<T extends Params = Params> = (
+	args: OgImageResolverArgs<T>,
+) => OgImageRequest | null | Promise<OgImageRequest | null>;
 
 /**
  * Add a route-local OG image definition to a server route.
@@ -23,10 +29,10 @@ export type OgImageResolver<TParams extends Params = Params> = (
  * A regular page request continues through React Router. Requests marked with
  * ?og are handled here and call the single OG image Worker endpoint.
  */
-export function ogImage<TParams extends Params = Params>(
-	resolve: OgImageResolver<TParams>,
+export function ogImage<T extends Params = Params>(
+	resolve: OgImageResolver<T>,
 ): MiddlewareFunction<Response> {
-	return async ({ request, url, params, context }, next) => {
+	return async ({ request, url, params }, next) => {
 		const isOgImageRequest = new URL(request.url).searchParams.has("og");
 		if (!isOgImageRequest) {
 			return next();
@@ -34,6 +40,7 @@ export function ogImage<TParams extends Params = Params>(
 		if (request.method !== "GET" && request.method !== "HEAD") {
 			return new Response("Method Not Allowed", {
 				status: 405,
+				// biome-ignore lint/style/useNamingConvention: HTTP header name
 				headers: { Allow: "GET, HEAD", "Content-Type": "text/plain; charset=utf-8" },
 			});
 		}
@@ -41,7 +48,7 @@ export function ogImage<TParams extends Params = Params>(
 		const input = await resolve({
 			request,
 			url,
-			params: params as TParams,
+			params: params as T,
 		});
 		if (!input) {
 			return new Response("OG image is not configured", {
@@ -50,11 +57,14 @@ export function ogImage<TParams extends Params = Params>(
 			});
 		}
 
-		const { env } = context.get(cloudflareContext);
+		const ogImageBinding = (env as Record<string, Fetcher>).OG_IMAGE;
 		const client = hc<AppType>("https://ogimage.internal", {
-			fetch: env.OG_IMAGE.fetch.bind(env.OG_IMAGE),
+			fetch: ogImageBinding.fetch.bind(ogImageBinding),
 		});
-		const response = await client.v1.og.$query({ json: input });
+		const response = await client.v1[":type"].$query({
+			param: { type: input.type },
+			json: input.input,
+		});
 
 		if (!response.ok) {
 			return new Response("OG image service failed", {

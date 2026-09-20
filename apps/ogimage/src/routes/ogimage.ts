@@ -1,5 +1,9 @@
 import { createRoute, z } from "@hono/zod-openapi";
 
+const ParamsSchema = z.object({
+	type: z.enum(["landing", "news", "gallery"]),
+});
+
 export const OgImageBodySchema = z.object({
 	title: z.string().trim().min(1),
 	description: z.string().trim().optional(),
@@ -7,8 +11,9 @@ export const OgImageBodySchema = z.object({
 
 export const route = createRoute({
 	method: "query",
-	path: "/v1/og",
+	path: "/v1/{type}",
 	request: {
+		params: ParamsSchema,
 		body: {
 			required: true,
 			content: {
