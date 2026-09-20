@@ -1,14 +1,14 @@
-import { OpenAPIHono } from "@hono/zod-openapi";
 import { swaggerUI } from "@hono/swagger-ui";
+import { OpenAPIHono } from "@hono/zod-openapi";
 import { getOgImage } from "./lib/get-og-image";
 import { route } from "./routes/ogimage";
 
 const app = new OpenAPIHono();
 
 const ogImageApp = app.openapi(route, async c => {
-	// The query is validated by the OpenAPI route. Image generation is intentionally
+	// The body is validated by the OpenAPI route. Image generation is intentionally
 	// kept independent from it until the renderer supports dynamic content.
-	c.req.valid("query");
+	c.req.valid("json");
 	const ogimage = await getOgImage();
 	return c.body(ogimage, 200, {
 		"Content-Type": "image/png",
@@ -17,7 +17,7 @@ const ogImageApp = app.openapi(route, async c => {
 });
 
 ogImageApp.doc("/openapi.json", {
-	openapi: "3.0.0",
+	openapi: "3.2.0",
 	info: {
 		title: "OG Image API",
 		version: "0.1.0",
