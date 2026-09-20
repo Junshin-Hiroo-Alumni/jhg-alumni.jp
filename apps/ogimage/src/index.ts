@@ -1,9 +1,32 @@
-import { Hono } from "hono";
+import { OpenAPIHono } from "@hono/zod-openapi";
+import { swaggerUI } from "@hono/swagger-ui";
+import { getOgImage } from "./lib/get-og-image";
+import { route } from "./routes/ogimage";
 
-const app = new Hono();
+const app = new OpenAPIHono();
 
-app.get("/", c => {
-	return c.text("Hello Hono!");
+const ogImageApp = app.openapi(route, async c => {
+	// The query is validated by the OpenAPI route. Image generation is intentionally
+	// kept independent from it until the renderer supports dynamic content.
+	c.req.valid("query");
+	const ogimage = await getOgImage();
+	return c.body(ogimage, 200, {
+		"Content-Type": "image/png",
+		"Cache-Control": "public, max-age=3600, s-maxage=86400",
+	});
 });
 
-export default app;
+ogImageApp.doc("/openapi.json", {
+	openapi: "3.0.0",
+	info: {
+		title: "OG Image API",
+		version: "0.1.0",
+		description: "Generate Open Graph images for the official site.",
+	},
+});
+
+ogImageApp.get("/ui", swaggerUI({ url: "/openapi.json" }));
+
+export type AppType = typeof ogImageApp;
+
+export default ogImageApp;
