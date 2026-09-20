@@ -15,8 +15,8 @@ const ogImageApp = app
 		});
 	})
 	.openapi(newsRoute, async c => {
-		c.req.valid("json");
-		const ogimage = await getOgImage();
+		const body = c.req.valid("json");
+		const ogimage = await getOgImage({ type: "news", data: body });
 		return c.body(ogimage, 200, {
 			"Content-Type": "image/png",
 			"Cache-Control": "public, max-age=3600, s-maxage=86400",
@@ -24,7 +24,7 @@ const ogImageApp = app
 	})
 	.openapi(galleryRoute, async c => {
 		c.req.valid("json");
-		const ogimage = await getOgImage();
+		const ogimage = await getOgImage({ type: "gallery", data: null });
 		return c.body(ogimage, 200, {
 			"Content-Type": "image/png",
 			"Cache-Control": "public, max-age=3600, s-maxage=86400",

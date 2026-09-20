@@ -32,6 +32,7 @@ export const newsRoute = createRoute({
 					schema: z.object({
 						title: z.string(),
 						description: z.string().optional(),
+						publishedAt: z.iso.datetime(),
 					}),
 				},
 			},

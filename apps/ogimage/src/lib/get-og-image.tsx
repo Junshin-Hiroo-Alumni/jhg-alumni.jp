@@ -1,6 +1,57 @@
 import { render } from "takumi-js";
-import { OgImage } from "../components/og-image";
+import { googleFonts } from "takumi-js/helpers";
+import { News, type NewsProps } from "../components/news";
+import { getAsset } from "./get-asset";
 
-export async function getOgImage() {
-	return render(<OgImage />, { width: 1200, height: 630 });
+type GetOgImageArgs = { type: "news"; data: NewsProps } | { type: "gallery"; data: null };
+export async function getOgImage({ type, data }: GetOgImageArgs) {
+	const content = () => {
+		switch (type) {
+			case "news": {
+				return <News {...data} />;
+			}
+			case "gallery": {
+				return <div></div>;
+			}
+			default: {
+				return <div></div>;
+			}
+		}
+	};
+	return render(
+		<div
+			style={{
+				width: "100%",
+				height: "100%",
+				display: "grid",
+				placeItems: "center",
+			}}
+		>
+			<div
+				style={{
+					gridArea: "1 / 1 / -1 / -1",
+					width: "100%",
+					height: "100%",
+				}}
+			>
+				{content()}
+			</div>
+			<img
+				style={{
+					gridArea: "1 / 1 / -1 / -1",
+					zIndex: "-100",
+					width: "100%",
+					height: "100%",
+				}}
+				src="frame"
+				alt=""
+			/>
+		</div>,
+		{
+			width: 1200,
+			height: 630,
+			images: [{ src: "frame", data: () => getAsset("frame.svg").then(res => res.arrayBuffer()) }],
+			fonts: googleFonts(["Zen Maru Gothic"]),
+		},
+	);
 }
