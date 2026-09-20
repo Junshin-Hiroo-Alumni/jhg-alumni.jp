@@ -1,9 +1,12 @@
 import { IconBrandGithub } from "@tabler/icons-react";
 import ReactMarkdown from "react-markdown";
 import { css } from "styled-system/css";
+import { ogImage } from "~/lib/og-image";
 import { buildMeta } from "~/lib/seo";
 
 const CODE_REPO_URL = "https://github.com/Junshin-Hiroo-Alumni/Code";
+const TITLE = "会則";
+const DESCRIPTION = "順心広尾学園同窓会の会則（規約）を掲載しています。";
 
 const files = import.meta.glob("../content/code.md", {
 	query: "?raw",
@@ -12,6 +15,13 @@ const files = import.meta.glob("../content/code.md", {
 }) as Record<string, string>;
 
 const codeMarkdown = Object.values(files)[0] ?? "";
+
+export const middleware = [
+	ogImage(() => ({
+		type: "news",
+		body: { title: TITLE, description: DESCRIPTION },
+	})),
+];
 
 const proseClass = css({
 	color: "#444444",
@@ -64,9 +74,10 @@ const proseClass = css({
 
 export function meta() {
 	return buildMeta({
-		title: "会則",
+		title: TITLE,
 		path: "/code",
-		description: "順心広尾学園同窓会の会則（規約）を掲載しています。",
+		description: DESCRIPTION,
+		dynamicOg: true,
 	});
 }
 
