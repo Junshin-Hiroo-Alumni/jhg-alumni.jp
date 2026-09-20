@@ -32,9 +32,11 @@
         "@hono/swagger-ui": "^0.5.2",
         "@hono/zod-openapi": "^1.6.3",
         "hono": "^4.13.8",
+        "react": "^19.2.4",
         "takumi-js": "^2.14.0",
       },
       "devDependencies": {
+        "@types/react": "^19.2.14",
         "wrangler": "^4.110.0",
       },
     },

@@ -4,14 +4,15 @@ import type { InferRequestType } from "hono/client";
 import { hc } from "hono/client";
 import type { MiddlewareFunction, Params } from "react-router";
 
-type OgImageEndpoint = ReturnType<typeof hc<AppType>>["v1"][":type"];
-export type OgImageInput = InferRequestType<OgImageEndpoint["$query"]>["json"];
-export type OgImageType = InferRequestType<OgImageEndpoint["$query"]>["param"]["type"];
+type OgImageClient = ReturnType<typeof hc<AppType>>;
+type LandingOgImageInput = InferRequestType<OgImageClient["v1"]["landing"]["$query"]>["json"];
+type NewsOgImageInput = InferRequestType<OgImageClient["v1"]["news"]["$query"]>["json"];
+type GalleryOgImageInput = InferRequestType<OgImageClient["v1"]["gallery"]["$query"]>["json"];
 
-export type OgImageRequest = {
-	type: OgImageType;
-	input: OgImageInput;
-};
+export type OgImageRequest =
+	| { type: "landing"; input: LandingOgImageInput }
+	| { type: "news"; input: NewsOgImageInput }
+	| { type: "gallery"; input: GalleryOgImageInput };
 
 export type OgImageResolverArgs<T extends Params = Params> = {
 	request: Request;
@@ -60,10 +61,19 @@ export function ogImage<T extends Params = Params>(
 		const client = hc<AppType>("https://ogimage.internal", {
 			fetch: env.OG_IMAGE.fetch.bind(env.OG_IMAGE),
 		});
-		const response = await client.v1[":type"].$query({
-			param: { type: input.type },
-			json: input.input,
-		});
+
+		let response: Awaited<ReturnType<OgImageClient["v1"]["landing"]["$query"]>>;
+		switch (input.type) {
+			case "landing":
+				response = await client.v1.landing.$query({ json: input.input });
+				break;
+			case "news":
+				response = await client.v1.news.$query({ json: input.input });
+				break;
+			case "gallery":
+				response = await client.v1.gallery.$query({ json: input.input });
+				break;
+		}
 
 		if (!response.ok) {
 			return new Response("OG image service failed", {

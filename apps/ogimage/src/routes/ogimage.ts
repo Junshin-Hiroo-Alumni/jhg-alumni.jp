@@ -1,24 +1,17 @@
 import { createRoute, z } from "@hono/zod-openapi";
 
-const ParamsSchema = z.object({
-	type: z.enum(["landing", "news", "gallery"]),
-});
-
-export const OgImageBodySchema = z.object({
-	title: z.string().trim().min(1),
-	description: z.string().trim().optional(),
-});
-
-export const route = createRoute({
+export const landingRoute = createRoute({
 	method: "query",
-	path: "/v1/{type}",
+	path: "/v1/landing",
 	request: {
-		params: ParamsSchema,
 		body: {
 			required: true,
 			content: {
 				"application/json": {
-					schema: OgImageBodySchema,
+					schema: z.object({
+						title: z.string(),
+						description: z.string().optional(),
+					}),
 				},
 			},
 		},
@@ -28,10 +21,63 @@ export const route = createRoute({
 			description: "OG image",
 			content: {
 				"image/png": {
-					schema: z.any().openapi({
-						type: "string",
-						format: "binary",
+					schema: z.string().openapi({ format: "binary" }),
+				},
+			},
+		},
+	},
+});
+
+export const newsRoute = createRoute({
+	method: "query",
+	path: "/v1/news",
+	request: {
+		body: {
+			required: true,
+			content: {
+				"application/json": {
+					schema: z.object({
+						title: z.string(),
+						description: z.string().optional(),
 					}),
+				},
+			},
+		},
+	},
+	responses: {
+		200: {
+			description: "OG image",
+			content: {
+				"image/png": {
+					schema: z.string().openapi({ format: "binary" }),
+				},
+			},
+		},
+	},
+});
+
+export const galleryRoute = createRoute({
+	method: "query",
+	path: "/v1/gallery",
+	request: {
+		body: {
+			required: true,
+			content: {
+				"application/json": {
+					schema: z.object({
+						title: z.string(),
+						description: z.string().optional(),
+					}),
+				},
+			},
+		},
+	},
+	responses: {
+		200: {
+			description: "OG image",
+			content: {
+				"image/png": {
+					schema: z.string().openapi({ format: "binary" }),
 				},
 			},
 		},

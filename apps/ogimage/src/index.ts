@@ -1,21 +1,37 @@
 import { swaggerUI } from "@hono/swagger-ui";
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { getOgImage } from "./lib/get-og-image";
-import { route } from "./routes/ogimage";
+import { galleryRoute, landingRoute, newsRoute } from "./routes/ogimage";
 
 const app = new OpenAPIHono();
 
-const ogImageApp = app.openapi(route, async c => {
-	// The body is validated by the OpenAPI route. Image generation is intentionally
-	// kept independent from it until the renderer supports dynamic content.
-	c.req.valid("param");
-	c.req.valid("json");
-	const ogimage = await getOgImage();
-	return c.body(ogimage, 200, {
-		"Content-Type": "image/png",
-		"Cache-Control": "public, max-age=3600, s-maxage=86400",
+const ogImageApp = app
+	.openapi(landingRoute, async c => {
+		c.req.valid("json");
+		const ogimage = await getOgImage();
+		return c.body(ogimage, 200, {
+			"Content-Type": "image/png",
+			"Cache-Control": "public, max-age=3600, s-maxage=86400",
+		});
+	})
+	.openapi(newsRoute, async c => {
+		c.req.valid("json");
+		const ogimage = await getOgImage();
+		return c.body(ogimage, 200, {
+			"Content-Type": "image/png",
+			"Cache-Control": "public, max-age=3600, s-maxage=86400",
+		});
+	})
+	.openapi(galleryRoute, async c => {
+		c.req.valid("json");
+		const ogimage = await getOgImage();
+		return c.body(ogimage, 200, {
+			"Content-Type": "image/png",
+			"Cache-Control": "public, max-age=3600, s-maxage=86400",
+		});
 	});
-});
+
+export type AppType = typeof ogImageApp;
 
 ogImageApp.doc("/openapi.json", {
 	openapi: "3.2.0",
@@ -27,7 +43,5 @@ ogImageApp.doc("/openapi.json", {
 });
 
 ogImageApp.get("/ui", swaggerUI({ url: "/openapi.json" }));
-
-export type AppType = typeof ogImageApp;
 
 export default ogImageApp;
