@@ -1,5 +1,6 @@
 import { swaggerUI } from "@hono/swagger-ui";
 import { OpenAPIHono } from "@hono/zod-openapi";
+import { getAsset } from "./lib/get-asset";
 import { getOgImage } from "./lib/get-og-image";
 import { galleryRoute, landingRoute, newsRoute } from "./routes/ogimage";
 
@@ -7,8 +8,7 @@ const app = new OpenAPIHono();
 
 const ogImageApp = app
 	.openapi(landingRoute, async c => {
-		c.req.valid("json");
-		const ogimage = await getOgImage();
+		const ogimage = await (await getAsset("toppage.png")).arrayBuffer();
 		return c.body(ogimage, 200, {
 			"Content-Type": "image/png",
 			"Cache-Control": "public, max-age=3600, s-maxage=86400",

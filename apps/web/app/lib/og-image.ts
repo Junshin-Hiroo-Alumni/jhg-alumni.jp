@@ -61,7 +61,18 @@ export function ogImage<T extends Params = Params>(
 			fetch: env.OG_IMAGE.fetch.bind(env.OG_IMAGE),
 		});
 
-		const response = await client.v1[input.type].$query({ json: input.body });
+		let response: Awaited<ReturnType<OgImageClient["v1"]["landing"]["$query"]>>;
+		switch (input.type) {
+			case "landing":
+				response = await client.v1.landing.$query({ json: input.body });
+				break;
+			case "news":
+				response = await client.v1.news.$query({ json: input.body });
+				break;
+			case "gallery":
+				response = await client.v1.gallery.$query({ json: input.body });
+				break;
+		}
 
 		if (!response.ok) {
 			return new Response("OG image service failed", {

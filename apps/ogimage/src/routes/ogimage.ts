@@ -5,15 +5,8 @@ export const landingRoute = createRoute({
 	path: "/v1/landing",
 	request: {
 		body: {
-			required: true,
-			content: {
-				"application/json": {
-					schema: z.object({
-						title: z.string(),
-						description: z.string().optional(),
-					}),
-				},
-			},
+			required: false,
+			content: { "application/json": { schema: z.object({}) } },
 		},
 	},
 	responses: {
