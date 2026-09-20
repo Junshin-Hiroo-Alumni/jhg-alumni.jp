@@ -53,9 +53,12 @@ export function News({ publishedAt, title, description, category }: NewsProps) {
 						maxHeight: "calc(var(--text-lg) * 3)",
 						fontWeight: 500,
 						margin: 0,
+						marginBottom: "2rem",
+						lineHeight: "1",
 						wordBreak: "keep-all",
 						overflowWrap: "anywhere",
 						textAutospace: "normal",
+						textSpacingTrim: "normal",
 						textOverflow: "ellipsis",
 					}}
 				>
@@ -71,6 +74,7 @@ export function News({ publishedAt, title, description, category }: NewsProps) {
 						color: "var(--color-muted)",
 						overflowWrap: "anywhere",
 						textAutospace: "normal",
+						textSpacingTrim: "normal",
 						textOverflow: "ellipsis",
 					}}
 				>
