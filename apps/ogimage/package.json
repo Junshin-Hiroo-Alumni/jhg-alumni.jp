@@ -3,13 +3,15 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./src/index.ts"
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --minify",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "typecheck": "CI=1 bun run cf-typegen && tsc",
+    "check-types": "bun run typecheck"
   },
   "dependencies": {
     "@date-fns/tz": "^1.5.0",
