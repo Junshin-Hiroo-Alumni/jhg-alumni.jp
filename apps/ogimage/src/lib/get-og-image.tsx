@@ -51,7 +51,16 @@ export async function getOgImage({ type, data }: GetOgImageArgs) {
 			width: 1200,
 			height: 630,
 			images: [{ src: "frame", data: () => getAsset("frame.svg").then(res => res.arrayBuffer()) }],
-			fonts: googleFonts(["Zen Maru Gothic"]),
+			fonts: googleFonts([{ name: "Zen Maru Gothic", weight: [500] }]),
+			css: {
+				selector: ":root",
+				style: {
+					"--text-xs": "24px",
+					"--text-sm": "36px",
+					"--text-lg": "72px",
+					"--color-muted": "#4d4d4d",
+				},
+			},
 		},
 	);
 }
