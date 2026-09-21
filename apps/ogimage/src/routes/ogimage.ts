@@ -62,7 +62,7 @@ export const galleryRoute = createRoute({
 					schema: z.object({
 						title: z.string(),
 						description: z.string().optional(),
-						images: z.array(z.url()).max(3),
+						images: z.array(z.url()).length(3),
 					}),
 				},
 			},
