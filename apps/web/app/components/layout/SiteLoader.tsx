@@ -23,6 +23,8 @@ export default function SiteLoader() {
 				position: "fixed",
 				inset: "0",
 				zIndex: "9999",
+				// フェードアウト後〜DOM除去までの間、下のメニュー等の操作を妨げない
+				pointerEvents: "none",
 				bg: "#ffffff",
 				display: "flex",
 				alignItems: "center",
