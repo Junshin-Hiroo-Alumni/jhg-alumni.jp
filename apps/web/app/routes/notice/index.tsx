@@ -1,14 +1,26 @@
 import { css } from "styled-system/css";
 import NoticeList from "~/components/notice/NoticeList";
 import { getAllNotices } from "~/lib/notice";
+import { ogImage } from "~/lib/og-image";
 import { buildMeta } from "~/lib/seo";
+
+const TITLE = "お知らせ";
+const DESCRIPTION =
+	"順心広尾学園同窓会からのお知らせ一覧。総会のご案内、会報誌、各種お知らせを掲載しています。";
+
+export const middleware = [
+	ogImage(() => ({
+		type: "news",
+		body: { title: TITLE, description: DESCRIPTION },
+	})),
+];
 
 export function meta() {
 	return buildMeta({
-		title: "お知らせ",
+		title: TITLE,
 		path: "/notice",
-		description:
-			"順心広尾学園同窓会からのお知らせ一覧。総会のご案内、会報誌、各種お知らせを掲載しています。",
+		description: DESCRIPTION,
+		dynamicOg: true,
 	});
 }
 

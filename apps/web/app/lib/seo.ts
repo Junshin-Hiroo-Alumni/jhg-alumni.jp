@@ -16,6 +16,8 @@ type BuildMetaInput = {
 	path?: string;
 	/** OGP 画像パス（横長）。未指定でデフォルト画像。 */
 	image?: string;
+	/** 元ページのroute-local OG設定から画像を生成する。 */
+	dynamicOg?: boolean;
 	type?: "website" | "article";
 	/** 検索結果に出したくないページは true。 */
 	noindex?: boolean;
@@ -36,13 +38,16 @@ export function buildMeta({
 	description,
 	path = "/",
 	image,
+	dynamicOg = false,
 	type = "website",
 	noindex = false,
 }: BuildMetaInput): MetaDescriptor[] {
 	const fullTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
 	const desc = description ?? DEFAULT_DESCRIPTION;
 	const url = absolute(path);
-	const img = absolute(image ?? DEFAULT_OG_IMAGE);
+	const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+	const dynamicOgPath = `${normalizedPath}?og`;
+	const img = absolute(image ?? (dynamicOg ? dynamicOgPath : DEFAULT_OG_IMAGE));
 
 	const tags: MetaDescriptor[] = [
 		{ title: fullTitle },

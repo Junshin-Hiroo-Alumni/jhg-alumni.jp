@@ -1,6 +1,17 @@
 import { css, cx } from "styled-system/css";
 import { officers } from "~/content/officers";
+import { ogImage } from "~/lib/og-image";
 import { buildMeta } from "~/lib/seo";
+
+const TITLE = "役員会";
+const DESCRIPTION = "順心広尾学園同窓会の役員会メンバーをご紹介します。";
+
+export const middleware = [
+	ogImage(() => ({
+		type: "news",
+		body: { title: TITLE, description: DESCRIPTION },
+	})),
+];
 
 const photoBaseClass = css({
 	width: "100%",
@@ -30,9 +41,10 @@ const photoImageClass = css({
 
 export function meta() {
 	return buildMeta({
-		title: "役員会",
+		title: TITLE,
 		path: "/board-meeting",
-		description: "順心広尾学園同窓会の役員会メンバーをご紹介します。",
+		description: DESCRIPTION,
+		dynamicOg: true,
 	});
 }
 

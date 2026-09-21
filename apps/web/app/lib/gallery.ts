@@ -51,6 +51,16 @@ export type GalleryImage = {
 	fullWebpSrc: string; // ライトボックス用（最大解像度の WebP）
 };
 
+/** Fisher–Yates 法で元配列を変更せずにシャッフルする。 */
+export function shuffle<T>(input: readonly T[]): T[] {
+	const result = [...input];
+	for (let i = result.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[result[i], result[j]] = [result[j], result[i]];
+	}
+	return result;
+}
+
 const meta = manifest as Record<string, ImageMeta>;
 
 const allImages: GalleryImage[] = Object.entries(meta)

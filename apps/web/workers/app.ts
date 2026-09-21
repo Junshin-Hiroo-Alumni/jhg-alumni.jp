@@ -16,6 +16,18 @@ export default {
 	fetch(request, env, ctx) {
 		const context = new RouterContextProvider();
 		context.set(cloudflareContext, { env, ctx });
-		return requestHandler(request, context);
+		return requestHandler(request, context).then(response => {
+			if (response.headers.has("Cloudflare-CDN-Cache-Control")) {
+				return response;
+			}
+
+			const headers = new Headers(response.headers);
+			headers.set("Cloudflare-CDN-Cache-Control", "no-store");
+			return new Response(response.body, {
+				status: response.status,
+				statusText: response.statusText,
+				headers,
+			});
+		});
 	},
 } satisfies ExportedHandler<Env>;

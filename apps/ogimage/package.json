@@ -1,0 +1,30 @@
+{
+  "name": "@repo/ogimage",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy --minify",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "typecheck": "CI=1 bun run cf-typegen && tsc",
+    "check-types": "bun run typecheck"
+  },
+  "dependencies": {
+    "@date-fns/tz": "^1.5.0",
+    "@hono/swagger-ui": "^0.5.2",
+    "@hono/zod-openapi": "^1.6.3",
+    "budoux": "^0.9.2",
+    "date-fns": "^4.4.0",
+    "hono": "^4.13.8",
+    "react": "^19.2.4",
+    "takumi-js": "^2.14.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "wrangler": "^4.110.0"
+  }
+}
