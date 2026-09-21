@@ -24,10 +24,9 @@ export type OgImageResolver<T extends Params = Params> = (
 ) => OgImageRequest | null | Promise<OgImageRequest | null>;
 
 /**
- * Add a route-local OG image definition to a server route.
+ * `?og` がついたリクエストに対して OG 画像を返すようにするミドルウェア
  *
- * A regular page request continues through React Router. Requests marked with
- * ?og are handled here and call the single OG image Worker endpoint.
+ * Service Bindingを経由して `apps/ogimage` が実際に画像を返す
  */
 export function ogImage<T extends Params = Params>(
 	resolve: OgImageResolver<T>,
