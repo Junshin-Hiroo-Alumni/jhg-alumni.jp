@@ -13,14 +13,13 @@ export const middleware = [
 	ogImage(({ url, params }) => {
 		const group = getGalleryGroup(params.groupId ?? "");
 		if (!group) return null;
-
 		return {
 			type: "gallery",
 			body: {
 				title: group.title,
 				description: group.description || undefined,
 				images: shuffle(group.images)
-					.map(image => image.fullWebpSrc)
+					.map(image => image.fallbackSrc)
 					.filter((image): image is string => Boolean(image))
 					.slice(0, 3)
 					.map(image => new URL(image, url).toString()),

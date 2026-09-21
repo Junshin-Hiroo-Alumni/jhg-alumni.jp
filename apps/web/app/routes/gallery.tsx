@@ -12,10 +12,10 @@ export const middleware = [
 	ogImage(({ url }) => ({
 		type: "gallery",
 		body: {
-			title: "アルバム",
+			title: "アルバム一覧",
 			description: GALLERY_DESCRIPTION,
 			images: shuffle(getGalleryImages())
-				.map(image => image.fullWebpSrc)
+				.map(image => image.fallbackSrc)
 				.filter((image): image is string => Boolean(image))
 				.slice(0, 3)
 				.map(image => new URL(image, url).toString()),
