@@ -39,6 +39,7 @@ for (const notice of notices) {
 	const publishedAt = parseISO(notice.date, {
 		in: tz("Asia/Tokyo"),
 	});
+
 	feed.addItem({
 		title: notice.title,
 		id: noticeUrl.toString(),
