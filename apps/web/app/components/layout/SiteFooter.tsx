@@ -1,4 +1,9 @@
-import { IconBrandFacebook, IconBrandGithub, IconBrandInstagram } from "@tabler/icons-react";
+import {
+	IconBrandFacebook,
+	IconBrandGithub,
+	IconBrandInstagram,
+	IconRss,
+} from "@tabler/icons-react";
 import { Link } from "react-router";
 import { css } from "styled-system/css";
 
@@ -28,6 +33,12 @@ const socialLinks = [
 		label: "GitHub（ソースコード）",
 		url: "https://github.com/Junshin-Hiroo-Alumni/jhg-alumni.jp",
 		icon: IconBrandGithub,
+	},
+	{
+		id: "s-feed",
+		label: "RSSフィード",
+		url: "/rss.xml",
+		icon: IconRss,
 	},
 ];
 
