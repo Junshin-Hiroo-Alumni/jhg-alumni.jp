@@ -39,13 +39,13 @@ export const links: Route.LinksFunction = () => [
 		rel: "alternate",
 		type: "application/rss+xml",
 		href: "/rss.xml",
-		title: `${SITE_NAME} RSS`,
+		title: `${SITE_NAME} 新着情報`,
 	},
 	{
 		rel: "alternate",
 		type: "application/atom+xml",
 		href: "/atom.xml",
-		title: `${SITE_NAME} Atom`,
+		title: `${SITE_NAME} 新着情報`,
 	},
 ];
 
