@@ -1,0 +1,22 @@
+diff --git a/lib/feed.js b/lib/feed.js
+index 1c83768a0cba4bd5dc61649d020249a2f416fb9a..090974a57d2e3aa634c31ec76331f8e1081a07f2 100644
+--- a/lib/feed.js
++++ b/lib/feed.js
+@@ -143,7 +143,7 @@ const formatEnclosure$1 = (enclosure, mimeCategory = "image") => {
+ 		rel: "enclosure",
+ 		href: sanitizedUrl,
+ 		title: enclosure.title,
+-		type: `${mimeCategory}/${type}`,
++		type: enclosure.type ?? `${mimeCategory}/${type}`,
+ 		length: enclosure.length
+ 	} };
+ };
+@@ -364,7 +364,7 @@ const formatEnclosure = (enclosure, mimeCategory = "image") => {
+ 	const type = new URL(sanitizedUrl).pathname.split(".").slice(-1)[0];
+ 	return { _attributes: {
+ 		length: 0,
+-		type: `${mimeCategory}/${type}`,
++		type: enclosure.type ?? `${mimeCategory}/${type}`,
+ 		...enclosure,
+ 		url: sanitizedUrl
+ 	} };
