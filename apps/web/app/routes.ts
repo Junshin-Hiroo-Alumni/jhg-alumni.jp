@@ -12,5 +12,7 @@ export default [
 		route("gallery/:groupId", "routes/gallery/[groupId].tsx"),
 		route("board-meeting", "routes/board-meeting.tsx"),
 		route("code", "routes/code.tsx"),
+		route("terms/service", "routes/terms/service.tsx"),
+		route("terms/privacy", "routes/terms/privacy.tsx"),
 	]),
 ] satisfies RouteConfig;

@@ -8,6 +8,8 @@ const footerLinks = [
 	{ id: "f-board", title: "役員会", url: "/board-meeting" },
 	{ id: "f-rules", title: "会則", url: "/code" },
 	{ id: "f-gallery", title: "フォトギャラリー", url: "/gallery" },
+	{ id: "service", title: "利用規約", url: "/terms/service" },
+	{ id: "privacy", title: "プライバシーポリシー", url: "/terms/privacy" },
 ];
 
 const socialLinks = [
