@@ -9,12 +9,14 @@ const updated = notices[0] ? parseISO(notices[0].date, { in: tz("Asia/Tokyo") })
 
 const rssUrl = new URL("rss.xml", SITE_URL);
 const atomUrl = new URL("atom.xml", SITE_URL);
+const faviconUrl = new URL("favicon.ico", SITE_URL);
 
 const feed = new Feed({
 	title: SITE_NAME,
 	id: SITE_URL,
 	link: SITE_URL,
 	description: DEFAULT_DESCRIPTION,
+	favicon: faviconUrl.toString(),
 	language: "ja",
 	ttl: 1440,
 	image: `${SITE_URL}?og`,
