@@ -9,7 +9,7 @@ import {
 	ScrollRestoration,
 } from "react-router";
 import { css } from "styled-system/css";
-import { organizationJsonLd } from "~/lib/seo";
+import { organizationJsonLd, SITE_NAME } from "~/lib/seo";
 import type { Route } from "./+types/root";
 import stylesheet from "./app.css?url";
 
@@ -35,6 +35,18 @@ export const links: Route.LinksFunction = () => [
 	},
 	{ rel: "stylesheet", href: radixThemesStylesheet },
 	{ rel: "stylesheet", href: stylesheet },
+	{
+		rel: "alternate",
+		type: "application/rss+xml",
+		href: "/rss.xml",
+		title: `${SITE_NAME} RSS`,
+	},
+	{
+		rel: "alternate",
+		type: "application/atom+xml",
+		href: "/atom.xml",
+		title: `${SITE_NAME} Atom`,
+	},
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
