@@ -1,11 +1,15 @@
 import { tz } from "@date-fns/tz";
-import { parseISO } from "date-fns";
+import { isValid, parseISO } from "date-fns";
 import { Feed } from "feed";
 import { getLatestNotices, getNoticeDescription } from "./notice";
 import { DEFAULT_DESCRIPTION, SITE_NAME, SITE_URL } from "./seo";
 
-const notices = getLatestNotices(10);
-const updated = notices[0] ? parseISO(notices[0].date, { in: tz("Asia/Tokyo") }) : new Date();
+const notices = getLatestNotices(10)
+	.map(notice => ({
+		...notice,
+		publishedAt: parseISO(notice.date, { in: tz("Asia/Tokyo") }),
+	}))
+	.filter(notice => isValid(notice.publishedAt));
 
 const rssUrl = new URL("rss.xml", SITE_URL);
 const atomUrl = new URL("atom.xml", SITE_URL);
@@ -20,7 +24,7 @@ const feed = new Feed({
 	language: "ja",
 	ttl: 1440,
 	image: `${SITE_URL}?og`,
-	updated,
+	updated: notices[0]?.publishedAt ?? new Date(),
 	feedLinks: {
 		rss: rssUrl.toString(),
 		atom: atomUrl.toString(),
@@ -31,14 +35,10 @@ const feed = new Feed({
 	},
 });
 
-for (const notice of notices) {
+for (const { publishedAt, ...notice } of notices) {
 	const noticeUrl = new URL(`notice/${notice.slug}`, SITE_URL);
 	const noticeOgUrl = new URL(noticeUrl);
 	noticeOgUrl.searchParams.append("og", "1");
-
-	const publishedAt = parseISO(notice.date, {
-		in: tz("Asia/Tokyo"),
-	});
 
 	feed.addItem({
 		title: notice.title,
