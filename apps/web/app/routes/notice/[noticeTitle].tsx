@@ -12,7 +12,7 @@ import typescript from "react-syntax-highlighter/dist/esm/languages/hljs/typescr
 import xml from "react-syntax-highlighter/dist/esm/languages/hljs/xml";
 import { githubGist } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { css } from "styled-system/css";
-import { getNoticeBySlug, type NoticeItem } from "~/lib/notice";
+import { getNoticeBySlug, getNoticeDescription } from "~/lib/notice";
 import { ogImage } from "~/lib/og-image";
 import { buildMeta } from "~/lib/seo";
 
@@ -168,19 +168,6 @@ const markdownComponents = {
 	code: CodeBlock,
 	blockquote: Blockquote,
 };
-
-function getNoticeDescription(news: NoticeItem): string | undefined {
-	return (
-		news.body
-			.replace(/```[\s\S]*?```/g, "")
-			.replace(/!\[[^\]]*\]\([^)]*\)/g, "")
-			.replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
-			.replace(/[#>*_`~]/g, "")
-			.replace(/\s+/g, " ")
-			.trim()
-			.slice(0, 110) || undefined
-	);
-}
 
 // ──────────────────────────────────────────────
 // Route exports

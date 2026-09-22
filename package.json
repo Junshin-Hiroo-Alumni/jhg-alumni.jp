@@ -31,5 +31,8 @@
   ],
   "dependencies": {
     "official-site": "."
+  },
+  "patchedDependencies": {
+    "feed@6.0.0": "patches/feed@6.0.0.patch"
   }
 }
