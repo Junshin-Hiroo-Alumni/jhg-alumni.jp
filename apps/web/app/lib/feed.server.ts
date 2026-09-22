@@ -1,7 +1,7 @@
 import { tz } from "@date-fns/tz";
 import { parseISO } from "date-fns";
 import { Feed } from "feed";
-import { getLatestNotices } from "./notice";
+import { getLatestNotices, getNoticeDescription } from "./notice";
 import { DEFAULT_DESCRIPTION, SITE_NAME, SITE_URL } from "./seo";
 
 const notices = getLatestNotices(10);
@@ -44,7 +44,7 @@ for (const notice of notices) {
 		title: notice.title,
 		id: noticeUrl.toString(),
 		link: notice.href ?? noticeUrl.toString(),
-		description: notice.body,
+		description: getNoticeDescription(notice),
 		date: publishedAt,
 		published: publishedAt,
 		image: { url: noticeOgUrl.toString(), type: "image/png" },

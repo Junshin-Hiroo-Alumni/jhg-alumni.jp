@@ -82,3 +82,17 @@ export function getLatestNotices(count: number): NoticeItem[] {
 export function getNoticeBySlug(slug: string): NoticeItem | undefined {
 	return allNotices.find(n => n.slug === slug);
 }
+
+/** `NoticeItem` のプロパティ `description` をプレーンテキストで取得 */
+export function getNoticeDescription(news: NoticeItem): string | undefined {
+	return (
+		news.body
+			.replace(/```[\s\S]*?```/g, "")
+			.replace(/!\[[^\]]*\]\([^)]*\)/g, "")
+			.replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+			.replace(/[#>*_`~]/g, "")
+			.replace(/\s+/g, " ")
+			.trim()
+			.slice(0, 110) || undefined
+	);
+}
