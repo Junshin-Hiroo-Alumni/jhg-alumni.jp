@@ -35,6 +35,7 @@ bun run dev
 | `bun run db:migrate` | ローカルの D1 にマイグレーションを適用（`dev` 起動時にも自動実行） |
 | `bun run db:migrate:remote` | 本番の D1 にマイグレーションを適用 |
 | `bun run db:seed` | ローカルの D1 にサンプルデータ（`apps/api/seed/dev.sql`）を投入 |
+| `bun run db:reset` | ローカルの D1 のデータをすべて消し、サンプルデータを入れ直す |
 
 ## データベースのスキーマ変更
 

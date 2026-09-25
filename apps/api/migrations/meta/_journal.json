@@ -8,6 +8,27 @@
       "when": 1790305999464,
       "tag": "0000_init",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1790357895147,
+      "tag": "0001_auth",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1790358705317,
+      "tag": "0002_password_resets",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1790359372629,
+      "tag": "0003_profile",
+      "breakpoints": true
     }
   ]
 }

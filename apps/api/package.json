@@ -7,17 +7,18 @@
     }
   },
   "scripts": {
-    "dev": "bun run db:migrate && wrangler dev",
+    "dev": "bun run db:migrate && wrangler dev --var SITE_URL:http://localhost:3000 --var MAIL_DELIVERY:console",
     "deploy": "wrangler deploy --minify",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
-    "typecheck": "CI=1 bun run cf-typegen && tsc",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings --strict-vars false",
+    "typecheck": "CI=1 bun run cf-typegen && tsc && bun run scripts/check-data.ts",
     "check-types": "bun run typecheck",
     "clean": "bunx rimraf .turbo dist",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "wrangler d1 migrations apply DB --local",
+    "db:migrate": "CI=1 wrangler d1 migrations apply DB --local",
     "db:migrate:remote": "wrangler d1 migrations apply DB --remote",
     "db:seed": "wrangler d1 execute DB --local --file=./seed/dev.sql",
-    "dev:token": "bun run scripts/dev-token.ts"
+    "dev:token": "bun run scripts/dev-token.ts",
+    "db:reset": "wrangler d1 execute DB --local --file=./seed/reset.sql && bun run db:seed"
   },
   "dependencies": {
     "@hono/swagger-ui": "^0.5.2",

@@ -7,9 +7,6 @@
   "cache": {
     "enabled": true
   },
-  "secrets": {
-    "required": ["JWT_SECRET"]
-  },
   "services": [
     {
       "binding": "API",

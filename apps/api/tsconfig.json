@@ -5,7 +5,8 @@
     "emitDeclarationOnly": true,
     "rootDir": "src",
     "outDir": "dist",
-    "noEmit": false
+    "noEmit": false,
+    "resolveJsonModule": true
   },
   "include": ["src/**/*", "worker-configuration.d.ts"]
 }

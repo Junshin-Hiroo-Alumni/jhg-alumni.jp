@@ -5,6 +5,8 @@ import { styled } from "styled-system/jsx";
 import SiteFooter from "~/components/layout/SiteFooter";
 import SiteHeader from "~/components/layout/SiteHeader";
 import SiteLoader from "~/components/layout/SiteLoader";
+import { hasSession } from "~/lib/session.server";
+import type { Route } from "./+types/site-layout";
 
 const LayoutContainer = styled("div", {
 	base: {
@@ -20,7 +22,11 @@ const MainContent = styled("main", {
 	base: { flex: 1 },
 });
 
-export default function SiteLayout() {
+export function loader({ request }: Route.LoaderArgs) {
+	return { loggedIn: hasSession(request) };
+}
+
+export default function SiteLayout({ loaderData }: Route.ComponentProps) {
 	const mainContent = useRef(null);
 	useEffect(() => {
 		if (document.documentElement.lang === "ja" && mainContent.current) {
@@ -31,7 +37,7 @@ export default function SiteLayout() {
 	return (
 		<LayoutContainer>
 			<SiteLoader />
-			<SiteHeader />
+			<SiteHeader loggedIn={loaderData.loggedIn} />
 			<MainContent ref={mainContent}>
 				<Outlet />
 			</MainContent>

@@ -1,7 +1,7 @@
 // ローカル開発用に、サンプル会員（seed/dev.sql）の JWT を発行する。
 // Swagger UI（/ui）の Authorize などで使う。
 import { sign } from "hono/jwt";
-import { DEV_JWT_SECRET, JWT_AUDIENCE, JWT_ISSUER } from "../src/lib/auth";
+import { DEV_JWT_SECRET, JWT_AUDIENCE, JWT_ISSUER } from "../src/lib/jwt";
 
 // bun が apps/api/.env を自動で読み込む
 const secret = process.env.JWT_SECRET || DEV_JWT_SECRET;

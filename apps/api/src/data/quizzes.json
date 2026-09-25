@@ -1,0 +1,71 @@
+[
+  {
+    "id": "nearest-station",
+    "text": "広尾学園の最寄り駅はどれですか？",
+    "type": "single",
+    "choices": [
+      { "id": "a", "text": "広尾駅" },
+      { "id": "b", "text": "恵比寿駅" },
+      { "id": "c", "text": "六本木駅" },
+      { "id": "d", "text": "渋谷駅" }
+    ],
+    "answers": ["a"]
+  },
+  {
+    "id": "photo-place",
+    "text": "写真の場所はどこですか？",
+    "image": "/common/ogp-wide.jpg",
+    "type": "single",
+    "choices": [
+      { "id": "a", "text": "講堂" },
+      { "id": "b", "text": "体育館" },
+      { "id": "c", "text": "図書館" }
+    ],
+    "answers": ["a"]
+  },
+  {
+    "id": "sample-multiple",
+    "text": "当てはまるものをすべて選んでください。（ダミー）",
+    "type": "multiple",
+    "choices": [
+      { "id": "a", "text": "選択肢 A" },
+      { "id": "b", "text": "選択肢 B" },
+      { "id": "c", "text": "選択肢 C" },
+      { "id": "d", "text": "選択肢 D" }
+    ],
+    "answers": ["a", "c"]
+  },
+  {
+    "id": "school-festival",
+    "text": "文化祭の名称はどれですか？（ダミー）",
+    "type": "single",
+    "choices": [
+      { "id": "a", "text": "けやき祭" },
+      { "id": "b", "text": "さくら祭" },
+      { "id": "c", "text": "ひろお祭" }
+    ],
+    "answers": ["a"]
+  },
+  {
+    "id": "school-emblem",
+    "text": "校章に使われているモチーフをすべて選んでください。（ダミー）",
+    "type": "multiple",
+    "choices": [
+      { "id": "a", "text": "葉" },
+      { "id": "b", "text": "星" },
+      { "id": "c", "text": "波" }
+    ],
+    "answers": ["a"]
+  },
+  {
+    "id": "ward",
+    "text": "校舎がある区はどこですか？",
+    "type": "single",
+    "choices": [
+      { "id": "a", "text": "港区" },
+      { "id": "b", "text": "渋谷区" },
+      { "id": "c", "text": "目黒区" }
+    ],
+    "answers": ["a"]
+  }
+]
