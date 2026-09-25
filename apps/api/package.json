@@ -3,19 +3,30 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
-    "dev": "cd ../../ && bun run --hot apps/api/src/index.ts",
-    "clean": "bunx rimraf .turbo",
-    "check-types": "bunx tsc -p tsconfig.json --noEmit --pretty false"
+    "dev": "bun run db:migrate && wrangler dev",
+    "deploy": "wrangler deploy --minify",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "typecheck": "CI=1 bun run cf-typegen && tsc",
+    "check-types": "bun run typecheck",
+    "clean": "bunx rimraf .turbo dist",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "wrangler d1 migrations apply DB --local",
+    "db:migrate:remote": "wrangler d1 migrations apply DB --remote",
+    "db:seed": "wrangler d1 execute DB --local --file=./seed/dev.sql",
+    "dev:token": "bun run scripts/dev-token.ts"
   },
   "dependencies": {
-    "hono": "^4.12.8"
+    "@hono/swagger-ui": "^0.5.2",
+    "@hono/zod-openapi": "^1.6.3",
+    "drizzle-orm": "^0.45.3",
+    "hono": "^4.13.8"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "drizzle-kit": "^0.31.11",
+    "wrangler": "^4.135.0"
   }
 }

@@ -5,7 +5,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
 	server: {
-		port: Number(process.env.PORT) || 5173,
+		port: Number(process.env.PORT) || 3000,
 	},
 	plugins: [
 		cloudflare({ viteEnvironment: { name: "ssr" } }),

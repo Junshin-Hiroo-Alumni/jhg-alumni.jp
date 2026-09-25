@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-20",
+  "workers_dev": false,
+  "preview_urls": false,
+  "secrets": {
+    "required": ["JWT_SECRET"]
+  },
+  "dev": {
+    "port": 3001
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "jhg-alumni",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}

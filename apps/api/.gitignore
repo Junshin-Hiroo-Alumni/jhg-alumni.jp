@@ -1,0 +1,8 @@
+# prod
+dist/
+
+# dev
+.wrangler
+.dev.vars
+
+worker-configuration.d.ts

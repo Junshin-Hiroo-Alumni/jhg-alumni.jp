@@ -7,7 +7,14 @@
   "cache": {
     "enabled": true
   },
+  "secrets": {
+    "required": ["JWT_SECRET"]
+  },
   "services": [
+    {
+      "binding": "API",
+      "service": "api"
+    },
     {
       "binding": "OG_IMAGE",
       "service": "ogimage"
