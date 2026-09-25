@@ -75,7 +75,8 @@ export default function SiteHeader() {
 					right: { base: "1rem", md: "1.5rem" },
 					top: { base: "1.25rem", md: "1.5rem" },
 					borderRadius: "9999px",
-					px: { base: "1rem", md: "1.75rem" },
+					pl: { base: "0.625rem", lg: "1.75rem" },
+					pr: "0.625rem",
 					boxShadow: "0 6px 24px rgba(0, 0, 0, 0.08)",
 					zIndex: "100",
 				})}
@@ -105,6 +106,26 @@ export default function SiteHeader() {
 							</Link>
 						))}
 					</nav>
+
+					<Link
+						to="/login"
+						className={css({
+							display: { base: "none", lg: "flex" },
+							alignItems: "center",
+							height: "2.25rem",
+							px: "1.125rem",
+							borderRadius: "9999px",
+							bg: "green.600",
+							color: "#FFFFFF",
+							fontWeight: "bold",
+							fontSize: "sm",
+							whiteSpace: "nowrap",
+							transition: "background-color 0.2s ease",
+							_hover: { bg: "green.700" },
+						})}
+					>
+						ログイン
+					</Link>
 
 					{/* モバイル: ハンバーガー */}
 					<button
@@ -184,6 +205,26 @@ export default function SiteHeader() {
 								</Link>
 							))}
 						</nav>
+						<Link
+							to="/login"
+							onClick={() => setMenuOpen(false)}
+							className={css({
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+								mt: "0.5rem",
+								height: "2.75rem",
+								borderRadius: "9999px",
+								bg: "green.600",
+								color: "#FFFFFF",
+								fontWeight: "bold",
+								fontSize: "md",
+								transition: "background-color 0.15s ease",
+								_hover: { bg: "green.700" },
+							})}
+						>
+							ログイン
+						</Link>
 					</div>
 				</>
 			)}
