@@ -8,67 +8,59 @@ export type Officer = {
 	name: string;
 	/** 役職（会長・副会長 など） */
 	role: string;
-	/** ひとことコメント */
-	comment: string;
 	/** 顔写真のパス（public 配下）。未指定でプレースホルダー表示 */
 	image?: string;
 };
 
+const DEFAULT_IMAGE = "/site/officers/default.svg";
+
 export const officers: Officer[] = [
 	{
 		id: "chair",
-		name: "氏名",
+		name: "竹西怜",
 		role: "会長",
-		comment: "ここにひとことコメントが入ります。",
-		image: undefined,
+		image: "/site/officers/takenishi.webp",
 	},
 	{
-		id: "vice-chair",
-		name: "氏名",
+		id: "vice-chair-1",
+		name: "若和田史弥",
 		role: "副会長",
-		comment: "ここにひとことコメントが入ります。",
-		image: undefined,
+		image: "/site/officers/wakawada.webp",
 	},
 	{
-		id: "treasurer",
-		name: "氏名",
-		role: "会計",
-		comment: "ここにひとことコメントが入ります。",
-		image: undefined,
+		id: "vice-chair-2",
+		name: "桑原卓己",
+		role: "副会長",
+		image: "/site/officers/kuwahara.webp",
 	},
 	{
-		id: "secretary",
-		name: "氏名",
-		role: "書記",
-		comment: "ここにひとことコメントが入ります。",
-		image: undefined,
+		id: "coordinator-1",
+		name: "曽我部容子",
+		role: "常任幹事",
+		image: DEFAULT_IMAGE,
 	},
 	{
-		id: "auditor",
-		name: "氏名",
-		role: "監事",
-		comment: "ここにひとことコメントが入ります。",
-		image: undefined,
+		id: "coordinator-2",
+		name: "明海輝",
+		role: "常任幹事",
+		image: DEFAULT_IMAGE,
+	},
+	{ id: "treasurer-1", name: "大山未聖", role: "会計", image: DEFAULT_IMAGE },
+	{ id: "treasurer-2", name: "笠井優花", role: "会計", image: DEFAULT_IMAGE },
+	{ id: "auditor-1", name: "池上陽子", role: "監査", image: DEFAULT_IMAGE },
+	{ id: "auditor-2", name: "円井大翔", role: "監査", image: DEFAULT_IMAGE },
+	{ id: "publicist-1", name: "小沼洸生", role: "広報", image: DEFAULT_IMAGE },
+	{ id: "publicist-2", name: "齋藤智郎", role: "広報", image: "/site/officers/saito.webp" },
+	{
+		id: "planner-1",
+		name: "山川奈緒",
+		role: "事業",
+		image: "/site/officers/yamakawa.webp",
 	},
 	{
-		id: "officer-1",
-		name: "氏名",
-		role: "役員",
-		comment: "ここにひとことコメントが入ります。",
-		image: undefined,
-	},
-	{
-		id: "officer-2",
-		name: "氏名",
-		role: "役員",
-		comment: "ここにひとことコメントが入ります。",
-		image: undefined,
-	},
-	{
-		id: "officer-3",
-		name: "氏名",
-		role: "役員",
-		comment: "ここにひとことコメントが入ります。",
-		image: undefined,
+		id: "planner-2",
+		name: "粟田浩暉",
+		role: "事業",
+		image: "/site/officers/awata.webp",
 	},
 ];

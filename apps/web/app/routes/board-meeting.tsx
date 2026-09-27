@@ -14,7 +14,7 @@ export const middleware = [
 ];
 
 const photoBaseClass = css({
-	width: "100%",
+	width: { base: "80%", sm: "100%" },
 	maxW: "200px",
 	mx: "auto",
 	aspectRatio: "1 / 1",
@@ -90,7 +90,7 @@ export default function BoardMeeting() {
 					mb: { base: "2.5rem", md: "3.5rem" },
 				})}
 			>
-				役員会は同窓会の執行機関です。2026年度は以下のメンバーで構成されています。
+				役員会は同窓会の執行機関です。
 			</p>
 
 			<div
@@ -101,7 +101,7 @@ export default function BoardMeeting() {
 						sm: "repeat(3, 1fr)",
 						lg: "repeat(4, 1fr)",
 					},
-					gap: { base: "1.5rem 1rem", md: "2.5rem 1.5rem" },
+					gap: "2.5rem 1.5rem",
 				})}
 			>
 				{officers.map(officer => (
@@ -133,16 +133,6 @@ export default function BoardMeeting() {
 							})}
 						>
 							{officer.name}
-						</p>
-						<p
-							className={css({
-								mt: "0.5rem",
-								color: "#666666",
-								fontSize: "sm",
-								lineHeight: "1.7",
-							})}
-						>
-							{officer.comment}
 						</p>
 					</div>
 				))}
