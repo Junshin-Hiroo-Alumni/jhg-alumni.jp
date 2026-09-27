@@ -14,7 +14,7 @@ export const middleware = [
 ];
 
 const photoBaseClass = css({
-	width: "100%",
+	width: { base: "80%", sm: "100%" },
 	maxW: "200px",
 	mx: "auto",
 	aspectRatio: "1 / 1",
@@ -101,7 +101,7 @@ export default function BoardMeeting() {
 						sm: "repeat(3, 1fr)",
 						lg: "repeat(4, 1fr)",
 					},
-					gap: { base: "1.5rem 1rem", md: "2.5rem 1.5rem" },
+					gap: "2.5rem 1.5rem",
 				})}
 			>
 				{officers.map(officer => (
