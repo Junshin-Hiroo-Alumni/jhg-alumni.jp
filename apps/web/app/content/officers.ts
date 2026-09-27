@@ -48,7 +48,7 @@ export const officers: Officer[] = [
 	{ id: "treasurer-1", name: "大山未聖", role: "会計", image: DEFAULT_IMAGE },
 	{ id: "treasurer-2", name: "笠井優花", role: "会計", image: DEFAULT_IMAGE },
 	{ id: "auditor-1", name: "池上陽子", role: "監査", image: DEFAULT_IMAGE },
-	{ id: "auditor-2", name: "円井大翔", role: "監査", image: DEFAULT_IMAGE },
+	{ id: "auditor-2", name: "円井大翔", role: "監査", image: "/site/officers/tumurai.webp" },
 	{ id: "publicist-1", name: "小沼洸生", role: "広報", image: DEFAULT_IMAGE },
 	{ id: "publicist-2", name: "齋藤智郎", role: "広報", image: "/site/officers/saito.webp" },
 	{
