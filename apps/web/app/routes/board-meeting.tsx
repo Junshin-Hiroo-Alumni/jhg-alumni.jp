@@ -90,7 +90,7 @@ export default function BoardMeeting() {
 					mb: { base: "2.5rem", md: "3.5rem" },
 				})}
 			>
-				役員会は同窓会の執行機関です。2026年度は以下のメンバーで構成されています。
+				役員会は同窓会の執行機関です。
 			</p>
 
 			<div
@@ -133,16 +133,6 @@ export default function BoardMeeting() {
 							})}
 						>
 							{officer.name}
-						</p>
-						<p
-							className={css({
-								mt: "0.5rem",
-								color: "#666666",
-								fontSize: "sm",
-								lineHeight: "1.7",
-							})}
-						>
-							{officer.comment}
 						</p>
 					</div>
 				))}
