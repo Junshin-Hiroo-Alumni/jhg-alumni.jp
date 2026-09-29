@@ -163,7 +163,19 @@ function Blockquote({ children }: ComponentPropsWithoutRef<"blockquote">) {
 	);
 }
 
+function Img({ alt, ...props }: ComponentPropsWithoutRef<"img">) {
+	return (
+		<img
+			alt={alt}
+			loading="lazy"
+			className={css({ maxW: "full", h: "auto", my: "1.5rem", borderRadius: "sm" })}
+			{...props}
+		/>
+	);
+}
+
 const markdownComponents = {
+	img: Img,
 	pre: Pre,
 	code: CodeBlock,
 	blockquote: Blockquote,
