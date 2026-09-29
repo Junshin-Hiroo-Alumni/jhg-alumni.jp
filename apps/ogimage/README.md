@@ -10,7 +10,7 @@
 
 ![トップページ用の固定OG画像](./docs/images/landing.png)
 
-`src/assets/toppage.png` をそのまま返す固定画像です。サイトのトップページで使用します。
+`src/assets/toppage.png` をそのまま返す固定画像です。Vite の URL import で Worker の asset output に含め、サイトのトップページで使用します。
 
 ### お知らせ・汎用ページ（`news`）
 
@@ -54,7 +54,7 @@ API は Hono OpenAPI で定義され、すべて `image/png` を返します。�
 bun install
 ```
 
-Worker 設定から Cloudflare の型定義を生成し、TypeScript の型チェックと `dist` の型宣言生成を行います。
+Cloudflare Vite Plugin を使って Worker を開発・ビルドし、Wrangler 設定に基づく型定義、TypeScript の型チェック、`dist` の型宣言を生成します。
 
 ```sh
 bun run --cwd apps/ogimage typecheck
@@ -72,9 +72,16 @@ OG Image Worker だけを起動する場合は次のコマンドを使います�
 bun run --cwd apps/ogimage dev
 ```
 
+本番相当のローカルプレビューとビルドは次のコマンドで実行します。Vite Plugin はビルド後に `dist/ogimage/wrangler.json` を生成し、プレビューとデプロイで使います。
+
+```sh
+bun run --cwd apps/ogimage preview
+bun run --cwd apps/ogimage build
+```
+
 ## Cloudflare 設定
 
-OG Image Worker 自身は `apps/ogimage/wrangler.jsonc` で、共通フレームや固定画像を `ASSETS` binding から読み込みます。
+OG Image Worker 自身は `apps/ogimage/wrangler.jsonc` で `ASSETS` binding を設定します。共通フレームと固定画像はソースから Vite の URL import で参照し、Cloudflare Vite Plugin が `vite build` 時に Worker の asset output へ移します。
 
 ```jsonc
 {
@@ -84,11 +91,12 @@ OG Image Worker 自身は `apps/ogimage/wrangler.jsonc` で、共通フレーム
     "enabled": true
   },
   "assets": {
-    "directory": "./src/assets",
     "binding": "ASSETS"
   }
 }
 ```
+
+`assets.directory` は入力設定には指定しません。Vite Plugin が生成する `dist/ogimage/wrangler.json` に client asset output のパスを設定します。
 
 Worker のレスポンスは `Cache-Control: no-store` でブラウザ保存を禁止し、`Cloudflare-CDN-Cache-Control: public, max-age=86400` で Cloudflare CDN だけに 24 時間保存します。Cloudflare 専用ヘッダーはクライアントへ転送されません。詳細は [Cloudflare の CDN-Cache-Control 仕様](https://developers.cloudflare.com/cache/concepts/cdn-cache-control/) を参照してください。
 
@@ -206,6 +214,6 @@ export const middleware = [
 | `src/lib/get-og-image.tsx` | 1200 × 630 の共通レンダリング設定 |
 | `src/components/news.tsx` | `news` 形式のレイアウト |
 | `src/components/gallery.tsx` | `gallery` 形式のレイアウト |
-| `src/assets/` | 固定画像と共通フレーム |
+| `src/assets/` | URL import する固定画像と共通フレーム |
 | `../web/app/lib/og-image.ts` | Web 側のルートミドルウェアと型付きクライアント |
 | `../web/app/lib/seo.ts` | `?og` URL を OGP / Twitter Card に設定 |

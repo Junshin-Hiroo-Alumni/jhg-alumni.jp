@@ -1,6 +1,7 @@
+import { env } from "cloudflare:workers";
 import { swaggerUI } from "@hono/swagger-ui";
 import { OpenAPIHono } from "@hono/zod-openapi";
-import { getAsset } from "./lib/get-asset";
+import toppageImage from "./assets/toppage.png";
 import { getOgImage } from "./lib/get-og-image";
 import { galleryRoute, landingRoute, newsRoute } from "./routes/ogimage";
 
@@ -13,7 +14,7 @@ const cacheHeaders = {
 
 const ogImageApp = app
 	.openapi(landingRoute, async c => {
-		const ogimage = await (await getAsset("toppage.png")).arrayBuffer();
+		const ogimage = await (await env.ASSETS.fetch(new URL(toppageImage, c.req.url))).arrayBuffer();
 		return c.body(ogimage, 200, {
 			"Content-Type": "image/png",
 			...cacheHeaders,
@@ -21,7 +22,10 @@ const ogImageApp = app
 	})
 	.openapi(newsRoute, async c => {
 		const body = c.req.valid("json");
-		const ogimage = await getOgImage({ type: "news", data: body });
+		const ogimage = await getOgImage({
+			type: "news",
+			data: body,
+		});
 		return c.body(ogimage, 200, {
 			"Content-Type": "image/png",
 			...cacheHeaders,
@@ -29,7 +33,10 @@ const ogImageApp = app
 	})
 	.openapi(galleryRoute, async c => {
 		const body = c.req.valid("json");
-		const ogimage = await getOgImage({ type: "gallery", data: body });
+		const ogimage = await getOgImage({
+			type: "gallery",
+			data: body,
+		});
 		return c.body(ogimage, 200, {
 			"Content-Type": "image/png",
 			...cacheHeaders,
