@@ -34,6 +34,7 @@
         "budoux": "^0.9.3",
         "date-fns": "^4.4.0",
         "hono": "^4.13.11",
+        "react": "^19.2.4",
         "takumi-js": "^2.14.0",
       },
       "devDependencies": {
