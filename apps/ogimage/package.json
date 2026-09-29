@@ -22,7 +22,8 @@
     "budoux": "^0.9.3",
     "date-fns": "^4.4.0",
     "hono": "^4.13.11",
-    "takumi-js": "^2.14.0"
+    "takumi-js": "^2.14.0",
+    "react": "^19.2.4"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.62.0",
