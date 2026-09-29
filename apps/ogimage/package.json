@@ -8,9 +8,9 @@
   },
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build && bun run typecheck",
+    "build": "vite build",
     "preview": "bun run build && vite preview",
-   "deploy": "vite build && wrangler deploy",
+    "deploy": "vite build && wrangler deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "typecheck": "CI=1 bun run cf-typegen && tsc",
     "check-types": "bun run typecheck"
