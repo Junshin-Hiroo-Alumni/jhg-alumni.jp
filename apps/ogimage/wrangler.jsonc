@@ -10,7 +10,6 @@
     "enabled": true
   },
   "assets": {
-    "directory": "./src/assets",
     "binding": "ASSETS"
   }
 }
