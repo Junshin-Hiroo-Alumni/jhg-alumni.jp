@@ -11,6 +11,7 @@ category: お知らせ
 
 ## 募集内容
 現在の様子がわかる写真1枚と、それに添えるメッセージ
+記載例は[こちら](https://drive.google.com/file/d/1uHZl14oC50eRG1qyGM6NeUQcnwJHhxbg/view?usp=sharing)をご覧ください。
 
 ## 注意事項
 
@@ -22,4 +23,4 @@ category: お知らせ
 
 ---
 
-[近況写真 応募フォーム](https://forms.gle/J6rqTnqsazrJaV5B9)
+[あの人は今 応募フォーム](https://forms.gle/J6rqTnqsazrJaV5B9)
