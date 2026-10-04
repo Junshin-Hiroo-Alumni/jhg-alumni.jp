@@ -51,32 +51,32 @@ API は Hono OpenAPI で定義され、すべて `image/png` を返します。�
 リポジトリのルートで依存関係をインストールします。
 
 ```sh
-bun install
+pnpm install
 ```
 
 Cloudflare Vite Plugin を使って Worker を開発・ビルドし、Wrangler 設定に基づく型定義、TypeScript の型チェック、`dist` の型宣言を生成します。
 
 ```sh
-bun run --cwd apps/ogimage typecheck
+pnpm --filter @repo/ogimage run typecheck
 ```
 
 サイトと OG Image Worker を同時に起動するときは、リポジトリルートから実行します。
 
 ```sh
-bun run dev
+pnpm run dev
 ```
 
 OG Image Worker だけを起動する場合は次のコマンドを使います。
 
 ```sh
-bun run --cwd apps/ogimage dev
+pnpm --filter @repo/ogimage run dev
 ```
 
 本番相当のローカルプレビューとビルドは次のコマンドで実行します。Vite Plugin はビルド後に `dist/ogimage/wrangler.json` を生成し、プレビューとデプロイで使います。
 
 ```sh
-bun run --cwd apps/ogimage preview
-bun run --cwd apps/ogimage build
+pnpm --filter @repo/ogimage run preview
+pnpm --filter @repo/ogimage run build
 ```
 
 ## Cloudflare 設定
@@ -121,8 +121,8 @@ Web Worker 側の `apps/web/wrangler.jsonc` には、OG Image Worker を呼ぶ S
 デプロイ時は Service Binding の参照先を確実に存在させるため、OG Image Worker、Web Worker の順にデプロイします。
 
 ```sh
-bun run --cwd apps/ogimage deploy
-bun run --cwd apps/web deploy
+pnpm --filter @repo/ogimage run deploy
+pnpm --filter web run deploy
 ```
 
 ## Web ルートに OG 画像を設定する
