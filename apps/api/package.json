@@ -8,14 +8,21 @@
     }
   },
   "scripts": {
-    "dev": "cd ../../ && bun run --hot apps/api/src/index.ts",
-    "clean": "bunx rimraf .turbo",
-    "check-types": "bunx tsc -p tsconfig.json --noEmit --pretty false"
+    "dev": "bun --hot src/index.ts",
+    "clean": "pnpm exec rimraf .turbo",
+    "check-types": "pnpm exec tsc -p tsconfig.json --noEmit --pretty false"
   },
   "dependencies": {
     "hono": "^4.12.8"
   },
   "devDependencies": {
     "@types/bun": "latest"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "bun",
+      "version": "1.3.9",
+      "onFail": "download"
+    }
   }
 }
