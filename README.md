@@ -25,7 +25,7 @@
 1. パッケージのインストール
 ルートディレクトリで以下のコマンドを実行し、依存関係をインストールします。
 ```sh
-bun install
+pnpm install
 ```
 
 2. 環境変数の設定
@@ -36,7 +36,7 @@ bun install
 3. 開発サーバーの起動
 以下のコマンドを実行すると、フロントエンドとバックエンドのローカル開発サーバーが同時に立ち上がります。
 ```sh
-bun run dev
+pnpm run dev
 ```
 
 ## コマンド一覧
@@ -45,21 +45,21 @@ bun run dev
 
 | コマンド | 説明 |
 | --- | --- |
-| `bun run dev` | 開発サーバーを起動します。 |
-| `bun run build` | 本番環境向けにビルドを実行します。 |
-| `bun run typecheck` | プロジェクト全体の TypeScript の型チェックを行います。 |
-| `bun run lint` | Biome を使用してコードの静的解析を行います。 |
-| `bun run format` | Biome でコードをフォーマットします。 |
-| `bun run check` | Biome による Lint / Format の修正適用と型チェックを実行します。 |
-| `bun run ci` | CI 用に Biome のチェック（`biome ci`）と型チェックを実行します（修正は行いません）。 |
-| `bun run clean` | ビルド成果物・キャッシュを削除します。 |
-| `bun run clean:all` | キャッシュに加えて、すべての `node_modules` を削除し初期化します。 |
-| `bun run compress:gallery` | フォトギャラリーの画像を Web 用に最適化します（下記参照）。 |
+| `pnpm run dev` | 開発サーバーを起動します。 |
+| `pnpm run build` | 本番環境向けにビルドを実行します。 |
+| `pnpm run typecheck` | プロジェクト全体の TypeScript の型チェックを行います。 |
+| `pnpm run lint` | Biome を使用してコードの静的解析を行います。 |
+| `pnpm run format` | Biome でコードをフォーマットします。 |
+| `pnpm run check` | Biome による Lint / Format の修正適用と型チェックを実行します。 |
+| `pnpm run ci` | CI 用に Biome のチェック（`biome ci`）と型チェックを実行します（修正は行いません）。 |
+| `pnpm run clean` | ビルド成果物・キャッシュを削除します。 |
+| `pnpm run clean:all` | キャッシュに加えて、すべての `node_modules` を削除し初期化します。 |
+| `pnpm run compress:gallery` | フォトギャラリーの画像を Web 用に最適化します（下記参照）。 |
 
 ## フォトギャラリーの画像追加
 
 画像を追加したら、最適化コマンドを実行してください。
 
 ```sh
-bun run compress:gallery
+pnpm run compress:gallery
 ```

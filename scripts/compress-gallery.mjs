@@ -1,6 +1,6 @@
 //   アプリ（lib/gallery.ts）がそれを読んで srcset / ぼかしプレースホルダを構築します。
 //
-// 実行には Node.js が必要です（`bun run compress:gallery` は内部で node を呼びます）。
+// 実行には Node.js が必要です（`pnpm run compress:gallery` は内部で node を呼びます）。
 
 import { createHash } from "node:crypto";
 import { existsSync } from "node:fs";

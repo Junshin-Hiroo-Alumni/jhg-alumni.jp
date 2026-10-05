@@ -4,12 +4,12 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
-    "clean": "bunx rimraf .react-router build .turbo",
+    "clean": "pnpm exec rimraf .react-router build .turbo",
     "dev": "react-router dev",
-    "preview": "bun run build && vite preview",
-    "deploy": "bun run build && wrangler deploy",
+    "preview": "pnpm run build && vite preview",
+    "deploy": "pnpm run build && wrangler deploy",
     "cf-typegen": "wrangler types",
-    "check-types": "bun run typecheck",
+    "check-types": "pnpm run typecheck",
     "typecheck": "CI=1 wrangler types && react-router typegen && tsc",
     "prepare": "panda codegen"
   },

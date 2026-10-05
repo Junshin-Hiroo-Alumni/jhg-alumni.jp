@@ -9,11 +9,11 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "preview": "bun run build && vite preview",
+    "preview": "pnpm run build && vite preview",
     "deploy": "vite build && wrangler deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
-    "typecheck": "CI=1 bun run cf-typegen && tsc",
-    "check-types": "bun run typecheck"
+    "typecheck": "CI=1 pnpm run cf-typegen && tsc",
+    "check-types": "pnpm run typecheck"
   },
   "dependencies": {
     "@date-fns/tz": "^1.5.0",

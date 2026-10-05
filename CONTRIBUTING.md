@@ -18,7 +18,7 @@
    - 例:`feat/user-auth`
 3. **開発・commit**
    - commit メッセージは任意の短い説明を使用してください
-4. **`bun run ci` を実行して通ることを確認**
+4. **`pnpm run ci` を実行して通ることを確認**
    - 詳細は[CIチェックについて](#ciチェックについて)を参照してください
 5. **GitHub に push**
 6. **Pull Request**
@@ -31,20 +31,19 @@
 Pull Request を出す前に、リポジトリのルートで以下を実行し、エラーなく通ることを確認してください。
 
 ```sh
-bun run ci
+pnpm run ci
 ```
 
-`bun run ci` は次の2つを順に実行します。
+`pnpm run ci` は次の2つを順に実行します。
 
 | 内訳 | コマンド | 内容 |
 | --- | --- | --- |
 | Lint / Format チェック | `biome ci .` | [Biome](https://biomejs.dev/) によるコードの静的解析、フォーマット、import の並び順のチェック |
-| 型チェック | `bun run typecheck` | `turbo run check-types` により各アプリの型を検証（`apps/web`: `wrangler types` → `react-router typegen` → `tsc`、`apps/api`: `tsc --noEmit`） |
+| 型チェック | `pnpm run typecheck` | `turbo run check-types` により各アプリの型を検証（`apps/web`: `wrangler types` → `react-router typegen` → `tsc`、`apps/api`: `tsc --noEmit`） |
 
 Biome の指摘は、次のコマンドで自動修正できるものがあります。
 
 ```sh
-bun run check
+pnpm run check
 ```
-
 
