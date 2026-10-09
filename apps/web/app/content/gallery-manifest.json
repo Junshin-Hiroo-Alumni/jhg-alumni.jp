@@ -311,6 +311,718 @@
     "srcName": "IMG_8995.jpg",
     "srcHash": "04ff9018a0ed28ac4ed0056774976f9fcc3a5a245a592bf232dcc0c322183ec2"
   },
+  "keyaki2026/001": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRvYAAABXRUJQVlA4IOoAAACQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbAC/OdwLe0YB4lBLfPdxCd89KQAA/uWgpqI6ZOtedMOBndxtK5fnNtVdjxnprl4DUKNG6gK42dMkZAtpjB2kkxs2vZ4K4DrXm08rhx1iyoc9MoUMNMMbkHarqXH0l5u2Q/lEMtX+fVeH0/I3aQZP8CtkR/gDBghszCKJFf0gAsQw7xBUywRgGfGFrufjd4ej9D6j8aI4Qf9+SZ8n/yfmxHQJq7q/cDK3pusVlRly6Lc1bxYX/tELbm88nIqRd7in7pjhltqbqN7ny8LZOOLAAAA=",
+    "srcName": "261004-alumni-33.JPG",
+    "srcHash": "82abcab74909d74d9bddd015f7b60b616f4c0b1c3754c3d1d285a03a914c2104"
+  },
+  "keyaki2026/002": {
+    "width": 1920,
+    "height": 2880,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRk4BAABXRUJQVlA4IEIBAACQBwCdASoYACQAPu1kqk6ppaOiKrgN+TAdiWoAyjNEFgB2vbmhxX63LXoMQuv0pgk3nAH79EI0QNOqoZdHcDj4QsHvhuAA/vYTztXTq+UjTVu5sE35R3BbXp5BKd/ViOM7CeaNb7RkEgdkvdBBrM65OODTebF/VnMsJGf8eB2cwbkm6Qp3Gx/ZHIqegR4b4bbzecynK7Dex+wHCqTTb0LBcyUVHaQXG2ioSGAdaGqMaTZE5ZUfZjfLhOzgqM8OxZkNaF+hxwLn4xK9j6U3wfHgE/FmcWaogRNmkal1EYTZ5awJK4Q4Hj1OL1SxdxfW5jEbqTmDPiReykuRt4sLfiIeSt556XfN6pPUUYtvWFVVSPEc4YZxM48Hdhzs+T30UfRXhuxGfBpMcHl8Ubkto74D+7xT8E+3/uplNHqUk1TWaQAA",
+    "srcName": "261004-alumni-3.JPG",
+    "srcHash": "c0f52e343f610a4dfaaef777162f45e4d974435f1f347e1fb0db963ccfe27d62"
+  },
+  "keyaki2026/003": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADwAwCdASoYABAAPu1iqU2ppaQiMAgBMB2JYwCdACHe25sz4G15sMnwAP6u9oilTfrlSzq7YAQrdXFuxMikUV2wtFQklpQ38d6hFlgbbOREKG97NWoAAA==",
+    "srcName": "261004-alumni-43.JPG",
+    "srcHash": "72db97c6734bf7a07c98cf2f84c127f9de4b61819bc99dfda977e2fdabb44863"
+  },
+  "keyaki2026/004": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4ILAAAACQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACw7Yw67fBciRDEZy0eQ1U8+oAA/pGpGl0OH8HZM3DvVPBLGGmEghgfXIl0EAJLEcpw3AmrANwBnaVLImtmknVLV2ml3tpyp7xrdPWjEKtuBPslqMuwftSRF5TF65N+Sb58FCGv588qWVn6FMKgLmXBcENITXxwCq2z+n6K7/nGPJwFmWyCTrmh9YCSAoPY9MrLzIAAAA==",
+    "srcName": "261004-alumni-14.JPG",
+    "srcHash": "8d94c1ed657bbfe017c74a91ae823dc4f7452811c48e0a8bcf212e5e8cc9d667"
+  },
+  "keyaki2026/005": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRvIAAABXRUJQVlA4IOYAAADwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbAC7MoMYBsAnKxVJ1zOuJe1DnSruYAAA/udXIMCYNURlpNAi/bBVFT++4QEqxFVIqdWyJZ0SUvysfRNQwIzUlH6Jmhp5TC5wJqUs7FflMICGrRu2DYDxEGU2ybM/vnGjGIL3WKR3vVk0bvbRd050U5BLDRfQLuan9f0VmCemnK7eGH9ww9zbhlYnSGmAg5iPS/xkV92avy1FoA67fQ38e4A36p8GpJT/CPHHPP2yRtxNRw5O/boREtNRgMGIfXgyjM/Mz5BQXoOARwAAAA==",
+    "srcName": "261004-alumni-16.JPG",
+    "srcHash": "907cc32bd36f99f500cfe48edee55f6868a14cbcb59aeb54f52854ead098ce17"
+  },
+  "keyaki2026/006": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRroAAABXRUJQVlA4IK4AAABQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JZgCdEf/gJNOegRG4Z3dieYroAP7nk4C7fc6u2rbHoxduQ3VdjNy9rZrWTdv1TgEzjRkKSe73en8YC0ew9VkBHu9PAaal6IZLZUkSZWe3gJNzCxutEgn0AXq465SrdikVgEVLkePnpqbTLcHPLPFK6X2UGEvPv/in6/ighLoXPjxRss/yct+uHLFMjehRE17MPvwF7AA=",
+    "srcName": "261004-alumni-49.JPG",
+    "srcHash": "0c3a4a83f5daa88788000eddd0ed970ccf8379fcab9338cff0c31ba5319de594"
+  },
+  "keyaki2026/007": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRsYAAABXRUJQVlA4ILoAAADQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoRwCSAAm6M5WPvXRBettiX/1AD31d0eBWLMYyBAbduiCAmp2tn9m2ez5GO2iE7DazfaWzv9HeOb+HTe/MulaXMwAdRnBuyFH2KOmbx+xUTQornD6PQMeAAjIjfa7Mk2e9nXbfXfstGb7e9rWxs/cpO/jtlOaFSm9jYChd2w5VJ6RmgP87ylN7cZaq5HwQUOYj+jtW+8CBiDpVp0AAA=",
+    "srcName": "261004-alumni-53.JPG",
+    "srcHash": "7cbf73b1d1fa993f667108f88bd46e18b5984775d7ff2de427f9299d92527a7a"
+  },
+  "keyaki2026/008": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADQAwCdASoYABAAPu1iqU2ppaQiMAgBMB2JYwC7DBAALKepUENjZgAA/pN9/7Pj3gmsBfobtT6MbkbiwN79nmBZTocX0iU9n17CjU985LvChR+2q6p/4AAA",
+    "srcName": "261004-alumni-47.JPG",
+    "srcHash": "06f0b580a8f4a82f2b2c78f03f08519b4383e62583ec25de62952b08564aba00"
+  },
+  "keyaki2026/009": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRsAAAABXRUJQVlA4ILQAAABwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoR3Ff/gMjrWDP+tQczH0AD+ji16e4bN5bjOBDsS6QdseuU5jIb4Y+8M9Q84ANHT/ALqYumm2L4eulU2qNbQ9wOt5ERpbnnAgU6USlch0h4hy6tM/096NudPKux9i8f3IOt4zcINQrtmAcbAm8apI9yzq4FedHsOEI3uzfnbv8OuKdFq+VpA2XkPezpmCb8fMk/dxMQAAAA=",
+    "srcName": "261004-alumni-51.JPG",
+    "srcHash": "1b3bcd89266a5d96179559b1e35007fc164f364761eee3f87c385c65608faec4"
+  },
+  "keyaki2026/010": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRqAAAABXRUJQVlA4IJQAAABwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JQBYdsYibf0V5E5kJriI5AkL8mAD+7i5Z/zDhU5pPqyWYEwAYz2HwXk90n56AmyAO9h5859gUcvHfdtgHBc/Jbz7EFFQEHSTRSVa/xSzGhI8jwfYWoml2npA0lOSp82Tcmss8scG8QaHZfnFkgnP55soAWoFgwXlRsAAA",
+    "srcName": "261003-alumni-3.JPG",
+    "srcHash": "2355e68d61577dd46facf97b5d50eb1e738946aeb2412518a61011c7cedbe8dd"
+  },
+  "keyaki2026/011": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtwAAABXRUJQVlA4INAAAADwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JYgC073gIIDVzH1P8eM+titDs3vTMrAAA/rGU1MGnnoxDsfXe7uvGXyrOVMNojWHDftrEX5advx4zlrRWV/A+98f8+bL0c5gcYeHIUQMv/s9gQqpMKwQ3Env9SyZmqRYDzMn6JZBpbNYdQ6DpqiON5A7EHQhfosfqcV+8yQkJkl1ZYa3B4oC9jvucSRCm6cHSypgstg6yeW4/K+lVLskl1fA2vUbWMieeJ0y6M4Oxw161EJbgGVAA",
+    "srcName": "261004-alumni-8.JPG",
+    "srcHash": "8c0105ae72f113d1fe637819505451921fbeadc860517ddd8eb607d9fc437d3b"
+  },
+  "keyaki2026/012": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4IMIAAABwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoMYJn/Ac9o941DwP71+OAD+lQNI++BH4x+o3isl4xsObMXFj3Wj8otSiOWepqOIZ6qFHOCpNgcRnv9+gkNZsUzzrOc6xYRuY1KtqBisAex9HzD1wiaMs0i4w6QPgJoHgamSysrldo3/9S3IqlGCu7S3Jb1+v5gwdCOBwAZofuf/c5GObIgN1X8pLX+YJKc37F/UaB55NX1Y0myqegFSY0/fIAAAAA==",
+    "srcName": "261004-alumni-50.JPG",
+    "srcHash": "fc09ba87a62faa73a9100401051e4458ff21fbd5d4922a4472aea98fae4eab12"
+  },
+  "keyaki2026/013": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRsoAAABXRUJQVlA4IL4AAAAQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACw7YvqyL3Y9uvT1cjmMAD+lNfMP1Jy66F5U0Rg32Fvg3zI0VnfrpOcx8WzD5QnKNViHr+vliH7XJpjHXOw5LHHyn7fR96brnF5OwKVFBjn6MV08ZtT35nsfA8pooEqJvdVFvVlC38HbG+2bAAkdI+DXx0Pel4W9j8OKoRm/a4iNDTCUeKFaVzrZf+Fp7EbGNoZ7Zr4jPeLhS+GJOJYLfkpr4gA",
+    "srcName": "261004-alumni-42.JPG",
+    "srcHash": "e1996164d56de5578893d73046985ae8619f3d9d939d532848af83e2428abb32"
+  },
+  "keyaki2026/014": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtgAAABXRUJQVlA4IMwAAAAQBQCdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdIIjqQPcOg6YPq4nuzkCjURfZeZyYAP7EXIgp3bAOqxwxljs19wX0c4viY7KozH/RBBn9ERz/+ykwlb5irbBccW05Q3qcP2t/tS8dZmEurAny3w1YpvMstvZ/0FrgEe1MG62MJnBOPwkO/SAs9dH6+fY1Ko9MRTGWEvfjKf+9lZrK3kP5uOjN3rY8l8UKob5nW+gAMHWdDHevre6NujAUJcL8mOeTCQu+Ib7+DiiAAAA=",
+    "srcName": "261004-alumni-34.JPG",
+    "srcHash": "1ff92c18680253044685c3b63f024c7fd1455d1dd40fbac43c11aa12028e7e58"
+  },
+  "keyaki2026/015": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADQAwCdASoYABAAPu1kqk4ppaQiMAgBMB2JYwCw7CKUG8loTUcZSYAA/uDGmC6PNXERgo5te3rSNUhlq3S/RzcbpZb0ZLdvgRbN9o9AEVek9jW3xGt7VoAA",
+    "srcName": "261004-alumni-44.JPG",
+    "srcHash": "60f4013a50aff299b46d30fca2348507d8bb925493aed89c0f36bf37af87ee3e"
+  },
+  "keyaki2026/016": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRrAAAABXRUJQVlA4IKQAAACwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JZgCdMoRwAdB83GIsXHntxdI7tz/MAPzJ/chwhDCcTY+xHY0JBOe7wb5ouc79Bpd+qhnpLVHAmuX6qDf7EWF+jkI0gXdRMaM1EnI42qtElWmxPFlFlzulpHdoGuMAlIBptAO8c89i+cWQ3qdzLG28szQJz0SWKlx3PPEOSSMl2d7/NIT5BiHSKQAAAA==",
+    "srcName": "261004-alumni-38.JPG",
+    "srcHash": "15c65b93435cae8e2132f0a279597eb4b87565c8685a056f8d501409201aa1dc"
+  },
+  "keyaki2026/017": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRuQAAABXRUJQVlA4INgAAADwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JQBWA7wEEBq+0NOeT7ljC+aGX2XtXu0AA4gYaGrsJcWTgEBVmQMfeXxBX38dma4Q4FN57+RP6Om5wtRamm+w20k/K9kgNevh9jAdK/E5godZHBUIKwFLkTKhln1YoeieRsPvRxKWVC1lR6y/VfLxQTyZRsl/+0d5MhOsY6l3RlumbvC2Dko6JNOOl/JiZgr3ZGwJV/j/xDUJltjf3ZnQ9brrvM4yWIK+Z+bfHVXsKpbit4qDvl1JIkMnV5/oUgAA=",
+    "srcName": "261004-alumni-12.JPG",
+    "srcHash": "e300ffce04ddc66509798776d22823012ed28c80b490f42bfc3073518fbc1442"
+  },
+  "keyaki2026/018": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtQAAABXRUJQVlA4IMgAAACwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbAC06dwLhPTmgD21FYYvE0dg7awAAP61nIlZNfpuC0nx2xqRqeShKeWzfQYj/4ZHKevzjCnqhd4xewQ3piuSJVTLW8Vl0yQS4B0fAANeIDd0j8cAPB9/GN+dHPybv0+vw6bIlf1Ggm931bLpuN69D56dRWHxlUiROLLkhkzdm6eeAqoP1vxA9THnqjTZ4DvHEhsAYdbO1vfdzO9/w4FNP4/4/5bPRKj49vyYgAAAAA==",
+    "srcName": "261004-alumni-5.JPG",
+    "srcHash": "a7447e442430f95f15d5057a44d12173c14318e957d01b6e440cb0bb58d90781"
+  },
+  "keyaki2026/019": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADQAwCdASoYABAAPu1iqk2ppaQiMAgBMB2JQBYdhDv0Q5mvwrF06AAA/pTOrAvcf9bOuAKDZpfxGKHhdj3BFBKdKocaJoJwAOWxd9aPAAA=",
+    "srcName": "261004-alumni-45.JPG",
+    "srcHash": "ea65c839e53758902fd4df31fbdcc56873226e38003d8a7a2f2d5a7e23f9611b"
+  },
+  "keyaki2026/020": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtYAAABXRUJQVlA4IMoAAABQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JagCw7dwLgnc48YkN2um+03fAAOJsEzYksV9dPePgzS6bkQC+1o8OZr599S2CdL+N+B67BSta2xqbCs/BI3+6x7/06ZA4434TBSfsk82oaBBL13vtXNI0kOkDJCQ8PIORyoFFzH//yzx/fsbWM2KHy+q3/ZbHvbPGZFwwPPAjQVQ7iXZZ1OUU/acta8yTeHmf4JHaQ3c5tEBoEXEAei+IQpfEBkAF/mP96NH8p+RTAAAA",
+    "srcName": "261004-alumni-9.JPG",
+    "srcHash": "ec495910377315f31a6c7419800ba8cb432f64ac1685d70126307de146587876"
+  },
+  "keyaki2026/021": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRugAAABXRUJQVlA4INwAAAAwBQCdASoYABAAPu1iqU2ppaOiMAgBMB2JZgCdEfzWPUjwNpQYwg6ljK3Sb8MDPlc5QAD+yetI0faQJ1GsikFAz0ToNTcLikW/wrorWNabBdLc7hZB7xt0icYEvolxiUSN8JVavqgxXzIFkp5wL2D/3JnkngXsk3gzW4olWAFEZj9wglYVNhmQR5uwBCVTtd7KTK6nQ3dhcpNxC7TJ4PYKVoL1jx5+IASvfHlYggcT+U9XAcOkTJspDqP/5xmHZEUCeNJmPrS8/oW4ifvuVMTsIGa5S1lYd+3CgAAA",
+    "srcName": "261004-alumni-17.JPG",
+    "srcHash": "9b61a1ec99ececc53c10db106e43fde3385f55e8589b8598ffdc398831c3eaeb"
+  },
+  "keyaki2026/022": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRvwAAABXRUJQVlA4IPAAAADwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbAC7AdwLgYVDuo/vdTtotSB7eDxIEEAA/sbrlRrGnbmfu5Mrmu4EPEw6LGCTeGO/9L4/QAjyYsfWwyR3qGF/Nrb9WtxmxJAN1Qes4oHXnkhEgyBA9pRxB93iT2lWOtgEaJ3n9zxh7OJF5Z5ZJEczh8qreJ1eniu/70GtnwsrND93khy1g+Wle8PoUfSyb+GlzBbFoGdwdzt4FrXloY8ZUHxPhVz2+zb9++HTujQ1B/WaDp7Z/rXDe2yEBaDvxjFm5hbbrsFkf+/ZIB6NZTAWa7jcdhUQAAA=",
+    "srcName": "261004-alumni-15.JPG",
+    "srcHash": "f39b1f36b75febb5eff219d99143dd0309d3f56acfd40d5109e31fe0cf0426b3"
+  },
+  "keyaki2026/023": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRrgAAABXRUJQVlA4IKwAAAAwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JagCdMoADDrrd+9BN5kFUfYAA/utaRgdb+rRK59ME8RLH8Kaf0sQ0C985lrDi2HjrCZNh83PcLteVRbFk5RbRu6WYsI997UyVxaOkK0rCHtRqHgKsRQ9Y9quK1MMPdgCL05Wx2Dj3YzCGRGuFJqsmN3AVmZ6N587RB7Bbs553UjER2uRLV4Y+PvxQKn0RzJhcE+AA",
+    "srcName": "261003-alumni-11.JPG",
+    "srcHash": "6ad1ecbb8ead0e3b4d64216d6f96dc5e6482e715cf785c0a779f0a6317bd5781"
+  },
+  "keyaki2026/024": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRqwAAABXRUJQVlA4IKAAAABwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACw/fqgNonpSg3heBP+2TtTAAD93cfpSU5pts84td257hi2ZEo5ihs+HzSeJQXDtuyOmgcPmTxpM6v/YDCcujGxM7FjxuadJgNureTsvYDrIO+j0xMt9D+oFpk75YMer6mrqIZEaReBXNmOYgGtY1UsOUOofeBCnt27x1Sj1zx2gX8gAAAA",
+    "srcName": "261003-alumni-14.JPG",
+    "srcHash": "d5e97dfc01c340e0013817177f38302cdc8964be8d3b3ddfccf07b15f426d06b"
+  },
+  "keyaki2026/025": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtQAAABXRUJQVlA4IMgAAADQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACsAYvMwPrx3iIXrnwr7/d2ot5vAAD+xeY+lbhV9gkTlAjSjq4RBMJ2jA/acbXsRTh8bLYSuH1JIr3tnCnH3YzHQIaGJxULkWRp63xW2/ubAVrtmAERcwMNcVw8ptU/v/3b/FU+yXrnOIbwGID/z95/MAvgdSrH4/7UfTxn3vnRcBGW/DvYpyUPZ0oq8JswgKDsjR/m8MbHInPh3ia/OkHBvTlysjg4YhNjARcAAA==",
+    "srcName": "261004-alumni-13.JPG",
+    "srcHash": "3a6ff487de3472e15cb9d52a1c07398109db67f828c55c8c7f20ea8dd29e2b2e"
+  },
+  "keyaki2026/026": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRrIAAABXRUJQVlA4IKYAAAAwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACAAGUCN/WtZViO2C2vAAAA/uGqL977CYkxNckKnnKmnUasUlWVH8m+DsrX8xRJkzIKC+4zcIA2Jw7xcZZ1QS+j8z6XGps6xs67RMN9L3WzexN3ek3tGGzpIOceon7Giw2dnY+vtIi0uTIFnJeFP1v0ZGWYWUnRdeIPcCftf3Z+ZDOlKaev97eQAAAA",
+    "srcName": "261004-alumni-1.JPG",
+    "srcHash": "affe3bc385c9dd90cb745cba58a562475dd35e9c5730c71836186a166dbc2d9f"
+  },
+  "keyaki2026/027": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtQAAABXRUJQVlA4IMgAAADwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACw7ywYYJoMYFrpfUd3NmYiBxhQ6gAA/mpcNfuZe639LE9Pk1Brk052486KjWUYuZ4DOxPkAnH8dl5EeO2S8NSU3CdZ9Y1aHpymsubMxPHsppGMG5yqgJQs3nWE8NMgv4Yl51ubWxf3V2vENfb8cLfaLe2kxgV570Pe0SRcbv2Pc4C5u/BJYeIN9u39UoNGraENdEbr1jODaeFOYMi9Df29w2b7+wd4VQ3mpAgAAA==",
+    "srcName": "261004-alumni-24.JPG",
+    "srcHash": "2605962651ce09fc2c9120c4a95cfd217e844fdbd025dacb2c437f4172aec422"
+  },
+  "keyaki2026/028": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4ILAAAACwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoRwAdDdBbpSMJAiQH6iiNAAAM4+44J99y6T55/zNNMnFpV7SSFAQRkDdSgsVRRobLFh5yQ/xLCeouVnpS175XYsyHRgFSeQj4NP/olpICrNNud2pRrfVsSw4pgbyLmn/S1BtyttW2KbDvjQYqHoY7ZmvDDaR74CELw13a21MCT0NTrN+vy34YVshuyKmmkGIAAAAA==",
+    "srcName": "261004-alumni-56.JPG",
+    "srcHash": "6f97afa821ad6ef77338a55fb5c219a107f1b9c6f9d33b5cf6a6f825eaa4a8a6"
+  },
+  "keyaki2026/029": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAAAwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACsIKnC+PPn9rIh1aXOnwAA/ut1P0SkVHRLW6NCfIKGpd6V51kqjMshUUjeLKiQXYqO8eHOQ806F/R55gp1qZ37hikfRE0dL7N3RgXqVnsVbeJ7QwdpvKigrrAEKuQxpY/mNHPHqTdpSh57tZQQAMwgtpNZ3ZKuNv2HRU03BMAA",
+    "srcName": "261003-alumni-9.JPG",
+    "srcHash": "3a440406792f24d993a3720de36725ef2f27ab1654bf7732d157ad17ce564512"
+  },
+  "keyaki2026/030": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRvAAAABXRUJQVlA4IOQAAADwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbABTBA/7dA5gGb6sXRFdugG9puvbTgAA/udEUPJWBSBYkxDg0eTzA9yuiBhXfFqPFKDiqt+RY0je7bBqNKY3ce24/W+ut1VQW0SOZwYBUy5AcNeztof4CNe/MJS65LfM28g7YFDVQAsJui6Q2hU4J5/xZs0rP5tgh0Jy1rh58tb79f0CsHPPtaBM5eMnt5zIuK5eCnYqT0V2ct8Q0J3mETtiBzFcc0l6ESiAH2eJ5grWfEXWmaX2A9wTkNhZeRbJByOu1A+6Af5AAAA=",
+    "srcName": "261004-alumni-30.JPG",
+    "srcHash": "bec17a3287a0adfd5102590e49859ce149fecdbb801bd1c450dcec5af187791c"
+  },
+  "keyaki2026/031": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4ILAAAABQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoR3ACnzUNVIzuTc6lWwAP6Zrk5OAc8zBLApmWygLCaLiCPZF3lt/QqCF7Vq/zOlynyMWpHQaRIZJnq+eP/qZCBYMqSCoOEKzn57XXtdHoLt40AKRPBQ9m9i6OfArF+OJhNJ//p7rGEFfeiZzuqUm+SqnzFczXu1+aMqONz5Nx5pZLy+Vf/j/AanfG1+9X9aiqQAAA==",
+    "srcName": "261004-alumni-55.JPG",
+    "srcHash": "fe8e7568a53d8cc7b4266e0fdc5db4d99a53bf0cecaf3ba485ad5e90a7b3bfe5"
+  },
+  "keyaki2026/032": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRsgAAABXRUJQVlA4ILwAAAAwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoRwAB9fAB3FmyYmPfAA4Bj3h/dEOB3bTcOh7Ma/YSpTSWXzvXT7XX7rK5nTtmHAQadWn5Mb8bcuresS/pam+ayD+aSgFZcHTKSdqGy3xGxOggxeKf+xKzqPdKgDXpc59Mi1skFKfdIuU7cGVr6q8I5PjAZVDb5NS2p4Piw/R591PYsLsfW0x6keRaxu2qh4UVaAAqVDXmanlqUQAYiAAA==",
+    "srcName": "261003-alumni-20.JPG",
+    "srcHash": "959ad13986c3bae59c47b8f7e7115c29e0db1adcfd4794f1506003dea131dde0"
+  },
+  "keyaki2026/033": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRuAAAABXRUJQVlA4INQAAACQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACw7ywTkwt10END9JecLeuB1IAA/ftkskQZLbVauVroeb9GyinzZVCBWdhWm9URRTavO8rclvovbYjZF8s9CTvWtyx0Jx3BzEUc1k8whoocLunRpT//ROk8NDUbARRznLBEqG0WAxn/HQ/+Haxf/zDlBzC323M3/3Va3JX4DEHdeUn3lJl+6i1aLWwFLttD+SrUI794bsB1EBiFHovEAc8NcCMbHYKvkxZ70uRnbVvJPiali7Zh90rIAA==",
+    "srcName": "261004-alumni-7.JPG",
+    "srcHash": "1ef3ae0e75ba42e4d78df1fd4b5ba02d0be8556a4841aa62294d73d606643e52"
+  },
+  "keyaki2026/034": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRsYAAABXRUJQVlA4ILoAAABQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoAlvhOBEul09CQo8BIQAP7rZvCBXf1JA1tTM2rFRrSvvlYqs8VxrVJAGE6tquRU9TZINZ3EWcy9fDJmY1WH5t7cDRkU4xeKQnQf9aM9dYiYGfg3ODrXAeTjR2yZbbM3vE6zFH0w2mhUGkuEcsKetN4XVAkd0l0B//sS9qh1ywiDpPNY1VZtpwjznin+f78QNg0w6wtqhPRfksUAAAA=",
+    "srcName": "261004-alumni-35.JPG",
+    "srcHash": "3a906c2303b507648e35e35538d6b82c59af270f3e41a1273d336953a2efb96b"
+  },
+  "keyaki2026/035": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADQAwCdASoYABAAPu1iqU2ppaOiMAgBMB2JQBYfAjoFgYPdr8SgnAgA/dIUdB9kMROamyTrbdC3wOA6V8/IgI0jnVtyphPbr/pvpgn5k2Gr7ugAAAA=",
+    "srcName": "261004-alumni-46.JPG",
+    "srcHash": "3e7a4675c1f0ad971df4a406fb6a990c83b2cba25fa8091aba217c3ef36297c7"
+  },
+  "keyaki2026/036": {
+    "width": 1920,
+    "height": 2880,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRlIBAABXRUJQVlA4IEYBAABQBwCdASoYACQAPu1ur1CppqQiqqgBMB2JbACdDiAFACOn9AJboQnoIOMaV0qc+/VoCAdOGcqs++EKqBBTJui2tP5IAPggUk+pRNnlVwMP64+dkNqEtXL4Pagu/AxTbgr52MpdqLBp5B64PKwMHEsc/ovr9gQSTzSIEUA6arNPFPje+fmYMT/q3V7XhXet4ns/vh17fQR610noiLy/1uxiTEHFctkgGcKnWJT8mlY9ovd1Jp+kumgpgpq4/9eifraiXHKXNBLLOlfI1RgqwSKvqFVBHlvQjm9WXYcT1Bsr79nHe7rEKu2aFIXwkPw0nvy690QAlD8V8dCV5CPhCGc0w133/wbrgUI1uUeTvL+Sqmh9JJL5i59dt5AZjpCmV3mWldJX9hn74r5evslT8m+F9fLE1f0CDz0jFmDYZ+Wb1GmLEYAAAA==",
+    "srcName": "261004-alumni-6.JPG",
+    "srcHash": "df0c9083ff1892c48e9ab1743d290004fcb9da0160ce283abeb323595428ab5a"
+  },
+  "keyaki2026/037": {
+    "width": 1920,
+    "height": 2880,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRlwBAABXRUJQVlA4IFABAACQBwCdASoYACQAPu1qqk+ppiOiKqoBMB2JZACsIW2kSoJvWSkb2/VrR98G+N3InWIdJFGnY0mbkgnv3fqnnXYJ2ZIq1AAA/qy68XVUd0JI5YPxQXgyfueq9PXnr62h0/8UlUxUZuCpLyV6Ppljusesxzwpiu7P5pa7s66nxHjp76BeJWJRZwT7Ar/u86SM4j8yHWbE+IDo2tyEfMb3fLFDj165dvR5JC+Ea7NJZk87YPn9fy9hgL2w8nkdU6YRO6Bg4umMU8jyvuja+fvGcn1/nVNHkKzwi8pAHTU1QgWSuIKO0G7awRj7HIrLpkEjErBWQ6e+i5HHjAAKqsSk94/TvlWqiaJRwT7322JW0BtgD4f3KaPx6BEIMe26+X90wpqJtgIpY6bMwGR0C2Z46DJtS+nJC+JjBhJ+2ht9Zb1g5MRp2nrM8cn4cE46X7B+8AA=",
+    "srcName": "261003-alumni-1.JPG",
+    "srcHash": "e589c24d99550bffa8bd8c7371f5494834ae6d99c3837b61c07bfb62d8b6f0bd"
+  },
+  "keyaki2026/038": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4IMIAAACQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoMYA0hND1MzGbidyikLbqAA/PcyMaD952BoL0yuHRoWcovZqT3ZwHXU9NPLqsF/PQP1HOdmfTsm+eMaogAb/0wTnvbwpmW1W0CgSL5RM+AaJiQBFrnn0omVet1GFSaJ4wvUOn7GWFo3s6hySOYIXffg3C7u/82aNesmsp8YtqU7hB76tMAYMsO3jEi6k1JdcUy+jdP05rksHtAjBJggMWZM0HbSAA==",
+    "srcName": "261003-alumni-6.JPG",
+    "srcHash": "c13617fa9796238f982dcb86cf3796d5177adaaf3886ab2d36ae11f84f6034d5"
+  },
+  "keyaki2026/039": {
+    "width": 1920,
+    "height": 2880,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRngBAABXRUJQVlA4IGwBAACwBwCdASoYACQAPu1srFEppaQipWzJMB2JagC/WNH6zKqOWBpAmf1KP42e3WHeDNCg9YCr5cIEsrNRRJrBk5531DP09K9IAP78EJWwNn71Q4vWYTZzcTDQz6ln1xJu7q2P83uiYYRKz0+l5V8Q8Yr2P8R7T4h/PAtCAbMhD7vgNJUwrz+nmKDj6NnDf6TrwPgEAM387/Y57DOfmz8j/LAWY8tl84pNRD4y5oeDw0PFtXUW7M/TgBhy1C+GXKPio6KZms7ye0lmtvmZImO/o10N9pRy4LmP8spsIfWgP6hMAgd5FtfO4BmxZjR+XxX4eEEPEncsTPyX0Hb9KJ2FSSZz7a8oCMoWm4K/9uhy/ljBA6yNPYosJ0/ZHfzetcexPj9PX5tjNAsw3mrFcmH+MCJIYejbXkiTyrQ5LJLp5WoZg875J0F+79dkNhhU/8th/eET6dnee/8kwkX+gTTvi2orbVuno0uIXTSsZWAA",
+    "srcName": "261004-alumni-29.JPG",
+    "srcHash": "da6af9c58c071cbba3c984a796584f0712d58a832d3b7a9a7ac28d77c096988c"
+  },
+  "keyaki2026/040": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtQAAABXRUJQVlA4IMgAAADwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoJYBhf4tkVkiNiU1QtCsLRlmAgA/fzz2RUYM7OS8CxuHCFqf079WQUtMnp+6cr8SYJ33uMhlFqVbjPrYRMjf1NdZPt2VcWcM1distYtjhWm6VD2OeNqG6xk2cID39TxU4pOkPwz4b9qBZmQ5f3erUpmblDb6XbCT7IXzVEQkIHe+j92EZDt7pv5O9Q71Gw/mWZ5vXXYyf8LidDI+7ED1sjLytx/ePF+gAAAAA==",
+    "srcName": "261003-alumni-15.JPG",
+    "srcHash": "76224f10ed16c8c919b602197d094c6d81f058bce94e3da5b60ada4a2433bb3d"
+  },
+  "keyaki2026/041": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRswAAABXRUJQVlA4IMAAAADQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoAvQTPokdxkGK5GmqV4JVvYgAD+yQujLwtTAvXg7pSf/Lg1SFtictdI46yz52wlJ9Ar5eByY1iKe0QQo0PbF2e91xwXuRAaGdJHLZbGaC6lr/iOhyzl80x522Z3eXksf+q5zxxlRpFHux5QsBHqN+mt32U1SCpAIYnCNR/UGB0l/syuUCOU47qRlYZftlaC0bwkgh2jaILPYDOBGswMqVrgAAA=",
+    "srcName": "261003-alumni-19.JPG",
+    "srcHash": "f1b55c6dd668d19ee2ac8b56719cbfe289abfc61147cf37b6453f91eeecce9ac"
+  },
+  "keyaki2026/042": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRswAAABXRUJQVlA4IMAAAACQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACw7YwS3kekgFXsfOLpxzqbT4AA/eIOW3XNc1CKoLWuXu41jBQzIL11yo4Xy+FGVB/L+dJLzGwmqVabMkinGEN9Czo3YhTmXqZLXTaHNglletHsvHry2blUeCQNrZyAXHY0W0BCqBKYL3wFcOgtFqn5VNarXgXS/Vbna3e9rJZgQ5loW27s/bWAUNSsSOwarbv/CtzYXTtEv6r1QyUsoYQN3z0QAAA=",
+    "srcName": "261004-alumni-25.JPG",
+    "srcHash": "5d2de3dbf43d3a1882b04ea354b167405f9d525cad7e50f86ada50453c474ba8"
+  },
+  "keyaki2026/043": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRuIAAABXRUJQVlA4INYAAACQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JZAC2yd0jfcauQzU406+JKfNMdSgA/QERwqlkVsmUHxT/UzrwkOCkWbyGizH6u0NQMPkUpsvNd4J2HcZjRGrkdJq4H4SLC5k6LRnD7cev9yC7uVSzdyjswcdtMa6df5Pn9VYhfj5yUVzqq8vqN/K0ohJYcMzS/fxMDIKw6Fj9U20eiyyM1uv5xQ8B39uQG8d+sFKCuyvyMYKN9dradBaQPZhEnl5a/V6jt2AL0rGYZAFj4ooAzCvP9SZgAAAA",
+    "srcName": "261004-alumni-10.JPG",
+    "srcHash": "1e1694a7b39aaca7527c0cf49cd04f4f5c4082d330dd8f2acb2d3cfc9c094ce2"
+  },
+  "keyaki2026/044": {
+    "width": 1920,
+    "height": 2880,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRi4BAABXRUJQVlA4ICIBAADwBgCdASoYACQAPu1uqlEppqOiqrgKATAdiUAXZmYB0Na4H+TI86sE6mNPZ12dO2uzZWwFNKxSRMq//aNkIe0AAP7h4SvQ84l6odQsTrpYVvDSdfU0kJ67vkVfy2J1xFoTSioJWDY15CHBvKVZ+U5UTS5o02m+364pqJ2wPEhc2etOjRkEdvAjmJALRVKb8LIls8TytzLRVMvfWhFP3jZEm23CS+y1ea22DAeMJrglZ1t9QmLdDgCQpH+1458DlJQlnMgSYBa3+AtNmasxewEeMZD7j1rtvSlbOhzJSb00bWXnvcCUkWlB5uPXVol2M6uzu98BwaaMHphiN6AMpXZ0bE9oq+M2LW0o/GQaqDDqCdwRJ2T4zRLcfmQEboKMAW4AAA==",
+    "srcName": "261003-alumni-2.JPG",
+    "srcHash": "ff0a7afaa95908ab4046ddcbc0cdee5433d93d231bbf3ff9cd99cd49e5509680"
+  },
+  "keyaki2026/045": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtgAAABXRUJQVlA4IMwAAABwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoAlxBiBCriNLTRPrkx8QAD+3/RX1gOW16wJ9Hi/MiXObq59+wCeABGvgF+OYfScFpTMtvDmmZ9VEytdwZY4g9te5y8iFTIv1JqpMAGnJidMKgt86APP8+zkJ3Jv/YKt8374UlWXNZLlH7zESVGLj8d1vQYJi3gXZe7xp3nmome19yzAxaVIrSHwM/IZ4UuPZfy7QvUOl1aQlPzmF/rKHCYC7S+IhPxDRxAEf2wAAAA=",
+    "srcName": "261003-alumni-17.JPG",
+    "srcHash": "27a98ff5fa1e5ce9e4acc64d9e73c24bff653599511b7be45d37c9f92dd27caa"
+  },
+  "keyaki2026/046": {
+    "width": 1920,
+    "height": 2880,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRmABAABXRUJQVlA4IFQBAAAwBwCdASoYACQAPu1gqE2ppaQiKq35MB2JbAC34KRNcqkx45KCMVCq7lAOO/wDv2qSHN2F67eD5GjL3gUV4XshYgAA/ut8nvw8ZaxnEoEqn9wVd/S5iD4lFDBvCFeOZpLWy0CIFeQavvhAi/TlgPO2J/PC5Vc/a+hW5e5wAj9YYlz1Nc9MSHyvnSnnBXSy+eBJjmTgcEtqYwsltK3Dy3e1xEZUP9JQDJ77v5xY34vpmzSYqQTRdLhu1LvK7nCZqjt/U+YMIevA+WDnQXg7QqSZDDVthcaDy8vqZGkc+GF+8zaGpVyX6xF7TNSiAzYKGTr9123jvK+slz50dCsyjpfQYeg40dze8/46/x6QAQR7iUsYLVRlqnBlMsBqtjQygw1mNMPHMVmHNGsF4kP8RCK3iIeZmJbFV3ry3oS9zt401z9fBNfnMf70X2bo1ICedcEEAAAA",
+    "srcName": "261004-alumni-2.JPG",
+    "srcHash": "9651fa3a1f1546fa96c99fdd1ad87005418f41ea86390e19ffa79244bb5b3bc6"
+  },
+  "keyaki2026/047": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4IMIAAABwBQCdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoR4NvViwAcq5F6aEk9YW6uJl24tQ4fAAOH010dt22XQObpyl5t0xxrF1HoyHYW8/aHMxrpntZ3I8bD12rJmW7MGG+AHRDbK0TkGSbj11B1puKxNuFFbgooJhKFDgEYHgNh/bxqly2Atq3Gjona6uH/ktclA4TgL+/DM4U7Bzr7WPPGAqCP6zWlUstAyJENdj/g0pb7/U47BoylgtEVpX3lBGwAAAA==",
+    "srcName": "261004-alumni-52.JPG",
+    "srcHash": "988d3b1273e51e2444089da32da857b20ed506b5777f2fd33c886383e7b32576"
+  },
+  "keyaki2026/048": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtwAAABXRUJQVlA4INAAAADQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdEf/i2Sna947jD6fN4Eu69KxtgAD+xgOj5M7RAEpKHZZkCe+Y3dKqWtYFyWK3y6klXiizm4V8hyIdteJTsI0EnqZxaPcSQCuIT/qgjFxXhzKbm9FP7nEeps2HtPyXJQB/z/tJYqoYOQSPGyeRSjdB+VGuIG/91JgsS2QgOynijV1XUGuLSZvqiCpLb7rLHRjWuOKkPY3D1cKnbQhnE7SE+0xNzf7x2uTvxk/qx2zq6zjttgAA",
+    "srcName": "261003-alumni-18.JPG",
+    "srcHash": "9b81a91df7447abd0068e35b0d173520b1535fe48fcea4f0f499648f031a2bfa"
+  },
+  "keyaki2026/049": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4IMIAAAAQBQCdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoMYLJBz/5dgsgAsz/Fqyb9/iBzAAPkOmv/o+nFcTniSbtU79DbWTaBIsBKepVPlxsTJcmidDS7Gvv5G1vDAf1Q5nNBfJ2pHGcYIX4ksN8A+NDvq+jTV5qyfk6JIvuwb5MkbCL+05iCsWBj0e89Lh/ViYYY8et9KzSaNgA8KcXuiRm6yYBaTZU86aVosuDI5n1zcENG5x9qAjJGwIsWvd/6eABXAAA==",
+    "srcName": "261004-alumni-54.JPG",
+    "srcHash": "e4b4cb40c2755dc0b61aaf185e5cf7d96aeb67136b46377ead4eb890d1f3e8c3"
+  },
+  "keyaki2026/050": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAABQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdL1yB0a8zrfSAM9/8TusgAP7F8qLhU+UN2fqVrMZCKnmE9KbvIv9Ng2G5FxEmgmy2+gE3s+YPIn7/mLOn1QqScil4a69xi7go5Ejd6DBb5mF92VrnA9K4AKvq2fsLpbh1Zt0mG/f9OqHGIAAA",
+    "srcName": "261004-alumni-48.JPG",
+    "srcHash": "793d96d847a8fce6c4ecea54fa4854d216a4563c424f7a8c667a26810ae29dce"
+  },
+  "keyaki2026/051": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtQAAABXRUJQVlA4IMgAAACwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACw7dwLhKatsfJ1JgCH2kIRFaUgAP6TwtccsR2jNJm1vrNe7FYmbTWc/X7llMm92hNhV2YrN7L08CAOH+fnOP5Vby5hqEPebiKrZklYEswYVB8Gfwjc2w85eMLxksLTLI8ps1LSd12+XhXweorLE1QJjPHFI/eHbmgOaLyfvppWpgBclc1nMQ/gEI5/hG19Cey0Op3Tr6GgTNQVRYVCrRXeEwTFaJ8kV1XN4YAAAA==",
+    "srcName": "261004-alumni-26.JPG",
+    "srcHash": "dd70a3a3c13ea9c22bafe6c9ae3cccef2112d238220fe6fe7363bc665c590e6d"
+  },
+  "keyaki2026/052": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRrAAAABXRUJQVlA4IKQAAACwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoADK9tByrfOnIx1zz2OODIAAP7qxnIs/UstWByvflbnmDkBTWAQy47tnx2xqPkl3f8f9V1slLG/GY5M0Cl71T1jpL33fpiMSunlA5uiJCfaCAPf5FmJxDR/eVeb45E5REMCGBDV4JFid0AncEwYrpBZ3Zc5Z8ciCVcsxe88X+zvoALpxY1AAA==",
+    "srcName": "261003-alumni-8.JPG",
+    "srcHash": "21ded01f52c47eea6be93d27301127d2cc9f63ab10ac3e1bcd2fede89eb08be8"
+  },
+  "keyaki2026/053": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRsoAAABXRUJQVlA4IL4AAABQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JaACdLwAVgmhJdunS5kL4ERcAAP7oKv3YPYKMXoW0mKxzmZfijRaSaxvdB1Qc42iEwNTqfPAvvQCjL6j/ybsgyD+bjce1gBhnulaLNicG68zh1sZNXDu67u7989TnKz3iQ1IIps4W/286rO9BulabLx32v48x8n/mznQlNphw0Y2GW0ThCshvt49aIUwcvwQ/jRIlejkRvgrQXomd58oikjCGkAAA",
+    "srcName": "261003-alumni-7.JPG",
+    "srcHash": "863085699a99dea0dc169b1293a24bbb9142734fec4c6bb5dc85a92272489654"
+  },
+  "keyaki2026/054": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtYAAABXRUJQVlA4IMoAAACQBQCdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoMluJBz8FkzERiHjlrOjjLktb43NJf3wAD+2+qC4+eEypoGKq/4zU+SI/8rRDs3rA0nzkfEHrqtEARzArmniqGI12doU2BcSgj3sUn3MmVYDmSRMP5HU6GbBrw3Ci5DvAWxw7YfejxhnjID2WuCd7HjMTgWG6zgFuJs79t9Eshdn5DPLzNxiXI1wz8HHXRwToBQLm+o0cRW5Nz2QFRBbe/zH7TN6//J8cU32AAA",
+    "srcName": "261004-alumni-31.JPG",
+    "srcHash": "8ca33a45d18133223cc6362f4a20d58f60366bb085ec42227745bf8c4152f099"
+  },
+  "keyaki2026/055": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRqwAAABXRUJQVlA4IKAAAAAwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdAB9ZbmxdBCrHdQ+QR6AA/pgumYUX8PWWcbrSEsECJGizRWd7nW0buWpgzDAVtRipRCoMaajWIngLRdMC+7CvOzJLPb4zHqbH4nn82dxuIeNAYo/S9Let8kv49bASNUyTlhbe4bY5NT+/Knb/o5v/5g3zQRn9Dkz+zdlt0qgDvt9mAAAA",
+    "srcName": "261004-alumni-4.JPG",
+    "srcHash": "6a96f19c48074ca280ec6539c6d002c18882018a7f807c006e1ac5c7fdd33e50"
+  },
+  "keyaki2026/056": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRsgAAABXRUJQVlA4ILwAAADQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoR3AdE8rjt0ekqdsUSwxE+egAD+4KU5ztLkxqMt2VEW8NzuPFRfnGx21BMt59LjILTW2tAiqyA2mqIyLjnzgecM7IQJe3Bd6bfKgGJM84TMXy62Dr5lwedQZULCjzCiKrtKiwRzsM+NJ4f4fq4rY8z+5Ij/q8nErL5MoT01uf8chn9JQPUe9KHLL6fI7+TpC/DwdP+aEnGAP3pq0cAAAA==",
+    "srcName": "261003-alumni-16.JPG",
+    "srcHash": "eff89e3bbfc616cab15709b99d7cfb2f765aba215c2e4f7dd1e5af7f8d16362b"
+  },
+  "keyaki2026/057": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRsQAAABXRUJQVlA4ILgAAAAQBQCdASoYABAAPu1iqU2ppaOiMAgBMB2JagCdMoGv/jeBcKjkAB2QJnz107ncraWgAP4AoDTrKx3UND0zNOf6KIRzOuQF9iSYls2EL05xG78oUjt9SICZ4MwjwBQa/aH/Sg6SYd7ZidCoXlKVslvClY+0VEEbXCYrVvVLfn4XEF9idxbVRK3kvdqHN2hrGnslmY3rZ4tU74o+jhfrRVXrKXA8xncWF2R574IwLAxikifJ+yBZYAAA",
+    "srcName": "261004-alumni-41.JPG",
+    "srcHash": "69e76347b73da4a0032d1d04e9fa458f70a510a7dc112e92c571cd0d6c1d2eb5"
+  },
+  "keyaki2026/058": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRrwAAABXRUJQVlA4ILAAAABQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JZACdAYx2bXF0FiUjQwFEbziAAP7FGBTEyDsLlD7eQlsez3ppfNoXhw0noSN9a2zr033ea3UeuHzXsvwgkIoSk9FKRkf5VIdIUmX4lw/GJg+Fe86M1bvXXa4ztdpo8S4cTMRlLN6inZGaukJswZJItYj08OZKsXWLEhVxO5j9vUDyAYLK/oIX4vt8qcO16du2bQQztIAAAA==",
+    "srcName": "261003-alumni-4.JPG",
+    "srcHash": "7e1371270e776fe2871bc65fca76724e9d9614cc0004f2008860e251f67fb448"
+  },
+  "keyaki2026/059": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRuIAAABXRUJQVlA4INYAAACwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JZAC26DZgvA/R1bRA/zYWTyldLyCAAP6bu99dc4npkhdMrqb3d2jwYMWW9Rpa0DueVVD6tslyjhPOEHI8iVNHOAiX57OZrtokLCIiSJOESKTtnUCL4lwcpc1FglPeiH/YjBJZRjQAC9cytbk1B7J3wuxKnnQBiROOv9FwenkTmn51FG+7AoXBs3UzD7aXCV1yn0v8uX4MTawYQ5x70BKmsgWyFig1BpLSSqSeZVuuB+IVj/hQCDVFxzGW8rAA",
+    "srcName": "261004-alumni-11.JPG",
+    "srcHash": "6816cf0e85ec7593a06b219787f508809e7f97a9958cc5acbbd23258707c7648"
+  },
+  "keyaki2026/060": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4IMIAAACwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoAvQBZlXphnVqVoSy39XPsAAPx1zYIb2SmcX8GmI19xBpOQyszKmQMWZzHhko6HXREnB5O1oh3Zttc0tzxRmnb0FM58PARv1uCtFR+xOclz5bfbNvpFdBjOu6z/wt7Yw8zKAQxp36/AQ4X0OWjjKhUw3F0zB6TtcDpGWdFxbv1C2hc0nRoJ14J1N2agchM1lW7oUg/oWY1TwPz0M87toLjGgAAAAA==",
+    "srcName": "261003-alumni-10.JPG",
+    "srcHash": "8bda7a06ac369106c1c4aaf82ad905ce3cacbfa5c17b62926705bbe66ec7dbbf"
+  },
+  "keyaki2026/061": {
+    "width": 1920,
+    "height": 2880,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRjoBAABXRUJQVlA4IC4BAADwBwCdASoYACQAPu1srFEppaQipWzJMB2JZACxHxiHRpAHXndX/vwts8aF/yq6HC5qXpXRvpn6dmTb42qJpbKHaOZueSpSqwAA/u5b1eYZKs+I37PVU4GbuVW7uFWcgeOQMB80IYroIjnB11PhTyb6gskqINsW7uLbnHiLMeCLscN7fwbZINB6Odfl9V6VxJMifDB+BaNtV9pWIX2N6CBNs35nSp2ZGbn9T8n0Wl7ed7XexOKeqMOBER+/zaF1eKBH2wDsSRdz8ovkau4O9yYOne+XFqoOowXUq9wBzim1EixSndAXpeFI7RclBn7dsKpXWmsH/MnFw1bYVnLXeEqfnzayzdteEfVbdZ5NNHtRet6NFFAkPf1xE5Buk8BYCeFUCU/AQoWSggYq5sIAAA==",
+    "srcName": "261003-alumni-5.JPG",
+    "srcHash": "3b271d4e43ecd71e15a7d6152de94ceeb8e9bb0b428b5b75261aff27bc467966"
+  },
+  "keyaki2026/062": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRuYAAABXRUJQVlA4INoAAAAwBQCdASoYABAAPu1iqU2ppaOiMAgBMB2JagCdICXqQPcIh+UBFKqclgqFRbd7XRPBEAD+Tz652ZorPekOj8JhVzK9/dsiDiastabOAI2Yrh/SpGxCkJITUu1asjTfrQ7VlM0Tz23rsiYhBs/jYf9HAufQd8WacvEeUq/RjdGhPXBBQ43bOIqxfGv/nqcXPg1vEoSoi+H+OBn45ngJxS61YLcnBFEspMP0uXS5dOVKW1L3AafkpsJg7nCM+TO9I7PKaBNiv15nJUGP03YaiZB1MZAgYc5gxnXAAA==",
+    "srcName": "261004-okudaira-20.JPG",
+    "srcHash": "409377687a4e4031c841a1f34deae34183a473a250a0bfafef6720d926330d6e"
+  },
+  "keyaki2026/063": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtIAAABXRUJQVlA4IMYAAAAQBQCdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdGvVt/+7jP1mILwQic0/zkd66bYlwAPcG1BT8U/ZFsgmlWcWF8co6W0fjepHnA2AX3CsnXasrrHT10Ks+teJU9e56R6o8b5HORObaP0gCuPMKKsqy46wE5e6aMyYzqqQVMFH8oIy5Y2PJWLWWfSRLQf8ynXl73HWU5w9q3RWSw7YeQuPa/WhSmNFcWYmfU/alSEHDcVeQJTM0eAeri25q+b0QQW4D2dYAAAA=",
+    "srcName": "261004-okudaira-7.JPG",
+    "srcHash": "f74efed020a35de128fde00dd38a971a5d5d8c8c080be3fa79448b76bb96f13e"
+  },
+  "keyaki2026/064": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRuoAAABXRUJQVlA4IN4AAAAQBQCdASoYABAAPu1iqU2ppaOiMAgBMB2JZgCdH8BquVXpKaRYFGDCg5PdcpNE/VuwAP7oPqwLqMLt/qYLaTEX1kmWb4MMM1DDq62lSzxgF8TKnBnP2LFwzDteFzHtxZjQuO4OsCb6LhG3JOcWlputfT3ZJK6uNSBIETd8Bvym6hv9m7/DhXmzqLF+WL47jfEgBKnZ9dBAwQtvMe69Ipd7V911CL4upzskVvzJY/1RvHI1RMi+0O82Qs5MaIcLTgf15LZysv1fJ8h1cGj+ak/AJI0R0+lAL093SM4AAAA=",
+    "srcName": "261004-okudaira-19.JPG",
+    "srcHash": "da3e7521f288feaf65881c1e3b35f481dc3f4c0d97c6f39a5cd4019cfbca4c4b"
+  },
+  "keyaki2026/065": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRvoAAABXRUJQVlA4IO4AAABQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdAmwHV+KCmGGRAA8zmFVoAP4JlcrHk/wxTanpiXFT376RaKHe+dNUjWamqWxm6PQK2A7qM9Bbxf31yPYh7U47kOy5TaeRTnard5Gjaf7hX+13W5SkdvtJ5Jp/nPKSbWvABrPnT0KmPk7HS18x4wjdjMEbNG3q04Cm3HhCgTcWSNCL98lCovdRBhbcUwkoO6SsAmDmJZ6AJV/+77B/7XOwZp9WpMyLVkyXgMlu128VtHqLMgyedULVkePVkbGUbEy2/4OkOdsD4cDbdMl+dlHoiYAA",
+    "srcName": "261004-okudaira-6.JPG",
+    "srcHash": "6927ff0d0cff523856bd00977936f7ba1eae16f12fcc65f554f76518580c647a"
+  },
+  "keyaki2026/066": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRuoAAABXRUJQVlA4IN4AAACwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoEUUkRUJJuwzminWaM0XIiAAP6b28E+zaR3Q1zXV4Q32sc5ErniaHUmsJMqxkH0Vaem0/tQvuuWwXu/11ZZhS92YT5LZvYrzGHU69xjnPyd8xzgZjCTr8DlngCPsmhq4KLvW4Tvn4wRVVs7TRxhQdbA6KUgP6bgTgviqTQ/ofBqgEgvWdc//7xZ66o8vEMytMubnZ3rQsOH+c3T+sqcJVMG7KJrR0LI8IXjNejIti9FWVuFkU5i3/ZAsB/YEmcvgAA=",
+    "srcName": "261004-okudaira-1.JPG",
+    "srcHash": "bfb44836d144c1e2158f825702672ea5ad3f84add16b5d7148a031fd6156321c"
+  },
+  "keyaki2026/067": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4IM4AAACwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JagCdMoAluxVMBb/eTdry5FRSPiAAAPqe0ntSO2+1PvPGSzlaHO70bnkO+z1zX+nYVmw/9sIZ4zR1noIJw+WR6oGa+Ldu08beiqNlmCyP8gIOubUqTX0mpCjgwc7dpXfua/E5T4Kf4D//4yumv/jIBCK+uniYW/MajVw/dQB7Cy+pX2f3qapTSWYMUZ+YFGFPXh0oiW9j1BJ/gvQlN8JgcWFk3X3NoKWGWhZ35LisBXfZkVwAAA==",
+    "srcName": "261004-okudaira-16.JPG",
+    "srcHash": "48a0dd21ba1469db4de741f5917913c427b803f121a55ac0864b6df1e4e71df7"
+  },
+  "keyaki2026/068": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4IM4AAADwAwCdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdAYtKl8ZwVeNKoZEAAPlzA8shUyB6p2xAy3rHsI/DN0HUmSjKq+EU0gPLEkm9BXSqIPJQueHamNO3c0rtG2Uj1IteMa2hc78dxTT6J48Llu/NouO/37694F0uNuwPRYMeIZfaWbTpdbmlLY/s9ZfLubWzSowC/PqrNrN90ygXp9TlcXX62XALseuUC9393DZHrkbDFNP/rj3ofp04/U9iWRYZ4l8eU3qFvVXw0QGzzXnAAA==",
+    "srcName": "261004-okudaira-13.JPG",
+    "srcHash": "6cbd076ded0d50348e821d490151b5f227f06068f2ada1cc15e62fb3cffbc2f5"
+  },
+  "keyaki2026/069": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRvQAAABXRUJQVlA4IOgAAABQBQCdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdEf/2SqjQNp0fcFAvpm5XkW/uymgXk5QA/pGyKtbGBFdIbs5B9f+pVkhwRpyDvEb6SfYSi68U1GzPWPbj7oSMcge0T+hQ2dz0pn3ZixDK3RWq2Qw01CEcLb9AE+x/BG6kH86HLnQLjbCF4/0Wbf32boxh6ttf7qGt+fjd45P57Bi6I+v7HWQFaMasaHaFo218mdkSQx9g+HaIEA0IzfFsTKgMu3gCtdk6lfffjwVXjLETZzm3R/1Rl01Vx54g8Xy0FLs7Gdptof6IJAAA",
+    "srcName": "261004-okudaira-17.JPG",
+    "srcHash": "3811d17d28713fb20b83fb5fc63ccddbf014aaace66bbf373194adc1ff0c54ac"
+  },
+  "keyaki2026/070": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRvIAAABXRUJQVlA4IOYAAACQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdDBPSI7GVr7fivV65t48YcSAA/mm4rTM2ulSnRDb3d6D1HCSCikko88rNDgXmnOh1q6dR/MhkPzk1hMkAPCnSIJjw1wfgKzFItGTm6Nmy55OcH4lxEnuPjyNuXvzhzz9mQ9/gwQKde9jIKVtmf7VQssZ7T8o8IxofqKAKmW57ymRiIRMqM/nag1ak6u197EbdeITgfnlK4/rEoxiWJeY7mck+obhQzOWSg+B+ThvVmKbv/4bOcin/oj//Kipyvd89hOUbh/29PgAAAA==",
+    "srcName": "261004-okudaira-18.JPG",
+    "srcHash": "c1eb8ba987f858d9436083380a144a858db1c7b2dcd770f6b825317b49a9411c"
+  },
+  "keyaki2026/071": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRugAAABXRUJQVlA4INwAAABwBQCdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoMYJnb0wDea3wAI1weNQble+TNfAzpAAPa8XXhTJ6Fxsj0rr19W7fctdXNMEG+XDJpIYV9RsCb7G/bO1nYNHpNAKRhcXKhheNAI18GrR9K20z2Q9rJv/OIfkxxdpwmSRqtl+CiDjnaaf9dDsMn+zZSQGZcGSwXLrY5eUIY2muUPGH47Azi/W7SCK/QK6DnPvOvddiJzGGMqOT1G6LOnL1v5cXdZspzOfz6q00/Dn3ZSWsf/P/M5JyX6k/4AAAAA",
+    "srcName": "261004-okudaira-11.JPG",
+    "srcHash": "29473f41b66d57850157be7fa427589d239de5f48f17ab07523634897cdf0ad0"
+  },
+  "keyaki2026/072": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRuYAAABXRUJQVlA4INoAAADwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdB3gcwDOVFIVQnjdLoJbSJKp6Z4AA28q1zqALvUSYkCRoDokW8MBfR+4XQgdJvmDU9dFjoADSyGpBxCUJ34StWGUMVvEn0rfYTVzFpsXcPFfneYxw3AUNPGbfWqa2UkGPedXzQT9aGNyvfmDlDy2Grhw2vSfXiEfE4nWtoiwm2kPxrTaZIt+d5+UH7f9uSX28l9tzPB03w/2J8JltoEaqFa3Da6FXULK6wRFBADI/g9Fxgu3YNucUnp++vCjgAA==",
+    "srcName": "261004-okudaira-23.JPG",
+    "srcHash": "f16ff1fee8b321542de2753a2b74833e63c54150495dca339143c327a937d31c"
+  },
+  "keyaki2026/073": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRuoAAABXRUJQVlA4IN4AAACwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdFQdFPUJG9Ohjz/tFEI62uZsAAM4xpIWCAOAFhUQOk1uSthSDDkZnQLV56DVFXMfGVBdQIPkUTuPQArDoXgAZqc2JgsAc+c52kHCufFHOAGJBWTCfELwVc0Pz1HwNmoqLju5PycEjvBFikPjqTwZbejq/tPaY7xK908pzNYbyh9/lrHbFn+lStdW3Uvd/+SoHjC8pq1GGbveC0Jkk8Gc6a21crUFaC+xLsVHesG7LeqqqLeZgvGAt9sOtMkuQO6D4dAA=",
+    "srcName": "261004-okudaira-5.JPG",
+    "srcHash": "8b4c0c2e8594bae2a68bf8312b8f8c25ff707f6d4885724f250f1d645c359c92"
+  },
+  "keyaki2026/074": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtIAAABXRUJQVlA4IMYAAACwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoGv/i14WAgytfw4X2rZ0UoAAP62Djped7nOMKvnE02FgFqsYBtBQWcJgCM02ISjmHVg4MApS8MaoV6+f+3wYUsmyfgrR8Nr7g6q0ADlChsqNG1rZ7a4v5zIv3DTIRZ4JGkvML8qqdSxE3L7hX4nnje9eZeMU+kkQl5rX05Kfurf40/iSEqCUy7w8Vn8QDMsAriBSvO361R9dEAwzMkzdFbj0XozTqiwAAA=",
+    "srcName": "261004-okudaira-2.JPG",
+    "srcHash": "396f4020a1b139aa800d0564c9413fb9072d918dfc4d8d6b2d6f1dc6201211f0"
+  },
+  "keyaki2026/075": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRugAAABXRUJQVlA4INwAAADQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JZAC7AYw65se/3mZ5ZgAsft1KNHEKgADOPc/xUiccN2julWAJgJNn7f+2DTIDqrVEgpTMqcFTttfB6lD0TpmT7IBMvxyafnizZNnXUFArylabNRpUe6XiatyZoCOB47qyE5JP+MN7i6Uo0a3okWCtluym+nVxePsJYTgZ/yIu5loGj6QKZVjZqCcQNDMvNfqA76L0pin8s+++k0aBST0XYG4AjrxIwKSPNwMYpYbS9jYTqUernFCTB62jJ8zYZenmCiAA",
+    "srcName": "261004-okudaira-12.JPG",
+    "srcHash": "595ee4c0f152c458d89c8372d449274d4bae8bbd5a7b06aa4d5ada27e0cbc5da"
+  },
+  "keyaki2026/076": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtQAAABXRUJQVlA4IMgAAACQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoCGAB4aRDUK+pj3JgTYEEAA/teEOo7P0rX0johT44l97BcaAYXRlT1og2bivnRnodf4wRfHUXkRfofWL62ZemYL10iji6pVgv6P7WmvmL7CHHa5p4bM8Q1ArF1wZZGaaIjrnx91GTSIg5atPbpuadWSOzbI4fqRRAH66ZGisf304s89kCH8ebrZ+7fARzI6eKuSDKnKHHRYIWkFoe0lQ1ARjjwzZl4/K14AAA==",
+    "srcName": "261004-okudaira-8.JPG",
+    "srcHash": "e3485650e6cd3a218abb8bcde3d0b1eabd9715e4d9b996a8e53b0648e5e407c6"
+  },
+  "keyaki2026/077": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRr4AAABXRUJQVlA4ILIAAABwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACsAYxOu2Zt0fPIHaQ1EAgWAAD+VMRREXtFYBd9hoVTgLMW5aB4wKFI0fchzTZCgzQTdac1xMHTg2s2xhamCQg6Z3znXyYys4oWwygQcUur/NSrwFmPb9f7yqmEfq9eDllZYhkK2boJ9E8qgKV4XNgy3/EvEg5eztf2/1bvB8mfK/QWGWpTEC2aP3Ol+Dd+WbcRHApAQ4gA",
+    "srcName": "261004-okudaira-10.JPG",
+    "srcHash": "55f6cb47a9d711006ff458f4ca989c18894952900f67758f1e3b0e14bba221d5"
+  },
+  "keyaki2026/078": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtQAAABXRUJQVlA4IMgAAACwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACsAdwLgdUM7OJmTzq3mvY9LfGAAP7ys8dn2TltfQhPuAy2xcuJg3bOE0uGKNmpB716MDVeOLPUNNVZg/mfklWY0YdBaSr/EZrh4hfiyMByNggTrqSWO+D2TqEvL+dznXyP78A6QxNhBFXBhebGanFUKFqW5eHdOnbwu0lvL7TWCvT3KDeXJZ6fT3JOmY77MXatpF7LFtOmvSFfA6aSJl8YJJBuAZB3zirOxR4AAA==",
+    "srcName": "261004-okudaira-22.JPG",
+    "srcHash": "a3bbd2fa2d6320304b9b59a311781a5638ad7370045af1794eb9f355661fe0c8"
+  },
+  "keyaki2026/079": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRsAAAABXRUJQVlA4ILQAAADQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JYgC7DBFEaBtQDWa12naHSmnCZ/z3IAD+hfNliCBNKRaJ71OYbYED7nUxwogy5uaT2Nr1TyvDhnKKtfw2oUvoo4KpHA0InJX5qo3XB3WrSYZXFA9Ze1hcrjrekaIGT9Sy6fit8gd6nOvBCBXSUg7d5X4fgATuP9clm0dDXy7bx75j6ite+z73ixGc5HsV3rKbfHHPXBTvf6ksgAA=",
+    "srcName": "261004-okudaira-14.JPG",
+    "srcHash": "73201a5fe7ab910fd9b16239ab6fb2cab2f7fbc4c52e499e67a89e9ed7c9dd1d"
+  },
+  "keyaki2026/080": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRuAAAABXRUJQVlA4INQAAADwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoRwAdDRDtN8XdnTPfPplAlJDAAA/psrzE6SoCGdjoh9p2kEs3YTzzN9ZTzC6MRS6UwRnzrYKqNASuc2R5f1H/r1iGeEBhj4+ddKkysvsV8j+UlDeHI9COBwIBdzrv6KTtXnAOGuAAotfx/fidOdzR7SJwL7LjCQnTYOU81V+j1eFnrNoE2IJC3SULPJMEhS+GyTCgRopHUR9csfgfT3582If+TjbsopoyEO7hyuMUM0u0hT+AAAAA==",
+    "srcName": "261004-okudaira-9.JPG",
+    "srcHash": "3a1f744f72651dd73cc791ec29ed4869b9a574de830c2fa3b0ca897e306e5874"
+  },
+  "keyaki2026/081": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4IM4AAABwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoAlvw3wfbdLXgF0Qv8cgAD1VZ9bKBudt1dmQOTCTPtcWG3epPJFFFXeif2XzPa1t/afM7Y9aOr8sgwG7h8MH4b3s5Xd4BtpgmTHpEUwPEXfaA81FgmBJWRnrRVKNIeUIJG8jUr/cn/6X71KAL7DPxjOwzSMPBtuNQicLG8/nArqs3I6n/fWOf1QqkqlCumr8AnSNYhR7Buon583bfFSoxoEb/0zYgY67QUxw07nzGwAAA==",
+    "srcName": "261004-okudaira-24.JPG",
+    "srcHash": "9d60ffc1a1f0ecc6cd6b97556f92843c795d07f96eb5eb922b231ae89aecee75"
+  },
+  "keyaki2026/082": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtIAAABXRUJQVlA4IMYAAADwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JYgDCoDaDgbTo6UlrOnfebTqsck39pwAA/rAVuFi+J58cNwCIiE0DQXJCGFgqSOA6MtMdnjX6xmpeclvZWzAEt2vcjGbm9G/Rf4o0F1frZSOb3cuSXG2Wtcl2gKQOMylOPZzTiz/vOBn7eMZX8f4AwOzCuu/TfUY/K8vFbfX+50ajCMJpl1pfpjw8MRUGXR5+40snnQSTIE9zfA8Mr8xToGGzwaHRZLWjuIMAAAA=",
+    "srcName": "261004-okudaira-25.JPG",
+    "srcHash": "97e6b9e8ba96ade7beb987b5f65b5c050a6b69e7ed57650dc34b8bc7658b2fcb"
+  },
+  "keyaki2026/083": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtQAAABXRUJQVlA4IMgAAACQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JZgCsApgE98KBTaIasd81+gYdA/AA/sXYQkdDFe5EU4wBqm8f7PJ2UDHDam4dgWhzVzcvvlSf/OTCeYdfD5w7EFZOQ1YCZf1zFVGqKyc8VH12Y/Nn8F36Z7ImNQlv/BQkOcGvCekijlWZVk1WSSbbKq6M3+Q2dWk6BEsUX/DB9kv95poQ7vo8XZzyl1qsMGJb0AIk9QULLUisWHydmNlM/CTOCLqR1hSxDv+nXgAAAA==",
+    "srcName": "261004-okudaira-21.JPG",
+    "srcHash": "065d6b84943dbd7109d1e5ecb49ec9c937c7559613e4f35a0b0d85b95a3facf3"
+  },
+  "keyaki2026/084": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRsYAAABXRUJQVlA4ILoAAACwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JZAC7FQAAcjrdOntOlagqBwa4SPPAAP6Ro/vo17wUklXB56LA4X8j47KV9fDbgApvbUOgTFaFQFxaJQqT+OujjuPXtqNTpqbTEpKNARGs8bMPg2a8di4EoYV1T+Ne5e9oCvWz1TlAEXIVR59wjCeuHEcSeguWz3lYotVkwRsm9/dWp4j5s3NtqaKRY/Ru0pRBnFqI5eYTdk0A4Z+Y0AoAAAA=",
+    "srcName": "261004-okudaira-15.JPG",
+    "srcHash": "5a2e41801e5c8a1329b13951410720f424be7a21cf2b1633e912c999fa199a6c"
+  },
+  "keyaki2026/085": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRr4AAABXRUJQVlA4ILIAAABwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdOUE6VlaoDSus7+AS3ShVcAD+meSxIdntxaDWIy5Q3xJ9xG2V+kPN3KVHJPRb7zjOLOTCBtm3NExUxbHIL7ADyW970eA/rYBSXvBxERtFNcJ7eCGLPuu0SGGz4Du1rib4P5q3qtGUPYy+pLej4Mj/E8GQwWYv6wgT5cq5P4mmtXx/mfWg9d3Hcckj377/ZpcwHTGWpPgA",
+    "srcName": "261004-okudaira-3.JPG",
+    "srcHash": "758122ba7bf48ad482567359a5edfb90a07fcaf14381734f6aa2afdeccf66a30"
+  },
+  "keyaki2026/086": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtYAAABXRUJQVlA4IMoAAACQBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoMlj0idUVnu3pFhCY82nHgA/uFI5mlIlEa80ko1nzBGxvxxr31sQ+vipjCU3cLbAJ448JqF90qlHOhcgQ/x4rj1/A5pO7D9he4o0JQwldsWwAO0t1HpRykK2+g/55KXwKtWaHsQKvBEhv4eWmGbtddTdxsk6McveT7NZYwV6BkgUZdOBBL6DFciupuV3jWzA3um/3tLvCUD+jkykPoePPYlexjhUyyv2P+QAAAA",
+    "srcName": "261003-kimura-1.JPG",
+    "srcHash": "dfb50cc77a6ecce6abb95145f7b6b338d7d2a7726b7d1c3c9473972052a721ea"
+  },
+  "keyaki2026/087": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRtwAAABXRUJQVlA4INAAAACwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACsIE3JwWTIRHQlFoiVl/WPZXwwAP5Uft/gBiGBxgk3Uc6Webp7rZ4zJb/dQyhk+6kWliW7+LKkfm/pWLSHqW3nc2Qzug69tN5629cD+axJmvt+Sqtb4P1HlFV0Ur8GWjv6zbwxmxHtnt305tdPy4a5uNRpR26u8mGvJnDHpa+OpVt65/cq5HH+g8v36DAdyOhELPEc4s91PTjNmLMfpoqwEfz+rXuqX1TXG/aHVvLRgi/PwAAA",
+    "srcName": "261003-kimura-6.JPG",
+    "srcHash": "7a1d05e51b8c6a1e4c2141d2bf1995d30b86109ac234a15e70512e7b3d7dbff0"
+  },
+  "keyaki2026/088": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRvAAAABXRUJQVlA4IOQAAAAQBQCdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoMlpWgERkMvvq0MJ/5YOzUDcuAAAN5NoZbX+f+T73NvFrTjbnVG7Fj96dZwhaxEjfey5wncfBJ5iPljk/loX5elNkiheNH3+NkoKT+0tbKsaP81DPiMUo++19Ai4hzoc+jdh8vE9XdqNc0TCHpf41M61jOXH+xEyrmu29xket7CcD6PAWGV2300rZzEQCBHxtOj0PymfmzvnGsywEhmuYcLCyQvJGkDe8iXIz6jLtf+Mc54F8pKmn5v9hhc6VEhHUFLs4gAAAA=",
+    "srcName": "261003-kimura-5.JPG",
+    "srcHash": "f3a4554266ca955ffa00f42f65ca3724acb4d49bf7598837dffb343323a7e003"
+  },
+  "keyaki2026/089": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [480, 1024, 1920],
+    "lqip": "data:image/webp;base64,UklGRsoAAABXRUJQVlA4IL4AAACwBACdASoYABAAPu1iqU2ppaOiMAgBMB2JbACdMoR4HtABxKW2jR1Dauy1zd9AAOEGSMJeFwXnCYB2yYFxx12JPCRfFN1ENepwmU71rNI/kHP1XIZ0On/6OHm/UXr3mYaK7Dq9EjeihSXIKu60++qLABqiwZekfIUretLrL7wFTZRwmwRYDEk7ygst6DBGgoBcIN0lH1FdvtMnTPUIXt74e41YLL9lLgO+IvWX/v/6ZL5mH0s+SD97/zZnEAAA",
+    "srcName": "261003-kimura-4.JPG",
+    "srcHash": "7c263db18f6f0cc1421a63b552fce6d4778ff1e2fc8f7ffb1c30d22f48d2b745"
+  },
   "soukai2026/001": {
     "width": 1920,
     "height": 2880,
