@@ -14,6 +14,7 @@ import { createApiClient } from "~/lib/api.server";
 import { formatMemberCode, isCompleteMemberCode, normalizeMemberCode } from "~/lib/member-code";
 import { ticketCookieHeaders } from "~/lib/registration.server";
 import { buildMeta } from "~/lib/seo";
+import { hasSession } from "~/lib/session.server";
 import type { Route } from "./+types/index";
 
 export function meta() {
@@ -21,6 +22,9 @@ export function meta() {
 }
 
 export function loader({ request }: Route.LoaderArgs) {
+	if (hasSession(request)) {
+		throw redirect("/mypage");
+	}
 	return { expired: new URL(request.url).searchParams.has("expired") };
 }
 
