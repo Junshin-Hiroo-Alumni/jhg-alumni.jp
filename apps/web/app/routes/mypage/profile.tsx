@@ -17,14 +17,6 @@ type ActionResult = { ok: boolean; message: string };
 
 const sessionExpired = () => redirect("/login", { headers: clearAuthCookieHeaders() });
 
-async function updateAddress(api: ApiClient, address: string): Promise<ActionResult> {
-	const res = await api.v1.me.$patch({ json: { address } });
-	if (res.status === 401) throw sessionExpired();
-	return res.status === 200
-		? { ok: true, message: "住所を保存しました。" }
-		: { ok: false, message: "住所は200文字以内で入力してください。" };
-}
-
 async function requestEmailChange(
 	api: ApiClient,
 	email: string,
@@ -50,8 +42,6 @@ export async function action({ request, context }: Route.ActionArgs): Promise<Ac
 	const form = await request.formData();
 	const value = String(form.get("value") ?? "");
 	switch (form.get("intent")) {
-		case "address":
-			return await updateAddress(api, value);
 		case "email":
 			return await requestEmailChange(api, value, String(form.get("currentPassword") ?? ""));
 		default:
@@ -140,8 +130,6 @@ function SettingCard({
 	description,
 	label,
 	type = "text",
-	defaultValue,
-	placeholder,
 	submitLabel = "保存",
 	autoComplete,
 	required = false,
@@ -152,8 +140,6 @@ function SettingCard({
 	description?: string;
 	label: string;
 	type?: "text" | "email";
-	defaultValue?: string;
-	placeholder?: string;
 	submitLabel?: string;
 	autoComplete?: string;
 	required?: boolean;
@@ -178,8 +164,6 @@ function SettingCard({
 					id={inputId}
 					name="value"
 					type={type}
-					defaultValue={defaultValue}
-					placeholder={placeholder}
 					autoComplete={autoComplete}
 					required={required}
 					aria-invalid={result?.ok === false ? true : undefined}
@@ -232,7 +216,7 @@ function SettingCard({
 
 export const handle: MyPageHandle = {
 	title: "プロフィール設定",
-	description: "住所とログインに使うメールアドレスを変更できます。",
+	description: "ログインに使うメールアドレスを変更できます。",
 };
 
 export default function Profile() {
@@ -240,15 +224,6 @@ export default function Profile() {
 	return (
 		<div className={css({ display: "grid", gap: "1.25rem" })}>
 			<AccountSummary member={member} />
-			<SettingCard
-				intent="address"
-				title="住所"
-				description="同窓会からの郵送物のお届けに使います。空欄にして保存すると削除されます。"
-				label="住所"
-				defaultValue={member.address ?? ""}
-				placeholder="例: 東京都港区南麻布5-1-14"
-				autoComplete="street-address"
-			/>
 			<SettingCard
 				intent="email"
 				title="メールアドレス"

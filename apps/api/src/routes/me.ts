@@ -18,7 +18,6 @@ export const MemberSchema = z
 		email: z.email(),
 		name: z.string(),
 		graduationYear: z.int().nullable(),
-		address: z.string().nullable(),
 		createdAt: z.iso.datetime(),
 		updatedAt: z.iso.datetime(),
 	})
@@ -30,30 +29,6 @@ const getMeRoute = createRoute({
 	security: bearerSecurity,
 	responses: {
 		200: jsonResponse("ログイン中の会員", MemberSchema),
-		401: errorResponse("トークンがない、または無効"),
-		404: errorResponse("会員が存在しない"),
-	},
-});
-
-const updateMeRoute = createRoute({
-	method: "patch",
-	path: "/v1/me",
-	security: bearerSecurity,
-	request: jsonBody(
-		z
-			.object({
-				/** 空文字は未設定（null）として保存する */
-				address: z
-					.string()
-					.trim()
-					.max(200)
-					.transform(value => value || null)
-					.nullable(),
-			})
-			.partial(),
-	),
-	responses: {
-		200: jsonResponse("更新後の会員", MemberSchema),
 		401: errorResponse("トークンがない、または無効"),
 		404: errorResponse("会員が存在しない"),
 	},
@@ -89,7 +64,6 @@ function toMemberResponse(member: Member) {
 		email: member.email,
 		name: member.name,
 		graduationYear: member.graduationYear,
-		address: member.address,
 		createdAt: member.createdAt.toISOString(),
 		updatedAt: member.updatedAt.toISOString(),
 	};
@@ -106,24 +80,6 @@ app.use("/v1/me/*", requireAuth);
 export const meApp = app
 	.openapi(getMeRoute, async c => {
 		const member = await findMember(c.var.memberId);
-		if (!member) {
-			return c.json({ message: "Member not found" }, 404);
-		}
-		return c.json(toMemberResponse(member), 200);
-	})
-	.openapi(updateMeRoute, async c => {
-		const body = c.req.valid("json");
-		// 更新項目がない場合、Drizzle の update は空の SET で失敗するため現在値を返す
-		const member =
-			Object.keys(body).length === 0
-				? await findMember(c.var.memberId)
-				: (
-						await getDb()
-							.update(members)
-							.set(body)
-							.where(eq(members.id, c.var.memberId))
-							.returning()
-					)[0];
 		if (!member) {
 			return c.json({ message: "Member not found" }, 404);
 		}
