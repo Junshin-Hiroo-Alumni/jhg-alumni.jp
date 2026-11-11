@@ -6,6 +6,7 @@ import {
 } from "@tabler/icons-react";
 import { Link } from "react-router";
 import { css } from "styled-system/css";
+import { CONTACT_FORM_URL } from "~/lib/contact";
 
 const footerLinks = [
 	{ id: "f-home", title: "ホーム", url: "/" },
@@ -94,7 +95,7 @@ export default function SiteFooter() {
 					>
 						〒106-0047 東京都港区南麻布5-1-14
 						<br />
-						<a href="https://forms.gle/D9a2wzMiyJY3F3fNA">お問い合わせ</a>
+						<a href={CONTACT_FORM_URL}>お問い合わせ</a>
 					</p>
 
 					{/* SNS / ソースコード */}
