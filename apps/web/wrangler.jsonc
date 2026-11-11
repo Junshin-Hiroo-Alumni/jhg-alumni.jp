@@ -9,6 +9,10 @@
   },
   "services": [
     {
+      "binding": "API",
+      "service": "api"
+    },
+    {
       "binding": "OG_IMAGE",
       "service": "ogimage"
     }

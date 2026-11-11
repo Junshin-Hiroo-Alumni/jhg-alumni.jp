@@ -7,7 +7,7 @@
     }
   },
   "scripts": {
-    "dev": "vite dev",
+    "dev": "CLOUDFLARE_DEV_REGISTRY_PATH=../../.wrangler/dev-registry vite dev",
     "build": "vite build",
     "preview": "pnpm run build && vite preview",
     "deploy": "vite build && wrangler deploy",

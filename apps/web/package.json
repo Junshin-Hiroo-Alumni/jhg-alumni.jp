@@ -5,7 +5,7 @@
   "scripts": {
     "build": "react-router build",
     "clean": "pnpm exec rimraf .react-router build .turbo",
-    "dev": "react-router dev",
+    "dev": "CLOUDFLARE_DEV_REGISTRY_PATH=../../.wrangler/dev-registry react-router dev",
     "preview": "pnpm run build && vite preview",
     "deploy": "pnpm run build && wrangler deploy",
     "cf-typegen": "wrangler types",
@@ -28,10 +28,11 @@
     "react-dom": "^19.2.4",
     "react-markdown": "^10.1.0",
     "react-router": "7.16.0",
-    "react-syntax-highlighter": "^16.1.1"
+    "react-syntax-highlighter": "^16.1.1",
+    "@repo/api": "workspace:*"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.29.1",
+    "@cloudflare/vite-plugin": "^1.62.0",
     "@react-router/dev": "7.16.0",
     "@types/node": "^22",
     "@types/react": "^19.2.14",
@@ -40,6 +41,6 @@
     "typescript": "^5.9.3",
     "vite": "^7.1.7",
     "vite-tsconfig-paths": "^5.1.4",
-    "wrangler": "^4.0.0"
+    "wrangler": "^4.143.0"
   }
 }

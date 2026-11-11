@@ -11,7 +11,10 @@
     "clean": "turbo run clean --ui=stream && pnpm exec rimraf .turbo",
     "ci": "biome ci . && pnpm run typecheck",
     "clean:all": "pnpm run clean && rm -rf node_modules apps/*/node_modules packages/*/node_modules .turbo",
-    "compress:gallery": "node scripts/compress-gallery.mjs"
+    "compress:gallery": "node scripts/compress-gallery.mjs",
+    "db:generate": "pnpm --filter @repo/api db:generate",
+    "db:migrate": "pnpm --filter @repo/api db:migrate",
+    "db:migrate:remote": "pnpm --filter @repo/api db:migrate:remote"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.11",

@@ -12,3 +12,6 @@ patchedDependencies:
 
 update:
   githubActions: true
+
+# Windows でも scripts の `VAR=value cmd` や `&&` を sh と同じように解釈させる
+shellEmulator: true

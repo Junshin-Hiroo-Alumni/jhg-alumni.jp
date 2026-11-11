@@ -2,6 +2,7 @@ import { IconMenu2, IconX } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router";
 import { css } from "styled-system/css";
+import SiteLogo from "./SiteLogo";
 
 type HeaderLink = {
 	id: string;
@@ -19,7 +20,8 @@ const links: Array<HeaderLink> = [
 
 const LOGO_SCROLL_THRESHOLD = 80;
 
-export default function SiteHeader() {
+/** `loggedIn` のときは「ログイン」の代わりに「マイページ」を表示する */
+export default function SiteHeader({ loggedIn = false }: { loggedIn?: boolean }) {
 	const { pathname } = useLocation();
 	const isHome = pathname === "/";
 	const [scrolled, setScrolled] = useState(false);
@@ -36,34 +38,13 @@ export default function SiteHeader() {
 	}, [isHome]);
 
 	const isLogoLarge = isHome && !scrolled;
+	const account = loggedIn
+		? { url: "/mypage", label: "マイページ" }
+		: { url: "/login", label: "ログイン" };
 
 	return (
 		<>
-			<Link
-				to="/"
-				aria-label="ホーム"
-				className={css({
-					position: "fixed",
-					top: { base: "1.25rem", md: "2.5rem" },
-					left: { base: "1.25rem", md: "2.5rem" },
-					zIndex: "100",
-					display: "block",
-					lineHeight: "0",
-				})}
-			>
-				<img
-					src="/common/base-logo.svg"
-					alt="ロゴ"
-					data-large={isLogoLarge}
-					className={css({
-						height: "auto",
-						display: "block",
-						transition: "width 0.35s cubic-bezier(0.22, 1, 0.36, 1)",
-						width: { base: "88px", md: "150px" },
-						"&[data-large='false']": { width: { base: "48px", md: "64px" } },
-					})}
-				/>
-			</Link>
+			<SiteLogo large={isLogoLarge} />
 
 			<header
 				className={css({
@@ -75,7 +56,8 @@ export default function SiteHeader() {
 					right: { base: "1rem", md: "1.5rem" },
 					top: { base: "1.25rem", md: "1.5rem" },
 					borderRadius: "9999px",
-					px: { base: "1rem", md: "1.75rem" },
+					pl: { base: "0.625rem", lg: "1.75rem" },
+					pr: "0.625rem",
 					boxShadow: "0 6px 24px rgba(0, 0, 0, 0.08)",
 					zIndex: "100",
 				})}
@@ -105,6 +87,26 @@ export default function SiteHeader() {
 							</Link>
 						))}
 					</nav>
+
+					<Link
+						to={account.url}
+						className={css({
+							display: { base: "none", lg: "flex" },
+							alignItems: "center",
+							height: "2.25rem",
+							px: "1.125rem",
+							borderRadius: "9999px",
+							bg: "green.600",
+							color: "#FFFFFF",
+							fontWeight: "bold",
+							fontSize: "sm",
+							whiteSpace: "nowrap",
+							transition: "background-color 0.2s ease",
+							_hover: { bg: "green.700" },
+						})}
+					>
+						{account.label}
+					</Link>
 
 					{/* モバイル: ハンバーガー */}
 					<button
@@ -184,6 +186,26 @@ export default function SiteHeader() {
 								</Link>
 							))}
 						</nav>
+						<Link
+							to={account.url}
+							onClick={() => setMenuOpen(false)}
+							className={css({
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+								mt: "0.5rem",
+								height: "2.75rem",
+								borderRadius: "9999px",
+								bg: "green.600",
+								color: "#FFFFFF",
+								fontWeight: "bold",
+								fontSize: "md",
+								transition: "background-color 0.15s ease",
+								_hover: { bg: "green.700" },
+							})}
+						>
+							{account.label}
+						</Link>
 					</div>
 				</>
 			)}

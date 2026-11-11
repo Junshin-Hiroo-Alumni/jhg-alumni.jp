@@ -4,7 +4,7 @@ import { defineConfig } from "vite";
 export default defineConfig({
 	server: {
 		allowedHosts: ["ogimage.internal"],
-		port: 3001,
+		port: 3002,
 	},
-	plugins: [cloudflare()],
+	plugins: [cloudflare({ inspectorPort: 9232 })],
 });

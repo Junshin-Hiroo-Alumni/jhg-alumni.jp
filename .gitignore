@@ -60,3 +60,6 @@ todos.json
 /apps/api/src/generated/prisma
 
 /.claude
+
+# 名簿（個人情報）を誤ってコミットしない
+*.csv
