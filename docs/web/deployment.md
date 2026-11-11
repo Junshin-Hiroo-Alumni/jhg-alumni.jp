@@ -2,7 +2,7 @@
 
 `apps/web`（React Router v7 / SSR）を **Cloudflare Workers + Static Assets** にデプロイします。
 
-実行環境は **bun** を前提とします。
+パッケージ管理には **pnpm** を、実行環境には **Node.js** を使用します。
 
 ## 仕組みと前提
 
@@ -19,7 +19,7 @@
 
 ```sh
 cd apps/web
-bunx wrangler login
+pnpm exec wrangler login
 ```
 
 ## ローカルからのデプロイ
@@ -28,7 +28,7 @@ bunx wrangler login
 
 ```sh
 cd apps/web
-bun run deploy
+pnpm run deploy
 ```
 
 ビルドにより `apps/web/.wrangler/deploy/config.json` が生成され、`wrangler deploy` はそこから解決済み設定（`build/server/wrangler.json`）を参照してデプロイします。
@@ -39,8 +39,8 @@ bun run deploy
 
 ```sh
 cd apps/web
-bun run build
-bunx wrangler deploy --dry-run
+pnpm run build
+pnpm exec wrangler deploy --dry-run
 ```
 
 - `Total Upload ... gzip` の値が Worker バンドルのサイズ（1MB / 10MB 制限の判定対象）です。
@@ -50,7 +50,7 @@ bunx wrangler deploy --dry-run
 
 ```sh
 cd apps/web
-bun run preview
+pnpm run preview
 ```
 
 ## Git 連携での自動デプロイ（Workers Builds）
@@ -59,15 +59,15 @@ Cloudflare ダッシュボードからリポジトリを接続し、push 時に�
 
 1. ダッシュボード → **Workers & Pages** → **Create** → **Workers** → **Connect to Git**
 2. GitHub / GitLab を認可し、対象リポジトリを選択します。
-3. このリポジトリは bun + Turborepo のモノレポ（`apps/web`）のため、ビルド設定を次のようにします。
+3. このリポジトリは pnpm + Turborepo のモノレポ（`apps/web`）のため、ビルド設定を次のようにします。
 
    | 項目 | 値 |
    | --- | --- |
    | Root directory | `apps/web` |
-   | Build command | `bun run build` |
-   | Deploy command | `bunx wrangler deploy` |
+   | Build command | `pnpm run build` |
+   | Deploy command | `pnpm exec wrangler deploy` |
 
-   > サブディレクトリでの依存解決が不安定な場合は、Root をリポジトリルートのままにし、Build command を `bunx turbo run build --filter=web`、Deploy command を `bunx wrangler deploy --config apps/web/wrangler.jsonc` に切り替えてください。
+   > サブディレクトリでの依存解決が不安定な場合は、Root をリポジトリルートのままにし、Build command を `pnpm exec turbo run build --filter=web`、Deploy command を `pnpm exec wrangler deploy --config apps/web/wrangler.jsonc` に切り替えてください。
 
 4. 以降は push のたびに自動でビルド・デプロイされます。
 
@@ -75,7 +75,7 @@ Cloudflare ダッシュボードからリポジトリを接続し、push 時に�
 
 - ローカル開発の環境変数は [環境変数ドキュメント](./environment-variables.md) を参照してください。
 - ビルド時に必要な `VITE_` 系の変数は、Git 連携の場合 Workers Builds の **Settings → Variables and Secrets** に登録します（`VITE_` 系はビルド時にバンドルへ埋め込まれます）。
-- Worker 実行時のシークレットは `bunx wrangler secret put <NAME>` で登録します。
+- Worker 実行時のシークレットは `pnpm exec wrangler secret put <NAME>` で登録します。
 
 ## 関連ファイル
 

@@ -5,7 +5,7 @@
 ## ローカル開発
 
 - `.env.example` を `.dev.vars` にコピーして `JWT_SECRET` を設定します（未設定だとログインや登録でエラーになります）。
-- メールは送信せず、リンクを API のログ（`bun run dev` のターミナル）に出します。
+- メールは送信せず、リンクを API のログ（`pnpm run dev` のターミナル）に出します。
 - 名簿は下記の「名簿の取り込み」の手順で、ローカルの D1 に入れます（`--remote` を付けない）。
 
 ## 名簿の取り込み
@@ -14,8 +14,8 @@
 
 ```sh
 cd apps/api
-bun run roster:import <CSV ファイル> --check   # 検証だけ（D1 に書き込まない）
-bun run roster:import <CSV ファイル> --remote  # 本番の D1 に取り込む
+pnpm run roster:import <CSV ファイル> --check   # 検証だけ（D1 に書き込まない）
+pnpm run roster:import <CSV ファイル> --remote  # 本番の D1 に取り込む
 ```
 
 - 列は A 索引記号 / B 会員No. / C 卒年(和暦) / D 卒年(西暦) / E 現姓 / F 旧姓 / G 名前 / H 旧名 / I 発送不可フラグ / J 以降 認証コード です。

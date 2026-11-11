@@ -6,15 +6,10 @@
   "compatibility_flags": ["global_fetch_strictly_public"],
   "workers_dev": false,
   "preview_urls": false,
-  "dev": {
-    "port": 3002,
-    "inspector_port": 9232
-  },
   "cache": {
     "enabled": true
   },
   "assets": {
-    "directory": "./src/assets",
     "binding": "ASSETS"
   }
 }

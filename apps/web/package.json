@@ -4,19 +4,18 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
-    "clean": "bunx rimraf .react-router build .turbo",
+    "clean": "pnpm exec rimraf .react-router build .turbo",
     "dev": "CLOUDFLARE_DEV_REGISTRY_PATH=../../.wrangler/dev-registry react-router dev",
-    "preview": "bun run build && vite preview",
-    "deploy": "bun run build && wrangler deploy",
+    "preview": "pnpm run build && vite preview",
+    "deploy": "pnpm run build && wrangler deploy",
     "cf-typegen": "wrangler types",
-    "check-types": "bun run typecheck",
+    "check-types": "pnpm run typecheck",
     "typecheck": "CI=1 wrangler types && react-router typegen && tsc",
     "prepare": "panda codegen"
   },
   "dependencies": {
     "@date-fns/tz": "^1.5.0",
     "@radix-ui/themes": "^3.3.0",
-    "@repo/api": "workspace:*",
     "@repo/ogimage": "workspace:*",
     "@tabler/icons-react": "^3.41.1",
     "@types/react-syntax-highlighter": "^15.5.13",
@@ -29,7 +28,8 @@
     "react-dom": "^19.2.4",
     "react-markdown": "^10.1.0",
     "react-router": "7.16.0",
-    "react-syntax-highlighter": "^16.1.1"
+    "react-syntax-highlighter": "^16.1.1",
+    "@repo/api": "workspace:*"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.62.0",
@@ -41,6 +41,6 @@
     "typescript": "^5.9.3",
     "vite": "^7.1.7",
     "vite-tsconfig-paths": "^5.1.4",
-    "wrangler": "^4.160.0"
+    "wrangler": "^4.143.0"
   }
 }

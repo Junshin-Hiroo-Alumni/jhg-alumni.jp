@@ -1,6 +1,6 @@
 // 認証コードを書き込んだ名簿 CSV を D1 の roster テーブルに取り込む。
 //
-// 使い方: bun run roster:import <CSV ファイル> [--remote | --check]
+// 使い方: pnpm run roster:import <CSV ファイル> [--remote | --check]
 //   --remote を付けないとローカルの D1 に取り込む。--check は検証だけ行い、D1 には書き込まない。
 //
 // CSV は Authentication-Code-Generator の出力（ヘッダーなし、UTF-8）。
@@ -9,11 +9,12 @@
 //
 // 取り込みのたびに CSV の内容で置き換え、CSV にない行は削除する。
 // 認証コードは SHA-256 のハッシュだけを保存する。
+import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { MEMBER_CODE_PATTERN } from "../src/lib/member-code";
+import { MEMBER_CODE_PATTERN } from "../src/lib/member-code.ts";
 
 const COLUMN = {
 	indexSymbol: 0,
@@ -180,7 +181,7 @@ const args = process.argv.slice(2);
 const remote = args.includes("--remote");
 const csvPath = args.find(arg => !arg.startsWith("--"));
 if (!csvPath) {
-	console.error("使い方: bun run roster:import <CSV ファイル> [--remote | --check]");
+	console.error("使い方: pnpm run roster:import <CSV ファイル> [--remote | --check]");
 	process.exit(1);
 }
 
@@ -205,12 +206,14 @@ if (args.includes("--check")) {
 // 名前を含むので、作業後に必ず消す
 const dir = mkdtempSync(join(tmpdir(), "roster-"));
 const sqlPath = join(dir, "roster.sql");
+let status: number | null;
 try {
 	writeFileSync(sqlPath, toSql(rows, Date.now()), { mode: 0o600 });
 	console.info(`${rows.length} 件を${remote ? "本番" : "ローカル"}の D1 に取り込みます。`);
-	const proc = Bun.spawnSync(
+	status = spawnSync(
+		"pnpm",
 		[
-			"bunx",
+			"exec",
 			"wrangler",
 			"d1",
 			"execute",
@@ -218,11 +221,15 @@ try {
 			remote ? "--remote" : "--local",
 			`--file=${sqlPath}`,
 		],
-		{ cwd: join(import.meta.dir, ".."), stdio: ["inherit", "inherit", "inherit"] },
-	);
-	if (proc.exitCode !== 0) {
-		process.exit(proc.exitCode ?? 1);
-	}
+		{
+			cwd: join(import.meta.dirname, ".."),
+			stdio: "inherit",
+			// Windows では pnpm が .cmd のため、シェル経由でないと起動できない
+			shell: process.platform === "win32",
+		},
+	).status;
 } finally {
 	rmSync(dir, { recursive: true, force: true });
 }
+// process.exit は finally を飛ばすので、一時ファイルを消してから終了する
+process.exit(status ?? 1);
