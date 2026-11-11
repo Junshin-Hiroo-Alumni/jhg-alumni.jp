@@ -6,16 +6,35 @@ const createdAt = () =>
 		.notNull()
 		.$defaultFn(() => new Date());
 
+/**
+ * 同窓会名簿（認証コードを発行した人だけ）
+ *
+ * 事務局から受け取る CSV を `bun run roster:import` で取り込む。
+ * 認証コードはハッシュだけを保存し、名簿が漏れてもコードを使えないようにする。
+ */
+export const roster = sqliteTable("roster", {
+	memberNo: text("member_no").primaryKey(),
+	codeHash: text("code_hash").notNull().unique(),
+	/** 卒業した年（西暦）。卒業年度ではない。中学卒業（名簿に卒年がない）は null */
+	graduationYear: integer("graduation_year"),
+	name: text("name").notNull(),
+	/** 旧姓・旧名で組み立てた名前。どちらもなければ null */
+	formerName: text("former_name"),
+	/** 取り込みのたびに更新し、CSV から消えた行を削除する目印にする */
+	importedAt: timestamp("imported_at").notNull(),
+});
+
 /** 同窓会員。会員登録（メールアドレス確認とパスワード設定）が完了した時点で作成する */
 export const members = sqliteTable("members", {
 	id: text("id")
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID()),
-	/** 登録に使った認証コード。1 つのコードで登録できるのは 1 人まで */
-	memberCode: text("member_code").notNull().unique(),
+	/** 名簿の会員番号。1 つの会員番号で登録できるのは 1 人まで */
+	memberNo: text("member_no").notNull().unique(),
 	email: text("email").notNull().unique(),
 	passwordHash: text("password_hash").notNull(),
 	name: text("name").notNull(),
+	/** 中学卒業は null */
 	graduationYear: integer("graduation_year"),
 	/** 住所（任意）。登録時は空 */
 	address: text("address"),
@@ -28,8 +47,8 @@ export const members = sqliteTable("members", {
 
 export const REGISTRATION_STAGES = [
 	"code_verified",
+	"year_verified",
 	"confirmed",
-	"quiz_passed",
 	"email_sent",
 	"completed",
 ] as const;
@@ -39,7 +58,7 @@ export type RegistrationStage = (typeof REGISTRATION_STAGES)[number];
  * 会員登録の途中経過
  *
  * 認証コードの確認で作成し、登録チケット（ハッシュのみ保存）で本人のブラウザと紐づける。
- * 段階（`stage`）をサーバー側で管理し、クイズなどを飛ばせないようにする。
+ * 段階（`stage`）をサーバー側で管理し、卒業年の照合などを飛ばせないようにする。
  */
 export const registrations = sqliteTable(
 	"registrations",
@@ -48,11 +67,9 @@ export const registrations = sqliteTable(
 			.primaryKey()
 			.$defaultFn(() => crypto.randomUUID()),
 		ticketHash: text("ticket_hash").notNull().unique(),
-		memberCode: text("member_code").notNull(),
+		memberNo: text("member_no").notNull(),
 		stage: text("stage", { enum: REGISTRATION_STAGES }).notNull(),
-		/** 出題中の問題 ID（JSON 配列）。不正解のたびに作り直す */
-		quizQuestionIds: text("quiz_question_ids", { mode: "json" }).$type<string[]>(),
-		quizFailures: integer("quiz_failures").notNull().default(0),
+		yearFailures: integer("year_failures").notNull().default(0),
 		email: text("email"),
 		emailTokenHash: text("email_token_hash").unique(),
 		emailTokenExpiresAt: timestamp("email_token_expires_at"),
@@ -62,7 +79,7 @@ export const registrations = sqliteTable(
 		expiresAt: timestamp("expires_at").notNull(),
 		createdAt: createdAt(),
 	},
-	table => [index("registrations_member_code_idx").on(table.memberCode, table.createdAt)],
+	table => [index("registrations_member_no_idx").on(table.memberNo, table.createdAt)],
 );
 
 /** ログイン中のセッション（リフレッシュトークン。ハッシュのみ保存） */
@@ -83,6 +100,7 @@ export const sessions = sqliteTable(
 );
 
 export type Member = typeof members.$inferSelect;
+export type RosterEntry = typeof roster.$inferSelect;
 export type Registration = typeof registrations.$inferSelect;
 
 /** パスワード再設定の申請（トークンはハッシュのみ保存） */

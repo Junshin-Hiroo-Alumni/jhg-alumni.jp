@@ -5,7 +5,7 @@
   "scripts": {
     "build": "react-router build",
     "clean": "bunx rimraf .react-router build .turbo",
-    "dev": "react-router dev",
+    "dev": "CLOUDFLARE_DEV_REGISTRY_PATH=../../.wrangler/dev-registry react-router dev",
     "preview": "bun run build && vite preview",
     "deploy": "bun run build && wrangler deploy",
     "cf-typegen": "wrangler types",
@@ -32,7 +32,7 @@
     "react-syntax-highlighter": "^16.1.1"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.29.1",
+    "@cloudflare/vite-plugin": "^1.62.0",
     "@react-router/dev": "7.16.0",
     "@types/node": "^22",
     "@types/react": "^19.2.14",
@@ -41,6 +41,6 @@
     "typescript": "^5.9.3",
     "vite": "^7.1.7",
     "vite-tsconfig-paths": "^5.1.4",
-    "wrangler": "^4.0.0"
+    "wrangler": "^4.160.0"
   }
 }

@@ -7,7 +7,7 @@
     }
   },
   "scripts": {
-    "dev": "wrangler dev",
+    "dev": "CLOUDFLARE_DEV_REGISTRY_PATH=../../.wrangler/dev-registry wrangler dev",
     "deploy": "wrangler deploy --minify",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "typecheck": "CI=1 bun run cf-typegen && tsc",
@@ -25,6 +25,6 @@
   },
   "devDependencies": {
     "@types/react": "^19.2.14",
-    "wrangler": "^4.110.0"
+    "wrangler": "^4.160.0"
   }
 }

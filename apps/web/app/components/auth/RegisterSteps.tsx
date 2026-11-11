@@ -3,8 +3,8 @@ import { css } from "styled-system/css";
 
 const steps = [
 	{ id: "code", label: "認証コード" },
+	{ id: "year", label: "卒業年" },
 	{ id: "confirm", label: "本人確認" },
-	{ id: "quiz", label: "クイズ" },
 	{ id: "email", label: "メール" },
 	{ id: "password", label: "パスワード" },
 ] as const;

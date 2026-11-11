@@ -2,6 +2,7 @@ import { Form, Link, redirect } from "react-router";
 import { css } from "styled-system/css";
 import AuthShell from "~/components/auth/AuthShell";
 import { bodyTextStyle, primaryButtonClass, secondaryButtonClass } from "~/components/auth/styles";
+import { formatGraduationYear } from "~/lib/graduation-year";
 import {
 	pathForStage,
 	redirectToStart,
@@ -16,14 +17,17 @@ export function meta() {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
-	const { member } = await requireRegistrationStage(request, ["code_verified"]);
+	const { member } = await requireRegistrationStage(request, ["year_verified"]);
+	if (!member) {
+		throw redirectToStart();
+	}
 	return { member };
 }
 
 export async function action({ request }: Route.ActionArgs) {
 	const res = await registrationApi(request).v1.registrations.current.confirm.$post();
 	if (res.status === 200) {
-		return redirect("/register/quiz");
+		return redirect("/register/email");
 	}
 	if (res.status === 409) {
 		return redirect(pathForStage((await res.json()).stage));
@@ -57,15 +61,28 @@ export default function RegisterConfirm({ loaderData }: Route.ComponentProps) {
 				})}
 			>
 				<div className={rowClass}>
-					<dt className={css({ fontSize: "sm", color: "gray.600" })}>卒業年度</dt>
+					<dt className={css({ fontSize: "sm", color: "gray.600" })}>卒業年</dt>
 					<dd className={css({ fontWeight: "bold", fontSize: "lg", color: "#222222" })}>
-						{member.graduationYear}年度
+						{formatGraduationYear(member.graduationYear)}
 					</dd>
 				</div>
 				<div className={rowClass}>
 					<dt className={css({ fontSize: "sm", color: "gray.600" })}>お名前</dt>
 					<dd className={css({ fontWeight: "bold", fontSize: "lg", color: "#222222" })}>
 						{member.name}
+						{member.formerName && (
+							<span
+								className={css({
+									display: "block",
+									fontSize: "sm",
+									fontWeight: "normal",
+									color: "gray.600",
+									textAlign: "right",
+								})}
+							>
+								旧姓・旧名: {member.formerName}
+							</span>
+						)}
 					</dd>
 				</div>
 			</dl>

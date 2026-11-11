@@ -8,7 +8,7 @@ export default defineConfig({
 		port: Number(process.env.PORT) || 3000,
 	},
 	plugins: [
-		cloudflare({ viteEnvironment: { name: "ssr" } }),
+		cloudflare({ viteEnvironment: { name: "ssr" }, inspectorPort: 9230 }),
 		reactRouter(),
 		tsconfigPaths(),
 		{

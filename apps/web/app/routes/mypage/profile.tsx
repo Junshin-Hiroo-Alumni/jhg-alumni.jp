@@ -2,6 +2,7 @@ import { redirect, useFetcher, useOutletContext } from "react-router";
 import { css } from "styled-system/css";
 import { inputStyle, primaryButtonStyle } from "~/components/auth/styles";
 import { type ApiClient, createApiClient } from "~/lib/api.server";
+import { formatGraduationYear } from "~/lib/graduation-year";
 import { buildMeta } from "~/lib/seo";
 import { clearAuthCookieHeaders, memberSessionContext } from "~/lib/session.server";
 import type { Route } from "./+types/profile";
@@ -93,7 +94,7 @@ function CardHeader({ title, description }: { title: string; description?: strin
 /** 変更できない会員情報 */
 function AccountSummary({ member }: MyPageOutletContext) {
 	const rows = [
-		["卒業年度", member.graduationYear ? `${member.graduationYear}年度` : "未登録"],
+		["卒業年", formatGraduationYear(member.graduationYear)],
 		["メールアドレス", member.email],
 		["登録日", new Date(member.createdAt).toLocaleDateString("ja-JP")],
 	];
@@ -101,7 +102,7 @@ function AccountSummary({ member }: MyPageOutletContext) {
 		<section className={cardClass}>
 			<CardHeader
 				title="アカウント情報"
-				description="卒業年度の変更が必要な場合は、同窓会事務局までお問い合わせください。"
+				description="卒業年の変更が必要な場合は、同窓会事務局までお問い合わせください。"
 			/>
 			<dl
 				className={css({

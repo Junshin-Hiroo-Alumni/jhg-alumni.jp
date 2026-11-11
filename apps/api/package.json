@@ -7,18 +7,16 @@
     }
   },
   "scripts": {
-    "dev": "bun run db:migrate && wrangler dev --var SITE_URL:http://localhost:3000 --var MAIL_DELIVERY:console",
+    "dev": "bun run db:migrate && CLOUDFLARE_DEV_REGISTRY_PATH=../../.wrangler/dev-registry wrangler dev --var SITE_URL:http://localhost:3000 --var MAIL_DELIVERY:console",
     "deploy": "wrangler deploy --minify",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings --strict-vars false",
-    "typecheck": "CI=1 bun run cf-typegen && tsc && bun run scripts/check-data.ts",
+    "typecheck": "CI=1 bun run cf-typegen && tsc",
     "check-types": "bun run typecheck",
     "clean": "bunx rimraf .turbo dist",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "CI=1 wrangler d1 migrations apply DB --local",
     "db:migrate:remote": "wrangler d1 migrations apply DB --remote",
-    "db:seed": "wrangler d1 execute DB --local --file=./seed/dev.sql",
-    "dev:token": "bun run scripts/dev-token.ts",
-    "db:reset": "wrangler d1 execute DB --local --file=./seed/reset.sql && bun run db:seed"
+    "roster:import": "bun run scripts/import-roster.ts"
   },
   "dependencies": {
     "@hono/swagger-ui": "^0.5.2",
@@ -28,6 +26,6 @@
   },
   "devDependencies": {
     "drizzle-kit": "^0.31.11",
-    "wrangler": "^4.135.0"
+    "wrangler": "^4.160.0"
   }
 }

@@ -7,8 +7,8 @@ const TICKET_COOKIE_PATH = "/register";
 
 export type RegistrationStage =
 	| "code_verified"
+	| "year_verified"
 	| "confirmed"
-	| "quiz_passed"
 	| "email_sent"
 	| "completed";
 
@@ -16,10 +16,10 @@ export type RegistrationStage =
 export function pathForStage(stage: RegistrationStage): string {
 	switch (stage) {
 		case "code_verified":
+			return "/register/graduation-year";
+		case "year_verified":
 			return "/register/confirm";
 		case "confirmed":
-			return "/register/quiz";
-		case "quiz_passed":
 			return "/register/email";
 		case "email_sent":
 			return "/register/email-sent";

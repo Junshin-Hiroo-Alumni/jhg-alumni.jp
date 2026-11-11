@@ -29,7 +29,7 @@ export async function action({ request }: Route.ActionArgs) {
 	const res = await createApiClient(request).v1.registrations.$post({ json: { code } });
 	if (res.status === 201) {
 		const { ticket } = await res.json();
-		return redirect("/register/confirm", { headers: ticketCookieHeaders(ticket) });
+		return redirect("/register/graduation-year", { headers: ticketCookieHeaders(ticket) });
 	}
 	if (res.status === 404 || res.status === 409 || res.status === 429) {
 		return { error: (await res.json()).message };

@@ -23,17 +23,6 @@ export async function sha256Hex(value: string): Promise<string> {
 	return [...new Uint8Array(digest)].map(byte => byte.toString(16).padStart(2, "0")).join("");
 }
 
-/** 暗号論的に安全な乱数でシャッフルした新しい配列を返す */
-export function secureShuffle<T>(items: readonly T[]): T[] {
-	const result = [...items];
-	for (let i = result.length - 1; i > 0; i--) {
-		const [random = 0] = crypto.getRandomValues(new Uint32Array(1));
-		const j = random % (i + 1);
-		[result[i], result[j]] = [result[j] as T, result[i] as T];
-	}
-	return result;
-}
-
 // Workers の WebCrypto で指定できる PBKDF2 の反復回数は最大 100,000
 const PBKDF2_ITERATIONS = 100_000;
 

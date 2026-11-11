@@ -5,8 +5,11 @@ import { sign, verify } from "hono/jwt";
 import { getDb } from "../db/client";
 import { sessions } from "../db/schema";
 import { randomToken, sha256Hex } from "./crypto";
-import { ACCESS_TOKEN_TTL_SECONDS, DEV_JWT_SECRET, JWT_AUDIENCE, JWT_ISSUER } from "./jwt";
 
+/** 発行者（`iss`）と対象（`aud`） */
+const JWT_ISSUER = "jhg-alumni-api";
+const JWT_AUDIENCE = "jhg-alumni-api";
+const ACCESS_TOKEN_TTL_SECONDS = 15 * 60;
 /** リフレッシュトークン（セッション）の有効期間 */
 const REFRESH_TOKEN_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 
@@ -16,7 +19,10 @@ export type AuthEnv = {
 };
 
 function jwtSecret(): string {
-	return env.JWT_SECRET || DEV_JWT_SECRET;
+	if (!env.JWT_SECRET) {
+		throw new Error("JWT_SECRET が設定されていません");
+	}
+	return env.JWT_SECRET;
 }
 
 function unauthorized(error?: "invalid_token") {

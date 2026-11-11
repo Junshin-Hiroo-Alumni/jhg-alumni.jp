@@ -24,7 +24,7 @@ export function meta() {
 
 export async function loader({ request }: Route.LoaderArgs) {
 	// 確認メール送信後にアドレスを変更する場合も、この画面に戻ってくる
-	const { email } = await requireRegistrationStage(request, ["quiz_passed", "email_sent"]);
+	const { email } = await requireRegistrationStage(request, ["confirmed", "email_sent"]);
 	return { email };
 }
 
@@ -40,7 +40,7 @@ export async function action({ request }: Route.ActionArgs) {
 		const body = await res.json();
 		return body.stage ? redirect(pathForStage(body.stage)) : { error: body.message };
 	}
-	if (res.status === 404 || res.status === 429) {
+	if (res.status === 404 || res.status === 429 || res.status === 502) {
 		return { error: (await res.json()).message };
 	}
 	if (res.status === 401) {
@@ -54,7 +54,7 @@ export default function RegisterEmail({ loaderData, actionData }: Route.Componen
 	return (
 		<AuthShell title="メールアドレスの登録" step="email">
 			<p className={css(bodyTextStyle, { mb: "1.75rem" })}>
-				クイズに全問正解しました。ログインに使うメールアドレスを入力してください。確認メールをお送りします。
+				ログインに使うメールアドレスを入力してください。確認メールをお送りします。
 			</p>
 			<Form method="post">
 				<label htmlFor="email" className={labelClass}>
