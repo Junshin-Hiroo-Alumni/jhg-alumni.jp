@@ -44,6 +44,7 @@
     {
       "binding": "DB",
       "database_name": "jhg-alumni",
+      "database_id": "4ee97e8d-b43b-416e-960f-65bcbca14cd8",
       "migrations_dir": "migrations"
     }
   ],
