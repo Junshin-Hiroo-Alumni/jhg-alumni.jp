@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { redirect, useFetcher, useOutletContext } from "react-router";
 import { css } from "styled-system/css";
 import { inputStyle, primaryButtonStyle } from "~/components/auth/styles";
@@ -16,14 +17,6 @@ type ActionResult = { ok: boolean; message: string };
 
 const sessionExpired = () => redirect("/login", { headers: clearAuthCookieHeaders() });
 
-async function updateName(api: ApiClient, name: string): Promise<ActionResult> {
-	const res = await api.v1.me.$patch({ json: { name } });
-	if (res.status === 401) throw sessionExpired();
-	return res.status === 200
-		? { ok: true, message: "お名前を保存しました。" }
-		: { ok: false, message: "お名前は1〜100文字で入力してください。" };
-}
-
 async function updateAddress(api: ApiClient, address: string): Promise<ActionResult> {
 	const res = await api.v1.me.$patch({ json: { address } });
 	if (res.status === 401) throw sessionExpired();
@@ -32,8 +25,12 @@ async function updateAddress(api: ApiClient, address: string): Promise<ActionRes
 		: { ok: false, message: "住所は200文字以内で入力してください。" };
 }
 
-async function requestEmailChange(api: ApiClient, email: string): Promise<ActionResult> {
-	const res = await api.v1.me.email.$post({ json: { email } });
+async function requestEmailChange(
+	api: ApiClient,
+	email: string,
+	currentPassword: string,
+): Promise<ActionResult> {
+	const res = await api.v1.me.email.$post({ json: { email, currentPassword } });
 	if (res.status === 401) throw sessionExpired();
 	if (res.status === 202) {
 		return {
@@ -41,7 +38,7 @@ async function requestEmailChange(api: ApiClient, email: string): Promise<Action
 			message: `${email} に確認メールを送りました。メール内のリンクを開くと変更が完了します。`,
 		};
 	}
-	if (res.status === 409 || res.status === 429) {
+	if (res.status === 403 || res.status === 409 || res.status === 429) {
 		return { ok: false, message: (await res.json()).message };
 	}
 	return { ok: false, message: "メールアドレスの形式が正しくありません。" };
@@ -53,12 +50,10 @@ export async function action({ request, context }: Route.ActionArgs): Promise<Ac
 	const form = await request.formData();
 	const value = String(form.get("value") ?? "");
 	switch (form.get("intent")) {
-		case "name":
-			return await updateName(api, value);
 		case "address":
 			return await updateAddress(api, value);
 		case "email":
-			return await requestEmailChange(api, value);
+			return await requestEmailChange(api, value, String(form.get("currentPassword") ?? ""));
 		default:
 			return { ok: false, message: "不正な操作です。" };
 	}
@@ -94,6 +89,7 @@ function CardHeader({ title, description }: { title: string; description?: strin
 /** 変更できない会員情報 */
 function AccountSummary({ member }: MyPageOutletContext) {
 	const rows = [
+		["お名前", member.name],
 		["卒業年", formatGraduationYear(member.graduationYear)],
 		["メールアドレス", member.email],
 		["登録日", new Date(member.createdAt).toLocaleDateString("ja-JP")],
@@ -102,12 +98,12 @@ function AccountSummary({ member }: MyPageOutletContext) {
 		<section className={cardClass}>
 			<CardHeader
 				title="アカウント情報"
-				description="卒業年の変更が必要な場合は、同窓会事務局までお問い合わせください。"
+				description="お名前・卒業年の変更が必要な場合は、同窓会事務局までお問い合わせください。"
 			/>
 			<dl
 				className={css({
 					display: "grid",
-					gridTemplateColumns: { base: "1fr", md: "repeat(3, 1fr)" },
+					gridTemplateColumns: { base: "1fr", md: "repeat(2, 1fr)" },
 					gap: "1rem",
 					px: "1.5rem",
 					py: "1.25rem",
@@ -149,6 +145,7 @@ function SettingCard({
 	submitLabel = "保存",
 	autoComplete,
 	required = false,
+	children,
 }: {
 	intent: string;
 	title: string;
@@ -160,6 +157,8 @@ function SettingCard({
 	submitLabel?: string;
 	autoComplete?: string;
 	required?: boolean;
+	/** 入力欄の下に追加する欄 */
+	children?: ReactNode;
 }) {
 	const fetcher = useFetcher<ActionResult>();
 	const result = fetcher.state === "idle" ? fetcher.data : undefined;
@@ -186,6 +185,7 @@ function SettingCard({
 					aria-invalid={result?.ok === false ? true : undefined}
 					className={css(dashboardInputStyle)}
 				/>
+				{children}
 			</div>
 			<div
 				className={css({
@@ -232,7 +232,7 @@ function SettingCard({
 
 export const handle: MyPageHandle = {
 	title: "プロフィール設定",
-	description: "お名前・住所・ログインに使うメールアドレスを変更できます。",
+	description: "住所とログインに使うメールアドレスを変更できます。",
 };
 
 export default function Profile() {
@@ -240,15 +240,6 @@ export default function Profile() {
 	return (
 		<div className={css({ display: "grid", gap: "1.25rem" })}>
 			<AccountSummary member={member} />
-			<SettingCard
-				intent="name"
-				title="お名前"
-				description="マイページや同窓会からのお知らせに表示されるお名前です。"
-				label="お名前"
-				defaultValue={member.name}
-				autoComplete="name"
-				required
-			/>
 			<SettingCard
 				intent="address"
 				title="住所"
@@ -267,7 +258,28 @@ export default function Profile() {
 				autoComplete="email"
 				required
 				submitLabel="確認メールを送信"
-			/>
+			>
+				<label
+					htmlFor="profile-email-password"
+					className={css({
+						display: "block",
+						fontSize: "sm",
+						fontWeight: "500",
+						mt: "1rem",
+						mb: "0.375rem",
+					})}
+				>
+					現在のパスワード
+				</label>
+				<input
+					id="profile-email-password"
+					name="currentPassword"
+					type="password"
+					autoComplete="current-password"
+					required
+					className={css(dashboardInputStyle)}
+				/>
+			</SettingCard>
 		</div>
 	);
 }

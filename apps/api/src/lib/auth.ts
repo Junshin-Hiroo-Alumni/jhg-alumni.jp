@@ -1,5 +1,5 @@
 import { env } from "cloudflare:workers";
-import { and, eq, gt } from "drizzle-orm";
+import { and, eq, gt, sql } from "drizzle-orm";
 import { createMiddleware } from "hono/factory";
 import { sign, verify } from "hono/jwt";
 import { getDb } from "../db/client";
@@ -12,6 +12,8 @@ const JWT_AUDIENCE = "jhg-alumni-api";
 const ACCESS_TOKEN_TTL_SECONDS = 15 * 60;
 /** リフレッシュトークン（セッション）の有効期間 */
 const REFRESH_TOKEN_TTL_MS = 30 * 24 * 60 * 60 * 1000;
+/** 使ったリフレッシュトークンを引き続き受け付ける期間 */
+const REFRESH_TOKEN_REUSE_GRACE_MS = 30 * 1000;
 
 export type AuthEnv = {
 	// biome-ignore lint/style/useNamingConvention: Hono の Env 型のキー
@@ -106,11 +108,15 @@ export async function issueTokens(memberId: string): Promise<TokenPair> {
 /**
  * リフレッシュトークンを使って新しいトークンを発行する
  *
- * 使ったリフレッシュトークンは無効にする（ローテーション）。無効なトークンなら null。
+ * 使ったリフレッシュトークンは猶予期間のあとに無効になる（ローテーション）。無効なトークンなら null。
  */
 export async function refreshTokens(refreshToken: string): Promise<TokenPair | null> {
+	// すぐに削除すると、複数タブなどから同時に届いた更新の片方が 401 になりログアウトされる。
+	// 期限を縮めるだけにして、猶予期間中の更新にも新しいトークンを発行する
+	const graceUntil = Date.now() + REFRESH_TOKEN_REUSE_GRACE_MS;
 	const [session] = await getDb()
-		.delete(sessions)
+		.update(sessions)
+		.set({ expiresAt: sql`min(${sessions.expiresAt}, ${graceUntil})` })
 		.where(
 			and(
 				eq(sessions.tokenHash, await sha256Hex(refreshToken)),

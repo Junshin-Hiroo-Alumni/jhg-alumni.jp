@@ -3,19 +3,19 @@ import { env } from "cloudflare:workers";
 const SENDER_NAME = "順心広尾学園同窓会";
 
 /**
- * リンク付きの案内メールを送る
+ * 案内メールを送る
  *
- * `MAIL_DELIVERY` が `console`（ローカル開発）の場合は送信せず、リンクをログに出す。
+ * `MAIL_DELIVERY` が `console`（ローカル開発）の場合は送信せず、リンク（なければ本文）をログに出す。
  */
 async function sendLinkEmail(params: {
 	to: string;
 	subject: string;
 	lines: string[];
-	url: string;
+	url?: string;
 }): Promise<void> {
 	const { to, subject, lines, url } = params;
 	if (env.MAIL_DELIVERY === "console") {
-		console.info(`[mail] ${to} 宛「${subject}」（送信はしていません）: ${url}`);
+		console.info(`[mail] ${to} 宛「${subject}」（送信はしていません）: ${url ?? lines.join(" ")}`);
 		return;
 	}
 	await env.EMAIL.send({
@@ -94,6 +94,28 @@ export async function sendEmailChangeEmail(params: {
 			"",
 			"このリンクの有効期限は24時間です。",
 			"お心当たりのない場合は、このメールを破棄してください。メールアドレスは変更されません。",
+		],
+	});
+}
+
+/** 変更前のアドレスに送る、メールアドレスが変更されたことの通知 */
+export async function sendEmailChangedNotice(params: {
+	to: string;
+	name: string;
+	newEmail: string;
+}): Promise<void> {
+	const { to, name, newEmail } = params;
+	await sendLinkEmail({
+		to,
+		subject: "メールアドレスが変更されました",
+		lines: [
+			`${name} 様`,
+			"",
+			`ログインに使うメールアドレスが ${newEmail} に変更されました。`,
+			"すべての端末でログアウトしています。今後は新しいメールアドレスでログインしてください。",
+			"",
+			"お心当たりのない場合は、第三者に変更された可能性があります。",
+			"お手数ですが、同窓会事務局までご連絡ください。",
 		],
 	});
 }

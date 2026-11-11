@@ -1,8 +1,9 @@
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
 import { and, eq, gt } from "drizzle-orm";
 import { getDb } from "../db/client";
-import { emailChanges, members } from "../db/schema";
+import { emailChanges, members, passwordResets, sessions } from "../db/schema";
 import { sha256Hex } from "../lib/crypto";
+import { sendEmailChangedNotice } from "../lib/mail";
 import { errorResponse, jsonBody, jsonResponse } from "./common";
 
 const INVALID_LINK_MESSAGE = "リンクが無効か、有効期限が切れています。";
@@ -24,7 +25,10 @@ const confirmRoute = createRoute({
 	path: "/v1/email-changes/confirm",
 	request: jsonBody(z.object({ token: z.string() })),
 	responses: {
-		200: jsonResponse("メールアドレスを変更した", z.object({ email: z.string() })),
+		200: jsonResponse(
+			"メールアドレスを変更した。この会員のセッションはすべて無効になり、変更前のアドレスに通知する",
+			z.object({ email: z.string() }),
+		),
 		404: errorResponse("リンクが無効または期限切れ"),
 		409: errorResponse("ほかの会員が先にこのアドレスを使った"),
 	},
@@ -53,10 +57,17 @@ export const emailChangeApp = new OpenAPIHono()
 			return c.json({ message: INVALID_LINK_MESSAGE }, 404);
 		}
 		const db = getDb();
+		const member = await db.query.members.findFirst({ where: eq(members.id, change.memberId) });
+		if (!member) {
+			return c.json({ message: INVALID_LINK_MESSAGE }, 404);
+		}
 		try {
 			await db.batch([
-				db.update(members).set({ email: change.newEmail }).where(eq(members.id, change.memberId)),
-				db.delete(emailChanges).where(eq(emailChanges.memberId, change.memberId)),
+				db.update(members).set({ email: change.newEmail }).where(eq(members.id, member.id)),
+				db.delete(emailChanges).where(eq(emailChanges.memberId, member.id)),
+				// 乗っ取りによる変更なら攻撃者のログインを切り、正当な変更なら旧アドレスに届いた再設定リンクを使えなくする
+				db.delete(sessions).where(eq(sessions.memberId, member.id)),
+				db.delete(passwordResets).where(eq(passwordResets.memberId, member.id)),
 			]);
 		} catch (error) {
 			// 申請後に、ほかの会員が同じアドレスで登録・変更していた場合（UNIQUE 制約違反）
@@ -65,5 +76,12 @@ export const emailChangeApp = new OpenAPIHono()
 			}
 			throw error;
 		}
+		c.executionCtx.waitUntil(
+			sendEmailChangedNotice({
+				to: member.email,
+				name: member.name,
+				newEmail: change.newEmail,
+			}).catch(error => console.error("failed to send email changed notice", error)),
+		);
 		return c.json({ email: change.newEmail }, 200);
 	});

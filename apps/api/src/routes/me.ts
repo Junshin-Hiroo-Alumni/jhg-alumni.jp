@@ -4,8 +4,9 @@ import { desc, eq } from "drizzle-orm";
 import { getDb } from "../db/client";
 import { emailChanges, type Member, members } from "../db/schema";
 import { type AuthEnv, requireAuth } from "../lib/auth";
-import { randomToken, sha256Hex } from "../lib/crypto";
+import { randomToken, sha256Hex, verifyPassword } from "../lib/crypto";
 import { sendEmailChangeEmail } from "../lib/mail";
+import { withinRateLimit } from "../lib/rate-limit";
 import { bearerSecurity, errorResponse, jsonBody, jsonResponse } from "./common";
 
 const EMAIL_CHANGE_TOKEN_TTL_MS = 24 * 60 * 60 * 1000;
@@ -41,7 +42,6 @@ const updateMeRoute = createRoute({
 	request: jsonBody(
 		z
 			.object({
-				name: z.string().trim().min(1).max(100),
 				/** 空文字は未設定（null）として保存する */
 				address: z
 					.string()
@@ -63,16 +63,22 @@ const requestEmailChangeRoute = createRoute({
 	method: "post",
 	path: "/v1/me/email",
 	security: bearerSecurity,
-	request: jsonBody(z.object({ email: z.string().trim().toLowerCase().pipe(z.email()) })),
+	request: jsonBody(
+		z.object({
+			email: z.string().trim().toLowerCase().pipe(z.email()),
+			currentPassword: z.string().openapi({ description: "本人確認のための現在のパスワード" }),
+		}),
+	),
 	responses: {
 		202: jsonResponse(
 			"新しいアドレスに確認メールを送った。リンクを開くまでメールアドレスは変わらない",
 			z.object({ email: z.string() }),
 		),
 		401: errorResponse("トークンがない、または無効"),
+		403: errorResponse("現在のパスワードが違う"),
 		404: errorResponse("会員が存在しない"),
 		409: errorResponse("現在と同じアドレス、またはほかの会員が使っている"),
-		429: errorResponse("再送信の間隔が短い"),
+		429: errorResponse("再送信の間隔が短い、または試行回数が多すぎる"),
 	},
 });
 
@@ -124,11 +130,18 @@ export const meApp = app
 		return c.json(toMemberResponse(member), 200);
 	})
 	.openapi(requestEmailChangeRoute, async c => {
-		const { email } = c.req.valid("json");
+		const { email, currentPassword } = c.req.valid("json");
 		const db = getDb();
+		// アクセストークンを盗んだ人がパスワードを総当たりできないよう、会員ごとに制限する
+		if (!(await withinRateLimit(env.LOGIN_RATE_LIMITER, `email-change:${c.var.memberId}`))) {
+			return c.json({ message: "しばらく時間をおいてから、もう一度お試しください。" }, 429);
+		}
 		const member = await findMember(c.var.memberId);
 		if (!member) {
 			return c.json({ message: "Member not found" }, 404);
+		}
+		if (!(await verifyPassword(currentPassword, member.passwordHash))) {
+			return c.json({ message: "現在のパスワードが正しくありません。" }, 403);
 		}
 		if (member.email === email) {
 			return c.json({ message: "現在と同じメールアドレスです。" }, 409);

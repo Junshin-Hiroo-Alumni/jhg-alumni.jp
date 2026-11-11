@@ -1,5 +1,5 @@
 import { IconCircleCheck } from "@tabler/icons-react";
-import { Form, Link, useNavigation } from "react-router";
+import { data, Form, Link, useNavigation } from "react-router";
 import { css } from "styled-system/css";
 import AuthShell from "~/components/auth/AuthShell";
 import {
@@ -10,6 +10,7 @@ import {
 } from "~/components/auth/styles";
 import { createApiClient } from "~/lib/api.server";
 import { buildMeta } from "~/lib/seo";
+import { clearAuthCookieHeaders } from "~/lib/session.server";
 import type { Route } from "./+types/verify-email";
 
 export function meta() {
@@ -38,7 +39,11 @@ export async function action({ request }: Route.ActionArgs) {
 		json: { token: getToken(request) },
 	});
 	if (res.status === 200) {
-		return { done: true as const, email: (await res.json()).email };
+		// API 側でこの会員のセッションはすべて無効になっている
+		return data(
+			{ done: true as const, email: (await res.json()).email },
+			{ headers: clearAuthCookieHeaders() },
+		);
 	}
 	if (res.status === 404 || res.status === 409) {
 		return { done: false as const, error: (await res.json()).message };
@@ -62,10 +67,11 @@ export default function VerifyEmail({ loaderData, actionData }: Route.ComponentP
 						className={css({ color: "green.500", mx: "auto", mb: "1.25rem" })}
 					/>
 					<p className={css(bodyTextStyle, { mb: "2rem" })}>
-						今後は <strong>{actionData.email}</strong> でログインしてください。
+						すべての端末でログアウトしました。今後は <strong>{actionData.email}</strong>{" "}
+						でログインしてください。
 					</p>
-					<Link to="/mypage" className={primaryButtonClass}>
-						マイページへ
+					<Link to="/login" className={primaryButtonClass}>
+						ログイン
 					</Link>
 				</div>
 			</AuthShell>
