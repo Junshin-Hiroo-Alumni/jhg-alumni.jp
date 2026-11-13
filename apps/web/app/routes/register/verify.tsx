@@ -9,6 +9,7 @@ import {
 	labelClass,
 	primaryButtonClass,
 	primaryButtonStyle,
+	textLinkClass,
 } from "~/components/auth/styles";
 import { createApiClient } from "~/lib/api.server";
 import { clearTicketCookie } from "~/lib/registration.server";
@@ -50,9 +51,12 @@ export async function action({ request }: Route.ActionArgs) {
 	if (password !== form.get("passwordConfirm")) {
 		return { error: "確認用のパスワードが一致しません。" };
 	}
+	if (form.get("agreedToTerms") !== "on") {
+		return { error: "利用規約とプライバシーポリシーへの同意が必要です。" };
+	}
 
 	const res = await createApiClient(request).v1.registrations.verification.$post({
-		json: { token: getToken(request), password },
+		json: { token: getToken(request), password, agreedToTerms: true },
 	});
 	if (res.status === 201) {
 		const headers = authCookieHeaders(await res.json());
@@ -125,6 +129,39 @@ export default function RegisterVerify({ loaderData, actionData }: Route.Compone
 						className={inputClass}
 					/>
 				</div>
+				<label
+					className={css(bodyTextStyle, {
+						display: "flex",
+						alignItems: "flex-start",
+						gap: "0.625rem",
+						cursor: "pointer",
+					})}
+				>
+					<input
+						type="checkbox"
+						name="agreedToTerms"
+						required
+						className={css({
+							flexShrink: 0,
+							width: "1.125rem",
+							height: "1.125rem",
+							mt: "0.3rem",
+							accentColor: "green.600",
+							cursor: "pointer",
+						})}
+					/>
+					<span>
+						{/* 別タブで開き、入力中のパスワードを失わないようにする */}
+						<Link to="/terms/service" target="_blank" rel="noopener" className={textLinkClass}>
+							利用規約
+						</Link>
+						と
+						<Link to="/terms/privacy" target="_blank" rel="noopener" className={textLinkClass}>
+							プライバシーポリシー
+						</Link>
+						に同意します
+					</span>
+				</label>
 				{actionData?.error && (
 					<p role="alert" className={errorClass}>
 						{actionData.error}

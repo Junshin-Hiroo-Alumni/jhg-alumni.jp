@@ -15,6 +15,13 @@
       "when": 1794435913338,
       "tag": "0001_drop_member_address",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1794558951886,
+      "tag": "0002_add_member_terms_agreed_at",
+      "breakpoints": true
     }
   ]
 }
