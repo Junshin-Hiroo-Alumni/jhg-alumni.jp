@@ -11,6 +11,7 @@ import {
 } from "~/components/auth/styles";
 import { MAIL_SENDER } from "~/lib/contact";
 import {
+	hasAgreedToTerms,
 	pathForStage,
 	redirectToStart,
 	registrationApi,
@@ -25,11 +26,17 @@ export function meta() {
 
 export async function loader({ request }: Route.LoaderArgs) {
 	// 確認メール送信後にアドレスを変更する場合も、この画面に戻ってくる
-	const { email } = await requireRegistrationStage(request, ["confirmed", "email_sent"]);
+	const { stage, email } = await requireRegistrationStage(request, ["confirmed", "email_sent"]);
+	if (stage === "confirmed" && !hasAgreedToTerms(request)) {
+		throw redirect("/register/terms");
+	}
 	return { email };
 }
 
 export async function action({ request }: Route.ActionArgs) {
+	if (!hasAgreedToTerms(request)) {
+		return redirect("/register/terms");
+	}
 	const email = String((await request.formData()).get("email") ?? "");
 	const res = await registrationApi(request).v1.registrations.current.email.$post({
 		json: { email },

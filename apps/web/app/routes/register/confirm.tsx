@@ -27,7 +27,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 export async function action({ request }: Route.ActionArgs) {
 	const res = await registrationApi(request).v1.registrations.current.confirm.$post();
 	if (res.status === 200) {
-		return redirect("/register/email");
+		return redirect("/register/terms");
 	}
 	if (res.status === 409) {
 		return redirect(pathForStage((await res.json()).stage));

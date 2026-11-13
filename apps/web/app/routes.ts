@@ -31,6 +31,7 @@ export default [
 		route("register", "routes/register/index.tsx"),
 		route("register/confirm", "routes/register/confirm.tsx"),
 		route("register/graduation-year", "routes/register/graduation-year.tsx"),
+		route("register/terms", "routes/register/terms.tsx"),
 		route("register/email", "routes/register/email.tsx"),
 		route("register/email-sent", "routes/register/email-sent.tsx"),
 		route("register/verify", "routes/register/verify.tsx"),
