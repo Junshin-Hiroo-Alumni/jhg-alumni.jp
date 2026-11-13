@@ -1,3 +1,4 @@
+import { IconCircleCheck } from "@tabler/icons-react";
 import { Form, Link, redirect, useNavigation } from "react-router";
 import { css } from "styled-system/css";
 import AuthShell from "~/components/auth/AuthShell";
@@ -21,7 +22,7 @@ export function loader({ request }: Route.LoaderArgs) {
 	if (hasSession(request)) {
 		throw redirect("/mypage");
 	}
-	return null;
+	return { registered: new URL(request.url).searchParams.has("registered") };
 }
 
 export async function action({ request }: Route.ActionArgs) {
@@ -38,10 +39,38 @@ export async function action({ request }: Route.ActionArgs) {
 	return { error: "エラーが発生しました。時間をおいて、もう一度お試しください。" };
 }
 
-export default function Login({ actionData }: Route.ComponentProps) {
+export default function Login({ loaderData, actionData }: Route.ComponentProps) {
 	const navigation = useNavigation();
 	return (
 		<AuthShell title="ログイン">
+			{loaderData.registered && (
+				<div
+					role="status"
+					className={css({
+						display: "flex",
+						gap: "0.625rem",
+						mb: "1.5rem",
+						px: "1rem",
+						py: "0.875rem",
+						borderRadius: "0.5rem",
+						bg: "green.50",
+						border: "1px solid token(colors.green.200)",
+						color: "green.900",
+						fontSize: "sm",
+						lineHeight: "1.7",
+					})}
+				>
+					<IconCircleCheck
+						size={20}
+						stroke={1.75}
+						aria-hidden
+						className={css({ flexShrink: 0, mt: "0.125rem", color: "green.600" })}
+					/>
+					<p>
+						会員登録が完了しています。登録したメールアドレスと、設定したパスワードでログインしてください。
+					</p>
+				</div>
+			)}
 			<Form method="post" className={css({ display: "grid", gap: "1.25rem" })}>
 				<div>
 					<label htmlFor="email" className={labelClass}>
