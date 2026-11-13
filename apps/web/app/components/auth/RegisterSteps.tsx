@@ -5,7 +5,6 @@ const steps = [
 	{ id: "code", label: "認証コード" },
 	{ id: "year", label: "卒業年" },
 	{ id: "confirm", label: "本人確認" },
-	{ id: "terms", label: "規約同意" },
 	{ id: "email", label: "メール" },
 	{ id: "password", label: "パスワード" },
 ] as const;
