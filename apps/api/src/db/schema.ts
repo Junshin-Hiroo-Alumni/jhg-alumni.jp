@@ -36,8 +36,6 @@ export const members = sqliteTable("members", {
 	name: text("name").notNull(),
 	/** 中学卒業は null */
 	graduationYear: integer("graduation_year"),
-	/** 利用規約とプライバシーポリシーに同意した日時。同意の仕組みを入れる前に登録した会員は null */
-	termsAgreedAt: timestamp("terms_agreed_at"),
 	createdAt: createdAt(),
 	updatedAt: timestamp("updated_at")
 		.notNull()

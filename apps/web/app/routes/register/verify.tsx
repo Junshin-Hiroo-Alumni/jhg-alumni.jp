@@ -56,7 +56,7 @@ export async function action({ request }: Route.ActionArgs) {
 	}
 
 	const res = await createApiClient(request).v1.registrations.verification.$post({
-		json: { token: getToken(request), password, agreedToTerms: true },
+		json: { token: getToken(request), password },
 	});
 	if (res.status === 201) {
 		const headers = authCookieHeaders(await res.json());

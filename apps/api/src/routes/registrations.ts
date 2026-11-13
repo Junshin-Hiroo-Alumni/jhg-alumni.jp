@@ -173,15 +173,7 @@ const getVerificationRoute = createRoute({
 const completeRoute = createRoute({
 	method: "post",
 	path: "/v1/registrations/verification",
-	request: jsonBody(
-		z.object({
-			token: z.string(),
-			password: PasswordSchema,
-			agreedToTerms: z
-				.literal(true)
-				.openapi({ description: "利用規約とプライバシーポリシーへの同意" }),
-		}),
-	),
+	request: jsonBody(z.object({ token: z.string(), password: PasswordSchema })),
 	responses: {
 		201: jsonResponse("登録を完了し、ログインした", TokenPairSchema),
 		404: errorResponse("リンクが無効または期限切れ"),
@@ -452,7 +444,6 @@ export const registrationsApp = app
 					passwordHash: await hashPassword(password),
 					name: entry.name,
 					graduationYear: entry.graduationYear,
-					termsAgreedAt: new Date(),
 				}),
 				db
 					.update(registrations)
