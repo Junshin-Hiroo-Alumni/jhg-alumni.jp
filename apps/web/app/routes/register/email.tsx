@@ -9,6 +9,7 @@ import {
 	labelClass,
 	primaryButtonStyle,
 } from "~/components/auth/styles";
+import { MAIL_SENDER } from "~/lib/contact";
 import {
 	pathForStage,
 	redirectToStart,
@@ -70,7 +71,7 @@ export default function RegisterEmail({ loaderData, actionData }: Route.Componen
 					aria-invalid={actionData?.error ? true : undefined}
 					className={inputClass}
 				/>
-				<p className={hintClass}>メールが届かない場合は、迷惑メールフォルダもご確認ください。</p>
+				<p className={hintClass}>{MAIL_SENDER} から確認メールが届きます。</p>
 				{actionData?.error && (
 					<p role="alert" className={errorClass}>
 						{actionData.error}

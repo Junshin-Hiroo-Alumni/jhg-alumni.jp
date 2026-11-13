@@ -24,7 +24,7 @@ export function pathForStage(stage: RegistrationStage): string {
 		case "email_sent":
 			return "/register/email-sent";
 		case "completed":
-			return "/login";
+			return "/login?registered";
 	}
 }
 
@@ -64,7 +64,12 @@ export async function requireRegistrationStage(request: Request, allowed: Regist
 	}
 	const registration = await res.json();
 	if (!allowed.includes(registration.stage)) {
-		throw redirect(pathForStage(registration.stage));
+		throw redirect(
+			pathForStage(registration.stage),
+			registration.stage === "completed"
+				? { headers: { "Set-Cookie": clearTicketCookie() } }
+				: undefined,
+		);
 	}
 	return registration;
 }

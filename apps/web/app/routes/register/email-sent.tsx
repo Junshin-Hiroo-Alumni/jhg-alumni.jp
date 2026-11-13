@@ -1,8 +1,9 @@
 import { IconMailForward } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
-import { Form, Link, useNavigation } from "react-router";
+import { Form, Link, useNavigation, useRevalidator } from "react-router";
 import { css } from "styled-system/css";
 import AuthShell from "~/components/auth/AuthShell";
+import MailHelp from "~/components/auth/MailHelp";
 import {
 	bodyTextStyle,
 	errorClass,
@@ -49,9 +50,35 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 const RESEND_COOLDOWN_SECONDS = 60;
+const STATUS_POLL_INTERVAL_MS = 10_000;
+
+/**
+ * メールのリンクを別のブラウザ（メールアプリ内のブラウザなど）で開いて登録を終えると、
+ * この画面は送信直後のまま残る。画面に戻ってきたときと一定間隔で状態を取り直し、
+ * 完了していれば loader のリダイレクトでログイン画面へ進める
+ */
+function useRevalidateWhileWaiting() {
+	const { revalidate, state } = useRevalidator();
+	useEffect(() => {
+		const refresh = () => {
+			if (document.visibilityState === "visible" && state === "idle") {
+				revalidate();
+			}
+		};
+		const timer = setInterval(refresh, STATUS_POLL_INTERVAL_MS);
+		document.addEventListener("visibilitychange", refresh);
+		window.addEventListener("focus", refresh);
+		return () => {
+			clearInterval(timer);
+			document.removeEventListener("visibilitychange", refresh);
+			window.removeEventListener("focus", refresh);
+		};
+	}, [revalidate, state]);
+}
 
 export default function RegisterEmailSent({ loaderData, actionData }: Route.ComponentProps) {
 	const navigation = useNavigation();
+	useRevalidateWhileWaiting();
 	const [cooldown, setCooldown] = useState(RESEND_COOLDOWN_SECONDS);
 	const resentAt = actionData && "resentAt" in actionData ? actionData.resentAt : undefined;
 
@@ -82,27 +109,36 @@ export default function RegisterEmailSent({ loaderData, actionData }: Route.Comp
 					{loaderData.email}
 				</p>
 				<p className={css(bodyTextStyle, { mt: "1rem", mb: "2rem" })}>
-					メールに記載されたリンクを開いて、登録を完了してください。リンクの有効期限は24時間です。
+					届いたメールのリンクを開くと、登録が完了します。
+					<br />
+					リンクの有効期限は24時間です。
 				</p>
-				<Form method="post">
-					<button
-						type="submit"
-						disabled={cooldown > 0 || navigation.state !== "idle"}
-						className={secondaryButtonClass}
-					>
-						{cooldown > 0 ? `再送信（${cooldown}秒後に可能）` : "確認メールを再送信"}
-					</button>
-				</Form>
-				{actionData && "error" in actionData && (
-					<p role="alert" className={errorClass}>
-						{actionData.error}
-					</p>
-				)}
-				<p className={css({ mt: "1.5rem", fontSize: "sm" })}>
-					<Link to="/register/email" className={textLinkClass}>
-						メールアドレスを変更する
-					</Link>
-				</p>
+				<MailHelp
+					defaultOpen={actionData !== undefined}
+					items={[
+						<>
+							アドレスを間違えた場合は
+							<Link to="/register/email" className={textLinkClass}>
+								入力し直す
+							</Link>
+						</>,
+					]}
+				>
+					<Form method="post">
+						<button
+							type="submit"
+							disabled={cooldown > 0 || navigation.state !== "idle"}
+							className={secondaryButtonClass}
+						>
+							{cooldown > 0 ? `再送信できるまで ${cooldown} 秒` : "確認メールを再送信"}
+						</button>
+					</Form>
+					{actionData && "error" in actionData && (
+						<p role="alert" className={errorClass}>
+							{actionData.error}
+						</p>
+					)}
+				</MailHelp>
 			</div>
 		</AuthShell>
 	);

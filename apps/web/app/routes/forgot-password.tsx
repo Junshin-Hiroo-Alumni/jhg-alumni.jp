@@ -2,6 +2,7 @@ import { IconMailForward } from "@tabler/icons-react";
 import { Form, Link, useNavigation } from "react-router";
 import { css } from "styled-system/css";
 import AuthShell from "~/components/auth/AuthShell";
+import MailHelp from "~/components/auth/MailHelp";
 import {
 	bodyTextStyle,
 	errorClass,
@@ -46,11 +47,26 @@ export default function ForgotPassword({ actionData }: Route.ComponentProps) {
 						{actionData.sentTo}
 					</p>
 					<p className={css(bodyTextStyle, { mt: "1rem", mb: "2rem" })}>
-						登録されているメールアドレスの場合、パスワード再設定用のリンクをお送りしました。リンクの有効期限は1時間です。
+						パスワード再設定用のリンクをお送りしました。
+						<br />
+						リンクの有効期限は1時間です。
 					</p>
-					<Link to="/login" className={textLinkClass}>
-						ログイン画面に戻る
-					</Link>
+					<MailHelp
+						items={[
+							"登録されていないアドレスには届きません。",
+							<>
+								アドレスを間違えた場合は
+								<Link to="/forgot-password" reloadDocument className={textLinkClass}>
+									入力し直す
+								</Link>
+							</>,
+						]}
+					/>
+					<p className={css({ mt: "2rem", fontSize: "sm" })}>
+						<Link to="/login" className={textLinkClass}>
+							ログイン画面に戻る
+						</Link>
+					</p>
 				</div>
 			</AuthShell>
 		);

@@ -199,7 +199,10 @@ const requireRegistration = createMiddleware<RegistrationEnv>(async (c, next) =>
 				),
 			})
 		: undefined;
-	if (!registration || registration.stage === "completed") {
+	// 完了済みも通す。メールのリンクを別のブラウザ（メールアプリ内など）で開いて完了した場合に、
+	// 元のブラウザが期限切れと区別して `completed` を受け取れるようにする。
+	// 完了後の更新は、各ルートの段階チェックで 409 になる
+	if (!registration) {
 		return c.json({ message: "登録の有効期限が切れました。最初からやり直してください。" }, 401);
 	}
 	c.set("registration", registration);

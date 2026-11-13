@@ -27,7 +27,7 @@ async function requestEmailChange(
 	if (res.status === 202) {
 		return {
 			ok: true,
-			message: `${email} に確認メールを送りました。メール内のリンクを開くと変更が完了します。`,
+			message: `${email} に確認メールを送りました。届かない場合は、迷惑メールフォルダもご確認ください。`,
 		};
 	}
 	if (res.status === 403 || res.status === 409 || res.status === 429) {
