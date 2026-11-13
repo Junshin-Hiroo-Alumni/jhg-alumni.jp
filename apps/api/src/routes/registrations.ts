@@ -383,12 +383,23 @@ export const registrationsApp = app
 		if (await getDb().query.members.findFirst({ where: eq(members.email, email) })) {
 			return c.json({ message: "このメールアドレスは既に登録されています。" }, 409);
 		}
-		const sentAt = registration.emailSentAt?.getTime() ?? 0;
-		if (
-			Date.now() - sentAt < EMAIL_RESEND_COOLDOWN_MS ||
-			registration.emailSendCount >= MAX_EMAIL_SENDS
-		) {
-			return c.json({ message: "しばらく時間をおいてから、もう一度お試しください。" }, 429);
+		if (registration.emailSendCount >= MAX_EMAIL_SENDS) {
+			return c.json(
+				{
+					message:
+						"確認メールの送信回数が上限に達しました。お手数ですが、認証コードの入力からやり直してください。",
+				},
+				429,
+			);
+		}
+		// 待ち時間は同じアドレスへの再送だけにかけ、打ち間違えたアドレスはすぐ直せるようにする。
+		// 宛先を変えての連続送信は送信回数の上限で抑える
+		const waitMs =
+			email === registration.email
+				? (registration.emailSentAt?.getTime() ?? 0) + EMAIL_RESEND_COOLDOWN_MS - Date.now()
+				: 0;
+		if (waitMs > 0) {
+			return c.json({ message: `再送信は${Math.ceil(waitMs / 1000)}秒後にお試しください。` }, 429);
 		}
 		const entry = await findRoster(registration.memberNo);
 		if (!entry) {
