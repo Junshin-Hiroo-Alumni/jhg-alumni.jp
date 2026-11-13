@@ -2,6 +2,7 @@ import { IconMailForward } from "@tabler/icons-react";
 import { Form, Link, useNavigation } from "react-router";
 import { css } from "styled-system/css";
 import AuthShell from "~/components/auth/AuthShell";
+import SpamFolderNotice from "~/components/auth/SpamFolderNotice";
 import {
 	bodyTextStyle,
 	errorClass,
@@ -45,9 +46,12 @@ export default function ForgotPassword({ actionData }: Route.ComponentProps) {
 					<p className={css({ fontWeight: "bold", color: "#222222", wordBreak: "break-all" })}>
 						{actionData.sentTo}
 					</p>
-					<p className={css(bodyTextStyle, { mt: "1rem", mb: "2rem" })}>
+					<p className={css(bodyTextStyle, { mt: "1rem", mb: "1.25rem" })}>
 						登録されているメールアドレスの場合、パスワード再設定用のリンクをお送りしました。リンクの有効期限は1時間です。
 					</p>
+					<div className={css({ mb: "2rem" })}>
+						<SpamFolderNotice />
+					</div>
 					<Link to="/login" className={textLinkClass}>
 						ログイン画面に戻る
 					</Link>

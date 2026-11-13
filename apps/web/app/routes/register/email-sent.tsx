@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Form, Link, useNavigation } from "react-router";
 import { css } from "styled-system/css";
 import AuthShell from "~/components/auth/AuthShell";
+import SpamFolderNotice from "~/components/auth/SpamFolderNotice";
 import {
 	bodyTextStyle,
 	errorClass,
@@ -81,9 +82,12 @@ export default function RegisterEmailSent({ loaderData, actionData }: Route.Comp
 				<p className={css({ fontWeight: "bold", color: "#222222", wordBreak: "break-all" })}>
 					{loaderData.email}
 				</p>
-				<p className={css(bodyTextStyle, { mt: "1rem", mb: "2rem" })}>
+				<p className={css(bodyTextStyle, { mt: "1rem", mb: "1.25rem" })}>
 					メールに記載されたリンクを開いて、登録を完了してください。リンクの有効期限は24時間です。
 				</p>
+				<div className={css({ mb: "2rem" })}>
+					<SpamFolderNotice />
+				</div>
 				<Form method="post">
 					<button
 						type="submit"
