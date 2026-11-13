@@ -29,7 +29,11 @@ export function loader({ request }: Route.LoaderArgs) {
 }
 
 export async function action({ request }: Route.ActionArgs) {
-	const code = normalizeMemberCode(String((await request.formData()).get("code") ?? ""));
+	const form = await request.formData();
+	if (form.get("agreedToTerms") !== "on") {
+		return { error: "利用規約とプライバシーポリシーへの同意が必要です。" };
+	}
+	const code = normalizeMemberCode(String(form.get("code") ?? ""));
 	const res = await createApiClient(request).v1.registrations.$post({ json: { code } });
 	if (res.status === 201) {
 		const { ticket } = await res.json();
@@ -44,6 +48,7 @@ export async function action({ request }: Route.ActionArgs) {
 export default function RegisterCode({ loaderData, actionData }: Route.ComponentProps) {
 	const navigation = useNavigation();
 	const [code, setCode] = useState("");
+	const [agreed, setAgreed] = useState(false);
 
 	return (
 		<AuthShell title="会員登録" step="code">
@@ -84,9 +89,44 @@ export default function RegisterCode({ loaderData, actionData }: Route.Component
 						</p>
 					)
 				)}
+				<label
+					className={css(bodyTextStyle, {
+						display: "flex",
+						alignItems: "flex-start",
+						gap: "0.625rem",
+						mt: "1.5rem",
+						cursor: "pointer",
+					})}
+				>
+					<input
+						type="checkbox"
+						name="agreedToTerms"
+						checked={agreed}
+						onChange={event => setAgreed(event.target.checked)}
+						className={css({
+							flexShrink: 0,
+							width: "1.125rem",
+							height: "1.125rem",
+							mt: "0.3rem",
+							accentColor: "green.600",
+							cursor: "pointer",
+						})}
+					/>
+					<span>
+						{/* 別タブで開き、入力中の認証コードを失わないようにする */}
+						<Link to="/terms/service" target="_blank" rel="noopener" className={textLinkClass}>
+							利用規約
+						</Link>
+						と
+						<Link to="/terms/privacy" target="_blank" rel="noopener" className={textLinkClass}>
+							プライバシーポリシー
+						</Link>
+						に同意します
+					</span>
+				</label>
 				<button
 					type="submit"
-					disabled={!isCompleteMemberCode(code) || navigation.state !== "idle"}
+					disabled={!isCompleteMemberCode(code) || !agreed || navigation.state !== "idle"}
 					className={css(primaryButtonStyle, { mt: "1.75rem" })}
 				>
 					次へ
