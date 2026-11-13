@@ -66,9 +66,7 @@ export default function Login({ loaderData, actionData }: Route.ComponentProps) 
 						aria-hidden
 						className={css({ flexShrink: 0, mt: "0.125rem", color: "green.600" })}
 					/>
-					<p>
-						会員登録が完了しています。登録したメールアドレスと、設定したパスワードでログインしてください。
-					</p>
+					<p>会員登録が完了しました。ログインしてください。</p>
 				</div>
 			)}
 			<Form method="post" className={css({ display: "grid", gap: "1.25rem" })}>

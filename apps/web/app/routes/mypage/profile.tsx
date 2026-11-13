@@ -3,7 +3,6 @@ import { redirect, useFetcher, useOutletContext } from "react-router";
 import { css } from "styled-system/css";
 import { inputStyle, primaryButtonStyle } from "~/components/auth/styles";
 import { type ApiClient, createApiClient } from "~/lib/api.server";
-import { MAIL_SENDER } from "~/lib/contact";
 import { formatGraduationYear } from "~/lib/graduation-year";
 import { buildMeta } from "~/lib/seo";
 import { clearAuthCookieHeaders, memberSessionContext } from "~/lib/session.server";
@@ -28,7 +27,7 @@ async function requestEmailChange(
 	if (res.status === 202) {
 		return {
 			ok: true,
-			message: `${email} に確認メールを送りました。メール内のリンクを開くと変更が完了します。届かない場合は、迷惑メールフォルダもご確認ください（送信元: ${MAIL_SENDER}）。`,
+			message: `${email} に確認メールを送りました。届かない場合は、迷惑メールフォルダもご確認ください。`,
 		};
 	}
 	if (res.status === 403 || res.status === 409 || res.status === 429) {

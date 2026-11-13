@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Form, Link, useNavigation, useRevalidator } from "react-router";
 import { css } from "styled-system/css";
 import AuthShell from "~/components/auth/AuthShell";
-import SpamFolderNotice from "~/components/auth/SpamFolderNotice";
+import MailHelp from "~/components/auth/MailHelp";
 import {
 	bodyTextStyle,
 	errorClass,
@@ -108,34 +108,37 @@ export default function RegisterEmailSent({ loaderData, actionData }: Route.Comp
 				<p className={css({ fontWeight: "bold", color: "#222222", wordBreak: "break-all" })}>
 					{loaderData.email}
 				</p>
-				<p className={css(bodyTextStyle, { mt: "1rem", mb: "0.75rem" })}>
-					メールに記載されたリンクを開いて、登録を完了してください。リンクの有効期限は24時間です。
+				<p className={css(bodyTextStyle, { mt: "1rem", mb: "2rem" })}>
+					届いたメールのリンクを開くと、登録が完了します。
+					<br />
+					リンクの有効期限は24時間です。
 				</p>
-				<p className={css(bodyTextStyle, { mb: "1.25rem", fontSize: "xs", color: "gray.500" })}>
-					リンクはメールアプリの中で開いても登録できます。登録を終えてこの画面に戻ると、ログイン画面に自動で切り替わります。
-				</p>
-				<div className={css({ mb: "2rem" })}>
-					<SpamFolderNotice />
-				</div>
-				<Form method="post">
-					<button
-						type="submit"
-						disabled={cooldown > 0 || navigation.state !== "idle"}
-						className={secondaryButtonClass}
-					>
-						{cooldown > 0 ? `再送信（${cooldown}秒後に可能）` : "確認メールを再送信"}
-					</button>
-				</Form>
-				{actionData && "error" in actionData && (
-					<p role="alert" className={errorClass}>
-						{actionData.error}
-					</p>
-				)}
-				<p className={css({ mt: "1.5rem", fontSize: "sm" })}>
-					<Link to="/register/email" className={textLinkClass}>
-						メールアドレスを変更する
-					</Link>
-				</p>
+				<MailHelp
+					defaultOpen={actionData !== undefined}
+					items={[
+						<>
+							アドレスを間違えた場合は
+							<Link to="/register/email" className={textLinkClass}>
+								入力し直す
+							</Link>
+						</>,
+					]}
+				>
+					<Form method="post">
+						<button
+							type="submit"
+							disabled={cooldown > 0 || navigation.state !== "idle"}
+							className={secondaryButtonClass}
+						>
+							{cooldown > 0 ? `再送信できるまで ${cooldown} 秒` : "確認メールを再送信"}
+						</button>
+					</Form>
+					{actionData && "error" in actionData && (
+						<p role="alert" className={errorClass}>
+							{actionData.error}
+						</p>
+					)}
+				</MailHelp>
 			</div>
 		</AuthShell>
 	);
