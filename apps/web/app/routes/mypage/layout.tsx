@@ -1,4 +1,14 @@
-import { IconArrowLeft, IconLogout, IconMenu2, IconUser, IconX } from "@tabler/icons-react";
+import {
+	type Icon,
+	IconArrowLeft,
+	IconLock,
+	IconLogout,
+	IconMenu2,
+	IconNotebook,
+	IconUser,
+	IconUsersGroup,
+	IconX,
+} from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { Form, Link, NavLink, Outlet, redirect, useLocation, useMatches } from "react-router";
 import { css } from "styled-system/css";
@@ -10,8 +20,18 @@ import {
 } from "~/lib/session.server";
 import type { Route } from "./+types/layout";
 
+/** `to` がない項目は実装予定の機能として、鍵付きで押せない状態で表示する */
+type NavItem = { label: string; icon: Icon; to?: string };
+
 /** サイドバーのメニュー。機能を増やすときはここに追加する */
-const navGroups = [
+const navGroups: { label: string; items: NavItem[] }[] = [
+	{
+		label: "会員サービス",
+		items: [
+			{ label: "卒業生ジャーナル", icon: IconNotebook },
+			{ label: "会員交流", icon: IconUsersGroup },
+		],
+	},
 	{
 		label: "アカウント",
 		items: [{ to: "/mypage/profile", label: "プロフィール設定", icon: IconUser }],
@@ -51,6 +71,18 @@ const navItemClass = css({
 	transition: "background-color 0.15s ease, color 0.15s ease",
 	_hover: { bg: "gray.100", color: "gray.900" },
 	"&[aria-current='page']": { bg: "green.50", color: "green.700", fontWeight: "bold" },
+});
+
+const lockedNavItemClass = css({
+	display: "flex",
+	alignItems: "center",
+	gap: "0.625rem",
+	height: "2.25rem",
+	px: "0.75rem",
+	fontSize: "sm",
+	fontWeight: "500",
+	color: "gray.400",
+	cursor: "not-allowed",
 });
 
 function usePageHandle(): MyPageHandle | undefined {
@@ -107,12 +139,30 @@ function Sidebar({ member }: MyPageOutletContext) {
 						>
 							{group.label}
 						</p>
-						{group.items.map(item => (
-							<NavLink key={item.to} to={item.to} className={navItemClass}>
-								<item.icon size={18} stroke={1.75} />
-								{item.label}
-							</NavLink>
-						))}
+						{group.items.map(item =>
+							item.to ? (
+								<NavLink key={item.label} to={item.to} className={navItemClass}>
+									<item.icon size={18} stroke={1.75} />
+									{item.label}
+								</NavLink>
+							) : (
+								<span
+									key={item.label}
+									aria-disabled="true"
+									title="準備中"
+									className={lockedNavItemClass}
+								>
+									<item.icon size={18} stroke={1.75} />
+									{item.label}
+									<IconLock
+										size={14}
+										stroke={2}
+										aria-label="準備中"
+										className={css({ ml: "auto" })}
+									/>
+								</span>
+							),
+						)}
 					</div>
 				))}
 			</nav>
