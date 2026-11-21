@@ -45,4 +45,4 @@ category: 募集
 
 応募は[フォーム](https://docs.google.com/forms/d/e/1FAIpQLSfTvp8lk4f1GCSPyr1TQAlHf7TnKYg8RanB4f24Ts6g43BUQw/closedform)からお願いいたします。
 
-詳細な募集要項は[こちら](https://drive.google.com/drive/u/2/folders/1tBaIBwkYdnVAlavhA-x1Zz3Z3lmIjPN6)をご覧ください。
+詳細な募集要項は[こちら](https://drive.google.com/file/d/12imm035rTx9WFT-lGVCxL1Cdz_8LpZFa/view?usp=sharing)をご覧ください。
