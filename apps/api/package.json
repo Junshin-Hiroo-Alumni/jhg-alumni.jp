@@ -16,7 +16,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "CI=1 wrangler d1 migrations apply DB --local",
     "db:migrate:remote": "wrangler d1 migrations apply DB --remote",
-    "roster:import": "node scripts/import-roster.ts"
+    "roster:import": "node scripts/import-roster.ts",
+    "dev:member": "CI=1 node scripts/create-dev-member.ts"
   },
   "dependencies": {
     "@hono/swagger-ui": "^0.5.2",

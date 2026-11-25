@@ -8,6 +8,20 @@
 - メールは送信せず、リンクを API のログ（`pnpm run dev` のターミナル）に出します。
 - 名簿は下記の「名簿の取り込み」の手順で、ローカルの D1 に入れます（`--remote` を付けない）。
 
+### 開発用の会員
+
+会員登録の手順を飛ばしてマイページを確認したいときは、ローカルの D1 に会員を直接作ります。本番の D1 には書き込めません。
+
+```sh
+cd apps/api
+pnpm run dev:member                     # dev@example.com / password で作る
+pnpm run dev:member --email a@example.com --password secret123 --name "山田 花子" --year 1995
+```
+
+- 同じメールアドレスの会員がいれば、パスワード・名前・卒業年を上書きします。
+- `--year junior-high` で中学卒業になります。
+- 作成後、`pnpm run dev` で起動した Web（`http://localhost:3000/login`）からログインします。
+
 ## 名簿の取り込み
 
 事務局から受け取った名簿 CSV（[Authentication-Code-Generator](https://github.com/Tomoro0726/Authentication-Code-Generator) で認証コードを書き込んだもの）を D1 の `roster` テーブルに取り込みます。認証コードは SHA-256 のハッシュだけを保存します。
