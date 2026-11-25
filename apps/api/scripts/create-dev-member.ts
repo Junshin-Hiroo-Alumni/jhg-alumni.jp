@@ -14,7 +14,7 @@ import { hashPassword } from "../src/lib/crypto.ts";
 const { values } = parseArgs({
 	options: {
 		email: { type: "string", default: "dev@example.com" },
-		password: { type: "string", default: "password" },
+		password: { type: "string", default: "password1234" },
 		name: { type: "string", default: "開発 太郎" },
 		year: { type: "string", default: "2020" },
 	},
@@ -27,8 +27,8 @@ if (graduationYear !== null && !Number.isInteger(graduationYear)) {
 	process.exit(1);
 }
 // API の PasswordSchema と同じ制約。満たさないとパスワード変更などで困るため揃える
-if (values.password.length < 8 || values.password.length > 128) {
-	console.error("パスワードは 8〜128 文字にしてください。");
+if (values.password.length < 12 || values.password.length > 128) {
+	console.error("パスワードは 12〜128 文字にしてください。");
 	process.exit(1);
 }
 

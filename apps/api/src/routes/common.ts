@@ -28,4 +28,4 @@ export const TokenPairSchema = z
 	})
 	.openapi("TokenPair");
 
-export const PasswordSchema = z.string().min(8).max(128).openapi({ description: "8〜128 文字" });
+export const PasswordSchema = z.string().min(12).max(128).openapi({ description: "12〜128 文字" });

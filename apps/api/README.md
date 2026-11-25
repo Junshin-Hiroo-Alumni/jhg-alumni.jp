@@ -14,8 +14,8 @@
 
 ```sh
 cd apps/api
-pnpm run dev:member                     # dev@example.com / password で作る
-pnpm run dev:member --email a@example.com --password secret123 --name "山田 花子" --year 1995
+pnpm run dev:member                     # dev@example.com / password1234 で作る
+pnpm run dev:member --email a@example.com --password secret123456 --name "山田 花子" --year 1995
 ```
 
 - 同じメールアドレスの会員がいれば、パスワード・名前・卒業年を上書きします。
