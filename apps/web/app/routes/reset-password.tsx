@@ -15,7 +15,7 @@ import { buildMeta } from "~/lib/seo";
 import { authCookieHeaders } from "~/lib/session.server";
 import type { Route } from "./+types/reset-password";
 
-const MIN_PASSWORD_LENGTH = 8;
+const MIN_PASSWORD_LENGTH = 12;
 
 export function meta() {
 	return buildMeta({ title: "新しいパスワードの設定", path: "/reset-password", noindex: true });
@@ -57,7 +57,7 @@ export async function action({ request }: Route.ActionArgs) {
 	if (res.status === 404) {
 		return { error: (await res.json()).message };
 	}
-	return { error: "パスワードは8〜128文字で設定してください。" };
+	return { error: `パスワードは${MIN_PASSWORD_LENGTH}〜128文字で設定してください。` };
 }
 
 export default function ResetPassword({ loaderData, actionData }: Route.ComponentProps) {
