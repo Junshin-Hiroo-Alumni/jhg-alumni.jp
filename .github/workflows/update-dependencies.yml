@@ -1,0 +1,52 @@
+name: Update Dependencies
+
+on:
+  schedule:
+    - cron: "0 0 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-dependencies
+  cancel-in-progress: false
+
+jobs:
+  update-dependencies:
+    if: github.repository == 'Junshin-Hiroo-Alumni/jhg-alumni.jp'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # pnpm/update 側で依存解決を行うため、事前の install は省く
+      - name: Setup pnpm and runtime
+        uses: pnpm/setup@731dfb6463bbd11c11fd0ee11fe00ed0e36d48a1 # v3.2.0
+        with:
+          cache: true
+          install: false
+
+      - name: Update dependencies
+        uses: pnpm/update@76f98d727df25f56f9bbd38e60ad663fd785d3d4 # v0.0.0
+        with:
+          # 既定の GITHUB_TOKEN ではワークフロー更新と PR 作成後の CI 起動ができないため、UPDATE_TOKEN があれば優先する
+          token: ${{ secrets.UPDATE_TOKEN || github.token }}
+          update-deps: ranges
+          # Biome 2.6 系は Markdown/YAML/SVG 検査が既定で有効になり既存 CI が落ちるため除外し、lockfile の既存解決を維持する
+          refresh-lockfile: false
+          exclude: "@biomejs/biome"
+          github-actions: true
+          verify: |
+            pnpm run ci
+            pnpm run build
+          commit-message: "chore: 依存関係を更新"
+          pr-title: "chore: 依存関係を更新"
+          pr-body: |
+            `pnpm update` による定期的な依存関係の更新です。
+
+            ## 確認したこと
+
+            - `pnpm run ci`
+            - `pnpm run build`
