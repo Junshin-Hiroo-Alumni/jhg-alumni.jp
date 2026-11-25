@@ -129,6 +129,12 @@ export default defineConfig({
 						400: { value: "#88d2ae" },
 						500: { value: "#44a768" },
 					},
+					mypage: {
+						bg: { value: "#F6F7F9" },
+						line: { value: "#E4E7EB" },
+						divider: { value: "#F0F2F4" },
+						inputBorder: { value: "#D5DAE0" },
+					},
 				},
 			},
 		},

@@ -1,17 +1,8 @@
-import {
-	type Icon,
-	IconArrowLeft,
-	IconLock,
-	IconLogout,
-	IconMenu2,
-	IconNotebook,
-	IconUser,
-	IconUsersGroup,
-	IconX,
-} from "@tabler/icons-react";
+import { IconMenu2, IconX } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
-import { Form, Link, NavLink, Outlet, redirect, useLocation, useMatches } from "react-router";
+import { Outlet, redirect, useLocation, useMatches } from "react-router";
 import { css } from "styled-system/css";
+import { Sidebar } from "~/components/mypage/Sidebar";
 import { createApiClient } from "~/lib/api.server";
 import {
 	clearAuthCookieHeaders,
@@ -20,25 +11,7 @@ import {
 } from "~/lib/session.server";
 import type { Route } from "./+types/layout";
 
-/** `to` がない項目は実装予定の機能として、鍵付きで押せない状態で表示する */
-type NavItem = { label: string; icon: Icon; to?: string };
-
-/** サイドバーのメニュー。機能を増やすときはここに追加する */
-const navGroups: { label: string; items: NavItem[] }[] = [
-	{
-		label: "会員サービス",
-		items: [
-			{ label: "卒業生ジャーナル", icon: IconNotebook },
-			{ label: "会員交流", icon: IconUsersGroup },
-		],
-	},
-	{
-		label: "アカウント",
-		items: [{ to: "/mypage/profile", label: "プロフィール設定", icon: IconUser }],
-	},
-];
-
-/** 各ページが `handle` で宣言する、上部バーと見出しの情報 */
+/** 各ページが `handle` で宣言する、見出しの情報 */
 export type MyPageHandle = { title: string; description?: string };
 
 export const middleware = [requireMemberSession];
@@ -56,34 +29,7 @@ export type MyPageOutletContext = {
 	member: Awaited<ReturnType<typeof loader>>["member"];
 };
 
-const SIDEBAR_WIDTH = "248px";
-
-const navItemClass = css({
-	display: "flex",
-	alignItems: "center",
-	gap: "0.625rem",
-	height: "2.25rem",
-	px: "0.75rem",
-	borderRadius: "0.375rem",
-	fontSize: "sm",
-	fontWeight: "500",
-	color: "gray.700",
-	transition: "background-color 0.15s ease, color 0.15s ease",
-	_hover: { bg: "gray.100", color: "gray.900" },
-	"&[aria-current='page']": { bg: "green.50", color: "green.700", fontWeight: "bold" },
-});
-
-const lockedNavItemClass = css({
-	display: "flex",
-	alignItems: "center",
-	gap: "0.625rem",
-	height: "2.25rem",
-	px: "0.75rem",
-	fontSize: "sm",
-	fontWeight: "500",
-	color: "gray.400",
-	cursor: "not-allowed",
-});
+const SIDEBAR_WIDTH = "16.5rem";
 
 function usePageHandle(): MyPageHandle | undefined {
 	const matches = useMatches();
@@ -96,157 +42,87 @@ function usePageHandle(): MyPageHandle | undefined {
 	return undefined;
 }
 
-function Sidebar({ member }: MyPageOutletContext) {
+/** スマホのメニューの開閉。開いている間は背面のスクロールを止め、Esc とページ移動で閉じる */
+function useMenuDrawer() {
+	const { pathname } = useLocation();
+	const [open, setOpen] = useState(false);
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: pathname の変化をきっかけにする
+	useEffect(() => {
+		setOpen(false);
+	}, [pathname]);
+
+	useEffect(() => {
+		if (!open) return;
+		const close = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+		const { overflow } = document.body.style;
+		document.body.style.overflow = "hidden";
+		window.addEventListener("keydown", close);
+		return () => {
+			document.body.style.overflow = overflow;
+			window.removeEventListener("keydown", close);
+		};
+	}, [open]);
+
+	return [open, setOpen] as const;
+}
+
+function PageHeader({
+	page,
+	menuOpen,
+	onToggleMenu,
+}: {
+	page: MyPageHandle | undefined;
+	menuOpen: boolean;
+	onToggleMenu: () => void;
+}) {
 	return (
-		<div className={css({ display: "flex", flexDirection: "column", height: "100%" })}>
-			<Link
-				to="/"
+		<div
+			className={css({
+				display: "flex",
+				alignItems: "center",
+				gap: "0.75rem",
+				mb: { base: "1.25rem", md: "2rem" },
+			})}
+		>
+			<button
+				type="button"
+				aria-label={menuOpen ? "メニューを閉じる" : "メニューを開く"}
+				aria-expanded={menuOpen}
+				onClick={onToggleMenu}
 				className={css({
-					display: "flex",
+					display: { base: "flex", lg: "none" },
 					alignItems: "center",
-					gap: "0.625rem",
-					height: "4rem",
-					px: "1.25rem",
-					borderBottom: "1px solid token(colors.gray.200)",
+					justifyContent: "center",
+					width: "2.25rem",
+					height: "2.25rem",
 					flexShrink: 0,
+					borderRadius: "0.5rem",
+					bg: "white",
+					border: "1px solid token(colors.mypage.line)",
+					cursor: "pointer",
 				})}
 			>
-				<img src="/common/base-logo.svg" alt="" className={css({ width: "28px" })} />
-				<span className={css({ lineHeight: "1.3" })}>
-					<span className={css({ display: "block", fontSize: "xs", color: "gray.500" })}>
-						順心広尾学園同窓会
-					</span>
-					<span className={css({ display: "block", fontSize: "sm", fontWeight: "bold" })}>
-						会員マイページ
-					</span>
-				</span>
-			</Link>
-
-			<nav
-				aria-label="マイページのメニュー"
-				className={css({ flex: "1", overflowY: "auto", p: "0.75rem" })}
-			>
-				{navGroups.map(group => (
-					<div key={group.label} className={css({ mb: "1rem" })}>
-						<p
-							className={css({
-								px: "0.75rem",
-								mb: "0.375rem",
-								fontSize: "xs",
-								fontWeight: "bold",
-								color: "gray.500",
-							})}
-						>
-							{group.label}
-						</p>
-						{group.items.map(item =>
-							item.to ? (
-								<NavLink key={item.label} to={item.to} className={navItemClass}>
-									<item.icon size={18} stroke={1.75} />
-									{item.label}
-								</NavLink>
-							) : (
-								<span
-									key={item.label}
-									aria-disabled="true"
-									title="準備中"
-									className={lockedNavItemClass}
-								>
-									<item.icon size={18} stroke={1.75} />
-									{item.label}
-									<IconLock
-										size={14}
-										stroke={2}
-										aria-label="準備中"
-										className={css({ ml: "auto" })}
-									/>
-								</span>
-							),
-						)}
-					</div>
-				))}
-			</nav>
-
-			<div className={css({ borderTop: "1px solid token(colors.gray.200)", p: "0.75rem" })}>
-				<Link to="/" className={navItemClass}>
-					<IconArrowLeft size={18} stroke={1.75} />
-					サイトに戻る
-				</Link>
-				<div
-					className={css({
-						display: "flex",
-						alignItems: "center",
-						gap: "0.625rem",
-						mt: "0.5rem",
-						p: "0.5rem",
-						borderRadius: "0.5rem",
-						bg: "gray.50",
-					})}
-				>
-					<span
-						aria-hidden
+				{menuOpen ? <IconX size={18} /> : <IconMenu2 size={18} />}
+			</button>
+			{page && (
+				<div>
+					<h1
 						className={css({
-							display: "flex",
-							alignItems: "center",
-							justifyContent: "center",
-							width: "2rem",
-							height: "2rem",
-							borderRadius: "9999px",
-							bg: "green.600",
-							color: "#FFFFFF",
-							fontSize: "sm",
+							fontSize: { base: "xl", md: "2xl" },
 							fontWeight: "bold",
-							flexShrink: 0,
+							letterSpacing: "0.02em",
 						})}
 					>
-						{member.name.slice(0, 1)}
-					</span>
-					<span className={css({ minWidth: 0, flex: "1", lineHeight: "1.3" })}>
-						<span
-							className={css({
-								display: "block",
-								fontSize: "sm",
-								fontWeight: "bold",
-								truncate: true,
-							})}
-						>
-							{member.name}
-						</span>
-						<span
-							className={css({
-								display: "block",
-								fontSize: "xs",
-								color: "gray.500",
-								truncate: true,
-							})}
-						>
-							{member.email}
-						</span>
-					</span>
-					<Form method="post" action="/logout">
-						<button
-							type="submit"
-							aria-label="ログアウト"
-							title="ログアウト"
-							className={css({
-								display: "flex",
-								alignItems: "center",
-								justifyContent: "center",
-								width: "2rem",
-								height: "2rem",
-								borderRadius: "0.375rem",
-								bg: "transparent",
-								border: "none",
-								color: "gray.500",
-								cursor: "pointer",
-								_hover: { bg: "gray.200", color: "red.600" },
-							})}
-						>
-							<IconLogout size={18} stroke={1.75} />
-						</button>
-					</Form>
+						{page.title}
+					</h1>
+					{page.description && (
+						<p className={css({ mt: "0.25rem", fontSize: "sm", color: "gray.600" })}>
+							{page.description}
+						</p>
+					)}
 				</div>
-			</div>
+			)}
 		</div>
 	);
 }
@@ -254,18 +130,11 @@ function Sidebar({ member }: MyPageOutletContext) {
 export default function MyPageLayout({ loaderData }: Route.ComponentProps) {
 	const { member } = loaderData;
 	const page = usePageHandle();
-	const { pathname } = useLocation();
-	const [menuOpen, setMenuOpen] = useState(false);
-
-	// スマホでメニューからページを移動したら閉じる
-	// biome-ignore lint/correctness/useExhaustiveDependencies: pathname の変化をきっかけにする
-	useEffect(() => {
-		setMenuOpen(false);
-	}, [pathname]);
+	const [menuOpen, setMenuOpen] = useMenuDrawer();
 
 	return (
-		<div className={css({ minHeight: "100dvh", bg: "#F5F7FA", color: "gray.900" })}>
-			{/* サイドバー（PC は常に表示、スマホは開閉） */}
+		<div className={css({ minHeight: "100dvh", bg: "mypage.bg", color: "gray.900" })}>
+			{/* PC は左に固定、スマホは開閉するドロワー */}
 			<aside
 				data-open={menuOpen}
 				className={css({
@@ -274,8 +143,8 @@ export default function MyPageLayout({ loaderData }: Route.ComponentProps) {
 					left: "0",
 					zIndex: "50",
 					width: SIDEBAR_WIDTH,
-					bg: "#FFFFFF",
-					borderRight: "1px solid token(colors.gray.200)",
+					bg: "white",
+					borderRight: "1px solid token(colors.mypage.line)",
 					transform: { base: "translateX(-100%)", lg: "none" },
 					transition: "transform 0.2s ease",
 					"&[data-open='true']": { transform: "none" },
@@ -299,75 +168,23 @@ export default function MyPageLayout({ loaderData }: Route.ComponentProps) {
 				/>
 			)}
 
-			<div className={css({ pl: { lg: SIDEBAR_WIDTH } })}>
-				<header
+			<main className={css({ pl: { lg: SIDEBAR_WIDTH } })}>
+				<div
 					className={css({
-						position: "sticky",
-						top: "0",
-						zIndex: "30",
-						display: "flex",
-						alignItems: "center",
-						gap: "0.75rem",
-						height: "4rem",
-						px: { base: "1rem", md: "2rem" },
-						bg: "#FFFFFF",
-						borderBottom: "1px solid token(colors.gray.200)",
+						maxW: "52rem",
+						mx: "auto",
+						px: { base: "1.25rem", md: "2.5rem" },
+						py: { base: "1.25rem", md: "2.5rem" },
 					})}
 				>
-					<button
-						type="button"
-						aria-label={menuOpen ? "メニューを閉じる" : "メニューを開く"}
-						aria-expanded={menuOpen}
-						onClick={() => setMenuOpen(open => !open)}
-						className={css({
-							display: { base: "flex", lg: "none" },
-							alignItems: "center",
-							justifyContent: "center",
-							width: "2.25rem",
-							height: "2.25rem",
-							borderRadius: "0.375rem",
-							bg: "transparent",
-							border: "1px solid token(colors.gray.200)",
-							cursor: "pointer",
-						})}
-					>
-						{menuOpen ? <IconX size={18} /> : <IconMenu2 size={18} />}
-					</button>
-					<nav aria-label="パンくずリスト" className={css({ fontSize: "sm", color: "gray.500" })}>
-						<Link to="/mypage" className={css({ _hover: { color: "gray.900" } })}>
-							マイページ
-						</Link>
-						{page && (
-							<>
-								<span className={css({ mx: "0.5rem" })}>/</span>
-								<span className={css({ color: "gray.900", fontWeight: "500" })}>{page.title}</span>
-							</>
-						)}
-					</nav>
-				</header>
-
-				<main
-					className={css({
-						maxW: "960px",
-						px: { base: "1rem", md: "2rem" },
-						py: { base: "1.5rem", md: "2rem" },
-					})}
-				>
-					{page && (
-						<div className={css({ mb: "1.5rem" })}>
-							<h1 className={css({ fontSize: { base: "xl", md: "2xl" }, fontWeight: "bold" })}>
-								{page.title}
-							</h1>
-							{page.description && (
-								<p className={css({ mt: "0.375rem", fontSize: "sm", color: "gray.600" })}>
-									{page.description}
-								</p>
-							)}
-						</div>
-					)}
+					<PageHeader
+						page={page}
+						menuOpen={menuOpen}
+						onToggleMenu={() => setMenuOpen(open => !open)}
+					/>
 					<Outlet context={{ member } satisfies MyPageOutletContext} />
-				</main>
-			</div>
+				</div>
+			</main>
 		</div>
 	);
 }
