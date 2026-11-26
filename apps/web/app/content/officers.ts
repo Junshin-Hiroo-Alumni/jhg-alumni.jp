@@ -63,4 +63,10 @@ export const officers: Officer[] = [
 		role: "事業",
 		image: "/site/officers/awata.webp",
 	},
+	{
+		id: "planner-3",
+		name: "松倉友里恵",
+		role: "事業",
+		image: "/site/officers/matsukura.webp",
+	},
 ];
