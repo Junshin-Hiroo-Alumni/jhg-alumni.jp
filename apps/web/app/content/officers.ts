@@ -43,7 +43,7 @@ export const officers: Officer[] = [
 		id: "coordinator-2",
 		name: "明海輝",
 		role: "常任幹事",
-		image: DEFAULT_IMAGE,
+		image: "/site/officers/akemi.webp",
 	},
 	{ id: "treasurer-1", name: "大山未聖", role: "会計", image: DEFAULT_IMAGE },
 	{ id: "treasurer-2", name: "笠井優花", role: "会計", image: DEFAULT_IMAGE },
